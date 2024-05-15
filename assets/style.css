@@ -1,0 +1,30 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+#theme-button {
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.dash-dropdown {
+    margin-bottom: 10px;
+}
+
+.dash-checklist {
+    margin-top: 10px;
+}
+
+.graph-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#main-graph {
+    height: 500px;
+}
+
+#chart-1, #chart-2, #chart-3, #chart-4, #chart-5, #chart-6 {
+    height: 300px;
+}
