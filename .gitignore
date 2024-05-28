@@ -1,4 +1,10 @@
+# Specific Files
+
+# File Extensions
+.bin
 .env
 .ipynb_checkpoints
-.bin
 .pth
+
+# Directories
+**/__pycache__
