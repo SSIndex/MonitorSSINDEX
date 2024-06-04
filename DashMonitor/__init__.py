@@ -9,9 +9,6 @@ This file will encapsulate the setup of the Dash server
 
 # local imports
 from DashMonitor.app import app
-from DashMonitor.app.data import *
-from DashMonitor.app.handlers import *
-from DashMonitor.app.views import *
 
 # import dash
 # from dash import Dash, html, dcc, Input, Output, State, dash_table
