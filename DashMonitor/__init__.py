@@ -8,6 +8,7 @@ This file will encapsulate the setup of the Dash server
 # 3rd party imports
 
 # local imports
+from DashMonitor.app import app
 from DashMonitor.app.data import *
 from DashMonitor.app.handlers import *
 from DashMonitor.app.views import *
