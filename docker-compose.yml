@@ -17,6 +17,6 @@ services:
     ports:
       - '8050:8050'
       - '8052:8052'
-    # restart: always
+    restart: always
     volumes:
       - '.:/app'
