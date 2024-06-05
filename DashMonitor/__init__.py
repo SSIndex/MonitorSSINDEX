@@ -10,13 +10,6 @@ This file will encapsulate the setup of the Dash server
 # local imports
 from DashMonitor.app import app
 
-# import dash
-# from dash import Dash, html, dcc, Input, Output, State, dash_table
-# import dash_bootstrap_components as dbc
-# import plotly.express as px
-# import pandas as pd
-# import numpy as np
-# import plotly.graph_objects as go
 
 def main():
     print(f'Hello from {__name__}')
