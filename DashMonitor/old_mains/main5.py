@@ -540,7 +540,7 @@ def render_content(tab):
                 ),
             ]
         )
-   
+
     # Manejar otras pestañas de manera similar
     return html.Div("Content for {}".format(tab))
 @app.callback(
