@@ -456,106 +456,124 @@ def update_graphs(selected_year, selected_pilar, selected_banks):
     )
 
     overall_time_line_fig.update_layout(
-    font=dict(family="Roboto"),
-    xaxis=dict(
-        showgrid=True,
-        tickformat='%d-%b',
-        tickangle=-45
-    ),
-    yaxis=dict(showgrid=True),
-    updatemenus=[
-        {
-            "buttons": [
-                {
-                    "args": [
-                        {
-                            "xaxis": {
-                                "range": [overall_df['date'].max() - pd.Timedelta(days=7), overall_df['date'].max()],
-                                "tickformat": '%d-%b',
-                                "tickangle" : -45
+        font=dict(family="Roboto"),
+        xaxis=dict(showgrid=True, tickformat='%d-%b', tickangle=-45),
+        yaxis=dict(showgrid=True),
+        updatemenus=[
+            {
+                "buttons": [
+                    {
+                        "args": [
+                            {
+                                "xaxis": {
+                                    "range": [
+                                        overall_df['date'].max() - pd.Timedelta(days=7),
+                                        overall_df['date'].max(),
+                                    ],
+                                    "tickformat": '%d-%b',
+                                    "tickangle": -45,
+                                }
                             }
-                        }
-                    ],
-                    "label": "1 Semana",
-                    "method": "relayout"
-                },
-                {
-                    "args": [
-                        {
-                            "xaxis": {
-                                "range": [overall_df['date'].max() - pd.Timedelta(days=30), overall_df['date'].max()],
-                                "tickformat": '%d-%b',
-                                "tickangle" : -45
+                        ],
+                        "label": "1 Semana",
+                        "method": "relayout",
+                    },
+                    {
+                        "args": [
+                            {
+                                "xaxis": {
+                                    "range": [
+                                        overall_df['date'].max()
+                                        - pd.Timedelta(days=30),
+                                        overall_df['date'].max(),
+                                    ],
+                                    "tickformat": '%d-%b',
+                                    "tickangle": -45,
+                                }
                             }
-                        }
-                    ],
-                    "label": "1 Mes",
-                    "method": "relayout"
-                },
-                {
-                    "args": [
-                        {
-                            "xaxis": {
-                                "range": [overall_df['date'].max() - pd.Timedelta(days=182), overall_df['date'].max()],
-                                "tickformat": '%b-%Y',
-                                "tickangle" : -45
+                        ],
+                        "label": "1 Mes",
+                        "method": "relayout",
+                    },
+                    {
+                        "args": [
+                            {
+                                "xaxis": {
+                                    "range": [
+                                        overall_df['date'].max()
+                                        - pd.Timedelta(days=182),
+                                        overall_df['date'].max(),
+                                    ],
+                                    "tickformat": '%b-%Y',
+                                    "tickangle": -45,
+                                }
                             }
-                        }
-                    ],
-                    "label": "6 Meses",
-                    "method": "relayout"
-                },
-                {
-                    "args": [
-                        {
-                            "xaxis": {
-                                "range": [overall_df['date'].max() - pd.Timedelta(days=365), overall_df['date'].max()],
-                                "tickformat": '%b-%Y',
-                                "tickangle" : -45
+                        ],
+                        "label": "6 Meses",
+                        "method": "relayout",
+                    },
+                    {
+                        "args": [
+                            {
+                                "xaxis": {
+                                    "range": [
+                                        overall_df['date'].max()
+                                        - pd.Timedelta(days=365),
+                                        overall_df['date'].max(),
+                                    ],
+                                    "tickformat": '%b-%Y',
+                                    "tickangle": -45,
+                                }
                             }
-                        }
-                    ],
-                    "label": "1 Año",
-                    "method": "relayout"
-                },
-                {
-                    "args": [
-                        {
-                            "xaxis": {
-                                "range": [overall_df['date'].max() - pd.Timedelta(days=1095), overall_df['date'].max()],
-                                "tickformat": '%b-%Y',
-                                "tickangle" : -45
+                        ],
+                        "label": "1 Año",
+                        "method": "relayout",
+                    },
+                    {
+                        "args": [
+                            {
+                                "xaxis": {
+                                    "range": [
+                                        overall_df['date'].max()
+                                        - pd.Timedelta(days=1095),
+                                        overall_df['date'].max(),
+                                    ],
+                                    "tickformat": '%b-%Y',
+                                    "tickangle": -45,
+                                }
                             }
-                        }
-                    ],
-                    "label": "3 Años",
-                    "method": "relayout"
-                },
-                {
-                    "args": [
-                        {
-                            "xaxis": {
-                                "range": [overall_df['date'].min(), overall_df['date'].max()],
-                                "tickformat":'%b-%Y',
-                                "tickangle" : -45
+                        ],
+                        "label": "3 Años",
+                        "method": "relayout",
+                    },
+                    {
+                        "args": [
+                            {
+                                "xaxis": {
+                                    "range": [
+                                        overall_df['date'].min(),
+                                        overall_df['date'].max(),
+                                    ],
+                                    "tickformat": '%b-%Y',
+                                    "tickangle": -45,
+                                }
                             }
-                        }
-                    ],
-                    "label": "Toda la historia",
-                    "method": "relayout"
-                }
-            ],
-            "direction": "left",
-            "showactive": True,
-            "x": 0.5,
-            "xanchor": "center",
-            "y": 1.2,
-            "yanchor": "top",
-            "type": "buttons"
-        }
-    ]
+                        ],
+                        "label": "Toda la historia",
+                        "method": "relayout",
+                    },
+                ],
+                "direction": "left",
+                "showactive": True,
+                "x": 0.5,
+                "xanchor": "center",
+                "y": 1.2,
+                "yanchor": "top",
+                "type": "buttons",
+            }
+        ],
     )
-   
+
     start_date = "2016-04-30"
     df_filtered = df1[df1["ds"] >= start_date]
     df_grouped_1 = (
