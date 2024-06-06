@@ -13,10 +13,9 @@ from dash import html
 from DashMonitor.app.views.configs import (
     EXTERNAL_SCRIPTS,
     EXTERNAL_STYLESHEETS,
+    get_main_html,
     HTML_TITLE,
 )
-
-from DashMonitor.app.views.root import MAIN_HTML
 
 
 ENTRY_LAYOUT = html.Div([])
@@ -26,7 +25,7 @@ def setupView(app_settings={}):
     app_settings = dict(
         external_scripts=EXTERNAL_SCRIPTS,
         external_stylesheets=EXTERNAL_STYLESHEETS,
-        index_string=MAIN_HTML,
+        index_string=get_main_html(),
         title=HTML_TITLE,
         **app_settings
     )

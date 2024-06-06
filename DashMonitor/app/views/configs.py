@@ -20,3 +20,8 @@ EXTERNAL_SCRIPTS = [
         'src': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
     },
 ]
+
+
+def get_main_html() -> str:
+    with open('DashMonitor/app/views/main.html', 'r') as main_html_buffer:
+        return main_html_buffer.read()
