@@ -14,14 +14,36 @@ def sentiment_color(score):
     else:
         return "green"
 
+import plotly.graph_objects as go
+
 def create_gauge_chart(score):
     fig = go.Figure()
+
+    categories = [
+        {'range': [0, 20], 'color': "#8B0000", 'text': 'Very Low'},
+        {'range': [21, 40], 'color': "#FF6347", 'text': 'Low'},
+        {'range': [41, 60], 'color': "#FFFF00", 'text': 'Medium'},
+        {'range': [61, 80], 'color': "#90EE90", 'text': 'High'},
+        {'range': [81, 100], 'color': "#006400", 'text': 'Very High'}
+    ]
+
+    # Determine the category based on the score
+    for cat in categories:
+        if cat['range'][0] <= score <= cat['range'][1]:
+            category = cat['text']
+            break
+
+    steps = []
+    for cat in categories:
+        if cat['range'][0] <= score:
+            steps.append({'range': cat['range'], 'color': cat['color']})
+        else:
+            steps.append({'range': cat['range'], 'color': 'lightgrey'})  # Neutro para categorías no alcanzadas
 
     fig.add_trace(go.Indicator(
         mode="gauge",
         value=score,
         domain={'x': [0.1, 1], 'y': [0.2, 0.8]},
-        title={'text': "Score", 'font': {'size': 24}, 'align': 'center'},
         gauge={
             'shape': "bullet",
             'axis': {
@@ -29,17 +51,11 @@ def create_gauge_chart(score):
                 'tickmode': 'array',
                 'tickvals': [],
                 'ticktext': [],
-                'tickwidth': 2,
+                'tickwidth': 1,
                 'tickcolor': 'darkblue'
             },
             'bar': {'color': "black"},
-            'steps': [
-                {'range': [0, 20], 'color': "#F44336"},    # Red for Very Low
-                {'range': [21, 40], 'color': "#FF9800"},   # Orange for Low
-                {'range': [41, 60], 'color': "#FFEB3B"},   # Yellow for Medium
-                {'range': [61, 80], 'color': "#2196F3"},   # Blue for High
-                {'range': [81, 100], 'color': "#4CAF50"}   # Green for Very High
-            ],
+            'steps': steps,
             'threshold': {
                 'line': {'color': "black", 'width': 2},
                 'thickness': 0.75,
@@ -47,60 +63,62 @@ def create_gauge_chart(score):
             }
         }
     ))
+    if score <= 20:
+        category = "Very Low"
+        explanation = (
+            "This company exhibits a very low sentiment score. Approximately 80% of the feedback is negative, with only 20% being positive. This indicates significant dissatisfaction among respondents."
+        )
+    elif score <= 40:
+        category = "Low"
+        explanation = (
+            "This company has a low sentiment score. Approximately 60% of the feedback is negative, while 40% is positive. This suggests a prevailing negative perception among respondents."
+        )
+    elif score <= 60:
+        category = "Medium"
+        explanation = (
+            "This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents."
+        )
+    elif score <= 80:
+        category = "High"
+        explanation = (
+            "This company achieves a high sentiment score. Approximately 60% of the feedback is positive, compared to 40% negative. This reflects a generally favorable perception among respondents."
+        )
+    else:
+        category = "Very High"
+        explanation = (
+            "This company has a very high sentiment score. Approximately 80% of the feedback is positive, with only 20% being negative. This indicates a strong positive perception among respondents."
+        )
 
     fig.update_layout(
         height=180,
         margin={'t': 40, 'b': 20, 'l': 40, 'r': 20},
         annotations=[
-            dict(x=0.14, y=0, text="Very Low", showarrow=False, font=dict(size=10), xanchor='center'),
-            dict(x=0.33, y=0, text="Low", showarrow=False, font=dict(size=10), xanchor='center'),
-            dict(x=0.52, y=0, text="Medium", showarrow=False, font=dict(size=10), xanchor='center'),
-            dict(x=0.71, y=0, text="High", showarrow=False, font=dict(size=10), xanchor='center'),
-            dict(x=0.9, y=0, text="Very High", showarrow=False, font=dict(size=10), xanchor='center')
+            dict(x=0.19, y=0.25, text="Poor", showarrow=False, font=dict(size=12,color='white'), xanchor='center'),
+            dict(x=0.37, y=0.25, text="Low", showarrow=False, font=dict(size=12, color='white'), xanchor='center'),
+            dict(x=0.56, y=0.25, text="Medium", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
+            dict(x=0.73, y=0.25, text="Good", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
+            dict(x=0.9, y=0.25, text="Excellent", showarrow=False, font=dict(size=12, color='white'), xanchor='center'),
+            dict(x=0.19, y=0, text="[0-19]", showarrow=False, font=dict(size=12,color='black'), xanchor='center'),
+            dict(x=0.37, y=0, text="[20-39]", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
+            dict(x=0.56, y=0, text="[40-59]", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
+            dict(x=0.73, y=0, text="[60-79]", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
+            dict(x=0.9, y=0, text="[80-100]", showarrow=False, font=dict(size=12, color='black'), xanchor='center')
         ],
         title={
-            'text': f"{int(score)} /100",
+            'text': f"<b>{int(score)}</b><span style='color:lightgrey;'>/100</span> <b>{category}</b>",
             'y': 0.9,
             'x': 0.55,
             'xanchor': 'center',
             'yanchor': 'top',
-            'font': {'size': 44}
+            'font': {'size': 38}
         }
     )
-
-    if score <= 20:
-        category = "Very Low"
-        explanation = (
-            "This company has a very low sentiment score. Approximately 80% of the comments are negative, and only 20% are positive."
-        )
-    elif score <= 40:
-        category = "Low"
-        explanation = (
-            "This company has a low sentiment score. Around 60% of the comments are negative, and 40% are positive."
-        )
-    elif score <= 60:
-        category = "Medium"
-        explanation = (
-            "This company has a medium sentiment score. About 50% of the comments are positive, and 50% are negative."
-        )
-    elif score <= 80:
-        category = "High"
-        explanation = (
-            "This company has a high sentiment score. Approximately 60% of the comments are positive, and 40% are negative."
-        )
-    else:
-        category = "Very High"
-        explanation = (
-            "This company has a very high sentiment score. Around 80% of the comments are positive, and only 20% are negative."
-        )
-
     explanation_string = (
-        f"Category: {category}\n\n"
+        f"Monitor Overview: {category}\n\n"
         f"{explanation}\n\n"
     )
 
     return fig, explanation_string
-
 
 bkn="Webster Bank"
 #df = pd.read_csv("data/processed_webster.csv")
@@ -248,6 +266,7 @@ fig_hist.update_layout(
     title_text=f'Sentiment Score Distribution for {bkn}'
 )
 initial_score = df[df["Bank Name"] == bkn]["Total_Sentiment_Score"].values[-1]
+initial_score=10
 initial_gauge_chart, explanation_gauge_chart = create_gauge_chart(initial_score)
 
 # Layout of the Dash app
@@ -399,28 +418,6 @@ def render_content(tab):
                                             html.P(
                                                explanation_gauge_chart
                                             )
-                                        ),
-                                    ]
-                                ),
-                                dbc.Row(
-                                    [
-                                        dbc.Col(
-                                            [
-                                                 dcc.Graph(id='pie-chart', figure=fig_pie) 
-                                            ],
-                                            width=6,
-                                        ),
-                                        dbc.Col(
-                                            [
-                                                html.Img(
-                                                    src="/assets/rankComparisson.png",
-                                                    alt="Rank Comparisson",
-                                                ),
-                                                html.P(
-                                                    "Tabla Posición y Percentil de Compañía y Universo"
-                                                ),
-                                            ],
-                                            width=6,
                                         ),
                                     ]
                                 ),

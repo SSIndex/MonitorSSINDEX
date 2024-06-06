@@ -1,0 +1,76 @@
+Category,Type,Percentage,Company
+Poor,Universe,0.0,
+Poor,Company,0.0,Webster Bank
+Poor,Industry,0.0,
+Poor,Universe,0.0,
+Poor,Company,0.0,First Horizon Bank
+Poor,Universe,0.0,
+Poor,Company,0.0,Fifth Third Bank
+Poor,Industry,0.0,
+Poor,Universe,0.0,
+Poor,Company,0.0,Dime Bank
+Poor,Industry,0.0,
+Poor,Universe,0.0,
+Poor,Company,0.0,Citizens Bank
+Poor,Industry,0.0,
+Poor,Industry,0.0,
+Low,Universe,2.384765972592988,
+Low,Company,2.22104706504495,Webster Bank
+Low,Industry,2.384765972592988,
+Low,Universe,2.384765972592988,
+Low,Company,3.007518796992481,First Horizon Bank
+Low,Industry,2.384765972592988,
+Low,Company,1.7927681555758128,Fifth Third Bank
+Low,Universe,2.384765972592988,
+Low,Universe,2.384765972592988,
+Low,Company,2.4734982332155475,Dime Bank
+Low,Industry,2.384765972592988,
+Low,Company,2.824519230769231,Citizens Bank
+Low,Industry,2.384765972592988,
+Low,Universe,2.384765972592988,
+Low,Industry,2.384765972592988,
+Medium,Universe,1.4326392596547428,
+Medium,Company,0.8461131676361713,Webster Bank
+Medium,Industry,1.4326392596547428,
+Medium,Universe,1.4326392596547428,
+Medium,Company,1.1278195488721803,First Horizon Bank
+Medium,Industry,1.4326392596547428,
+Medium,Company,1.5496809480401095,Fifth Third Bank
+Medium,Industry,1.4326392596547428,
+Medium,Universe,1.4326392596547428,
+Medium,Company,1.8551236749116609,Dime Bank
+Medium,Industry,1.4326392596547428,
+Medium,Universe,1.4326392596547428,
+Medium,Company,1.6826923076923077,Citizens Bank
+Medium,Industry,1.4326392596547428,
+Medium,Universe,1.4326392596547428,
+High,Company,1.0047593865679536,Webster Bank
+High,Industry,1.8864566648869905,
+High,Universe,1.8864566648869905,
+High,Industry,1.8864566648869905,
+High,Universe,1.8864566648869905,
+High,Company,2.248556669705257,Fifth Third Bank
+High,Industry,1.8864566648869905,
+High,Company,2.2086466165413534,First Horizon Bank
+High,Company,1.5459363957597174,Dime Bank
+High,Industry,1.8864566648869905,
+High,Universe,1.8864566648869905,
+High,Company,2.2235576923076925,Citizens Bank
+High,Industry,1.8864566648869905,
+High,Universe,1.8864566648869905,
+High,Universe,1.8864566648869905,
+Very High,Universe,42.99697455063178,
+Very High,Company,55.21616541353384,First Horizon Bank
+Very High,Industry,42.99697455063178,
+Very High,Universe,42.99697455063178,
+Very High,Company,36.85809784260103,Fifth Third Bank
+Very High,Industry,42.99697455063178,
+Very High,Universe,42.99697455063178,
+Very High,Company,38.60424028268552,Dime Bank
+Very High,Industry,42.99697455063178,
+Very High,Company,59.01442307692307,Citizens Bank
+Very High,Industry,42.99697455063178,
+Very High,Universe,42.99697455063178,
+Very High,Industry,42.99697455063178,
+Very High,Universe,42.99697455063178,
+Very High,Company,31.094658910629295,Webster Bank
