@@ -22,11 +22,12 @@ def check_score_in_range(score: int) -> None:
     Check if score is out of range. Raises ValueError if this condition is met.
     Args:
         score (int): It represents a scale value between 0 and 100.
-    Returns:
-        None
+    Raises:
+        ValueError: If the score is out of the defined range.
     '''
     if score < SCORE_MIN_VALUE or SCORE_MAX_VALUE < score:
-        raise ValueError(f'''
+        raise ValueError(
+            f'''
             Score {
                 score
             } is out of range (Should be between {
@@ -34,7 +35,8 @@ def check_score_in_range(score: int) -> None:
             } and {
                 SCORE_MAX_VALUE
             }).
-        ''')
+        '''
+        )
 
 
 def sentiment_color(score: int) -> str:
