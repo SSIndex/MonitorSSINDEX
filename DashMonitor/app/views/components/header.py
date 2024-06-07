@@ -8,11 +8,17 @@ from typing import List
 # 3rd party imports
 from dash import html
 
+# local imports
+from DashMonitor.app.views.components.base_component import BaseComponent
 
-class HeaderTabBtn:
+
+class HeaderTabBtn(BaseComponent):
     '''
     Header Tab. Each Tab Button associated to a Tab Content for the Main element.
     '''
+
+    BASE_BUTTON_CLASS_NAME = 'nav-link text-light'
+    ACTIVE_BUTTON_CLASS_NAME = 'nav-link text-light active'
 
     def __init__(self, tab_id: str, title: str, active: bool):
         self.id = tab_id
@@ -24,10 +30,11 @@ class HeaderTabBtn:
         '''
         Generate de Dash Component for the HeaderTabButton
         '''
-        btn_class_names = 'nav-link text-light'
-        btn_class_names += ' active' if self.active else ''
-
-        aria_selected = 'true' if self.active else 'false'
+        aria_selected = 'false'
+        btn_class_names = self.BASE_BUTTON_CLASS_NAME
+        if self.active:
+            aria_selected = 'true'
+            btn_class_names = self.ACTIVE_BUTTON_CLASS_NAME
 
         return html.Li(
             className='nav-item',
@@ -52,7 +59,7 @@ class HeaderTabBtn:
         )
 
 
-class Header:
+class Header(BaseComponent):
     '''
     Header Element for API. it includes the navbar and the Tab options.
     '''
@@ -62,9 +69,63 @@ class Header:
         self.logo_name = logo_name
         self.tab_list = tabs
 
-    def render(self):
+    def render_logo(self) -> html.Div:
         '''
-        Generate de Dash Component for the Header
+        Generate the Dash Partial Component for the logo
+        '''
+        return html.Div(
+            className='col-2',
+            children=[
+                html.A(
+                    href='/',
+                    className='navbar-brand text-light',
+                    children=[
+                        html.Figure(
+                            children=[
+                                html.Picture(
+                                    children=[
+                                        html.Img(
+                                            alt=self.logo_name,
+                                            src=self.logo_source,
+                                            style={'height': '2.5rem'},
+                                        )
+                                    ]
+                                ),
+                                html.Figcaption(
+                                    children=[self.logo_name],
+                                    style={'font-size': '.6rem'},
+                                ),
+                            ]
+                        )
+                    ],
+                )
+            ],
+        )
+
+    def render_tabs(self) -> html.Div:
+        '''
+        Generate the Dash Partial Component for the tabs.
+        '''
+        return html.Div(
+            className='col-10',
+            children=[
+                html.Div(
+                    className='container',
+                    children=[
+                        html.Ul(
+                            className='nav nav-underline nav-fill justify-content-center fs-4',
+                            id='TabButtonsList',
+                            role='tablist',
+                            children=[tab.render() for tab in self.tab_list],
+                        )
+                    ],
+                )
+            ],
+        )
+
+    def render(self) -> html.Header:
+        '''
+        Generate the Dash Component for the Header
         '''
         return html.Header(
             className='bg-dark text-white',
@@ -78,61 +139,8 @@ class Header:
                                 html.Div(
                                     className='row w-100',
                                     children=[
-                                        html.Div(
-                                            className='col-2',
-                                            children=[
-                                                html.A(
-                                                    href='/',
-                                                    className='navbar-brand text-light',
-                                                    children=[
-                                                        html.Figure(
-                                                            children=[
-                                                                html.Picture(
-                                                                    children=[
-                                                                        html.Img(
-                                                                            alt=self.logo_name,
-                                                                            src=self.logo_source,
-                                                                            style={
-                                                                                'height': '2.5rem'
-                                                                            },
-                                                                        )
-                                                                    ]
-                                                                ),
-                                                                html.Figcaption(
-                                                                    children=[
-                                                                        self.logo_name
-                                                                    ],
-                                                                    style={
-                                                                        'font-size': '.6rem'
-                                                                    },
-                                                                ),
-                                                            ]
-                                                        )
-                                                    ],
-                                                )
-                                            ],
-                                        ),
-                                        html.Div(
-                                            className='col-10',
-                                            children=[
-                                                html.Div(
-                                                    className='container',
-                                                    children=[
-                                                        html.Ul(
-                                                            className='nav nav-underline nav-fill justify-content-center fs-4',
-                                                            id='TabButtonsList',
-                                                            role='tablist',
-                                                            children=list(
-                                                                map(
-                                                                    lambda x: x.render(),
-                                                                    self.tab_list,
-                                                                )
-                                                            ),
-                                                        )
-                                                    ],
-                                                )
-                                            ],
-                                        ),
+                                        self.render_logo(),
+                                        self.render_tabs(),
                                     ],
                                 )
                             ],
