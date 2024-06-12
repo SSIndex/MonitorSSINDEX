@@ -8,3 +8,4 @@ will be defined here.
 # 3rd party imports
 
 # local imports
+from DashMonitor.app.handlers.tab_utils import TabArgsProvider
