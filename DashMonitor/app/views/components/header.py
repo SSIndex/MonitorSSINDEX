@@ -9,6 +9,7 @@ from typing import List
 from dash import html
 
 # local imports
+from DashMonitor.app.handlers.tab_utils import TabArgsProvider
 from DashMonitor.app.views.components.base_component import BaseComponent
 
 
@@ -20,11 +21,11 @@ class HeaderTabBtn(BaseComponent):
     BASE_BUTTON_CLASS_NAME = 'nav-link text-light'
     ACTIVE_BUTTON_CLASS_NAME = 'nav-link text-light active'
 
-    def __init__(self, tab_id: str, title: str, active: bool):
-        self.id = tab_id
-        self.target = f'#{tab_id}'
-        self.title = title
-        self.active = active
+    def __init__(self, tab_name: str):
+        self.tab_args_provider = TabArgsProvider()
+        self.__dict__ = {**self.tab_args_provider(tab_name), **self.__dict__}
+        self.title = tab_name
+        self.target = f'#{self.id}'
 
     def render(self):
         '''
