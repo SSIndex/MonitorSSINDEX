@@ -6,6 +6,10 @@ Tab Utils Classes.
 from typing import Dict, Optional, Set, Union
 
 
+def main_tab_target_id(element_id: str) -> str:
+    return f'main-tab-{element_id}'
+
+
 class TabArgsProvider:
     '''
     Class for validating and storing correct tab names across components.

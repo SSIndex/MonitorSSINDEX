@@ -9,7 +9,7 @@ from typing import List
 from dash import html
 
 # local imports
-from DashMonitor.app.handlers.tab_utils import TabArgsProvider
+from DashMonitor.app.handlers.tab_utils import TabArgsProvider, main_tab_target_id
 from DashMonitor.app.views.components.base_component import BaseComponent
 
 
@@ -25,7 +25,7 @@ class HeaderTabBtn(BaseComponent):
         self.tab_args_provider = TabArgsProvider()
         self.__dict__ = {**self.tab_args_provider(tab_name), **self.__dict__}
         self.title = tab_name
-        self.target = f'#{self.id}'
+        self.target = f'#{main_tab_target_id(self.id)}'
 
     def render(self):
         '''
