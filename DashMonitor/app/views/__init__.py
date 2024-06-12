@@ -37,6 +37,15 @@ ENTRY_LAYOUT = html.Div(
                         cpt.HeaderTabBtn('BENCHMARK'),
                     ],
                 ),
+                cpt.Main(
+                    tab_bodies=[
+                        cpt.MainTabPanel('GENERAL', view='GENERAL'),
+                        cpt.MainTabPanel('SASB', view='SASB'),
+                        cpt.MainTabPanel('SSINDEX', view='SSINDEX'),
+                        cpt.MainTabPanel('MAP', view='MAP'),
+                        cpt.MainTabPanel('BENCHMARK', view='BENCHMARK'),
+                    ]
+                ),
                 cpt.Footer(),
             ),
         )
