@@ -10,7 +10,7 @@ from dash import html
 
 # local imports
 from DashMonitor.app.handlers.tab_utils import TabArgsProvider, main_tab_target_id
-from DashMonitor.app.views.components.base_component import BaseComponent
+from DashMonitor.app.views.components.base_component import BaseComponent, DashComponent
 
 
 class MainTabPanel(BaseComponent):
@@ -21,7 +21,7 @@ class MainTabPanel(BaseComponent):
     BODY_CLASS_NAME = 'tab-pane fade'
     ACTIVE_BODY_CLASS_NAME = 'tab-pane fade show active'
 
-    def __init__(self, tab_name, view):
+    def __init__(self, tab_name: str, view: DashComponent):
         self.tab_args_provider = TabArgsProvider()
         self.__dict__ = {**self.tab_args_provider(tab_name), **self.__dict__}
         self.view = view
