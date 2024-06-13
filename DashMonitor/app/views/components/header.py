@@ -79,7 +79,7 @@ class Header(BaseComponent):
             children=[
                 html.A(
                     href='/',
-                    className='navbar-brand text-light',
+                    className='text-light',
                     children=[
                         html.Figure(
                             children=[
