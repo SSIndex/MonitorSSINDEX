@@ -1,0 +1,5 @@
+'''
+SSINDEX Analysis Layout
+'''
+
+SSINDEX_ANALYSIS_LAYOUT = 'SSINDEX'

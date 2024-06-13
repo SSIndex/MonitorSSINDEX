@@ -1,0 +1,5 @@
+'''
+BENCHMARK Analysis Layout
+'''
+
+BENCHMARK_ANALYSIS_LAYOUT = 'BENCHMARK'

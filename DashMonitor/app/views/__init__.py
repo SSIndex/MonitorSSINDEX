@@ -7,7 +7,7 @@ Here Layout and html Building will be defined
 # std imports
 
 # 3rd party imports
-from dash import html
+from dash.html import Div
 
 # local imports
 from DashMonitor.app.views.configs import (
@@ -18,9 +18,10 @@ from DashMonitor.app.views.configs import (
 )
 
 from DashMonitor.app.views import components as cpt
+from DashMonitor.app.views import layouts as lyt
 
 
-ENTRY_LAYOUT = html.Div(
+ENTRY_LAYOUT = Div(
     className='m-0 p-0',
     children=list(
         map(
@@ -39,11 +40,13 @@ ENTRY_LAYOUT = html.Div(
                 ),
                 cpt.Main(
                     tab_bodies=[
-                        cpt.MainTabPanel('GENERAL', view='GENERAL'),
-                        cpt.MainTabPanel('SASB', view='SASB'),
-                        cpt.MainTabPanel('SSINDEX', view='SSINDEX'),
-                        cpt.MainTabPanel('MAP', view='MAP'),
-                        cpt.MainTabPanel('BENCHMARK', view='BENCHMARK'),
+                        cpt.MainTabPanel('GENERAL', view=lyt.GENERAL_ANALYSIS_LAYOUT),
+                        cpt.MainTabPanel('SASB', view=lyt.SASB_ANALYSIS_LAYOUT),
+                        cpt.MainTabPanel('SSINDEX', view=lyt.SSINDEX_ANALYSIS_LAYOUT),
+                        cpt.MainTabPanel('MAP', view=lyt.GEOGRAPHIC_ANALYSIS_LAYOUT),
+                        cpt.MainTabPanel(
+                            'BENCHMARK', view=lyt.BENCHMARK_ANALYSIS_LAYOUT
+                        ),
                     ]
                 ),
                 cpt.Footer(),
