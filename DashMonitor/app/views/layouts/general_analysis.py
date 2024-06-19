@@ -284,6 +284,8 @@ def create_gauge_chart(score):
     explanation_string = f"{category}. \n\n" f"{explanation}\n\n"
 
     return fig, explanation_string
+
+
 def create_gauge_chart_ssindex(score, pillar_name):
     """
     Creates a gauge chart to visualize the score of a specific pillar.
@@ -298,44 +300,48 @@ def create_gauge_chart_ssindex(score, pillar_name):
     fig = go.Figure()
 
     categories = [
-        {'range': [0, 20], 'color': "#8B0000", 'text': 'Very Low'},
-        {'range': [21, 40], 'color': "#FF6347", 'text': 'Low'},
-        {'range': [41, 60], 'color': "#FFFF00", 'text': 'Medium'},
-        {'range': [61, 80], 'color': "#90EE90", 'text': 'High'},
-        {'range': [81, 100], 'color': "#006400", 'text': 'Very High'}
+        {"range": [0, 20], "color": "#8B0000", "text": "Very Low"},
+        {"range": [21, 40], "color": "#FF6347", "text": "Low"},
+        {"range": [41, 60], "color": "#FFFF00", "text": "Medium"},
+        {"range": [61, 80], "color": "#90EE90", "text": "High"},
+        {"range": [81, 100], "color": "#006400", "text": "Very High"},
     ]
 
     steps = []
     for cat in categories:
-        if cat['range'][0] <= score:
-            steps.append({'range': cat['range'], 'color': cat['color']})
+        if cat["range"][0] <= score:
+            steps.append({"range": cat["range"], "color": cat["color"]})
         else:
-            steps.append({'range': cat['range'], 'color': 'lightgrey'})  # Neutro para categorías no alcanzadas
+            steps.append(
+                {"range": cat["range"], "color": "lightgrey"}
+            )  # Neutro para categorías no alcanzadas
 
-    fig.add_trace(go.Indicator(
-        mode="gauge",
-        value=score,
-        domain={'x': [0.1, 1], 'y': [0.2, 0.8]},
-        gauge={
-            'shape': "bullet",
-            'axis': {
-                'range': [0, 100],
-                'tickmode': 'array',
-                'tickvals': [],
-                'ticktext': [],
-                'tickwidth': 1,
-                'tickcolor': 'darkblue'
+    fig.add_trace(
+        go.Indicator(
+            mode="gauge",
+            value=score,
+            domain={"x": [0.1, 1], "y": [0.2, 0.8]},
+            gauge={
+                "shape": "bullet",
+                "axis": {
+                    "range": [0, 100],
+                    "tickmode": "array",
+                    "tickvals": [],
+                    "ticktext": [],
+                    "tickwidth": 1,
+                    "tickcolor": "darkblue",
+                },
+                "bar": {"color": "black"},
+                "steps": steps,
+                "threshold": {
+                    "line": {"color": "black", "width": 2},
+                    "thickness": 0.75,
+                    "value": score,
+                },
             },
-            'bar': {'color': "black"},
-            'steps': steps,
-            'threshold': {
-                'line': {'color': "black", 'width': 2},
-                'thickness': 0.75,
-                'value': score
-            }
-        }
-    ))
-    
+        )
+    )
+
     if score <= 20:
         category = "Very Low"
     elif score <= 40:
@@ -349,30 +355,101 @@ def create_gauge_chart_ssindex(score, pillar_name):
 
     fig.update_layout(
         height=120,
-        margin={'t': 20, 'b': 10, 'l': 10, 'r': 0},
+        margin={"t": 20, "b": 10, "l": 10, "r": 0},
         annotations=[
-            dict(x=0.19, y=0.25, text="Poor", showarrow=False, font=dict(size=12,color='white'), xanchor='center'),
-            dict(x=0.37, y=0.25, text="Low", showarrow=False, font=dict(size=12, color='white'), xanchor='center'),
-            dict(x=0.56, y=0.25, text="Medium", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
-            dict(x=0.73, y=0.25, text="Good", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
-            dict(x=0.9, y=0.25, text="Excellent", showarrow=False, font=dict(size=12, color='white'), xanchor='center'),
-            dict(x=0.19, y=0, text="[0-19]", showarrow=False, font=dict(size=12,color='black'), xanchor='center'),
-            dict(x=0.37, y=0, text="[20-39]", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
-            dict(x=0.56, y=0, text="[40-59]", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
-            dict(x=0.73, y=0, text="[60-79]", showarrow=False, font=dict(size=12, color='black'), xanchor='center'),
-            dict(x=0.9, y=0, text="[80-100]", showarrow=False, font=dict(size=12, color='black'), xanchor='center')
+            dict(
+                x=0.19,
+                y=0.25,
+                text="Poor",
+                showarrow=False,
+                font=dict(size=12, color="white"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.37,
+                y=0.25,
+                text="Low",
+                showarrow=False,
+                font=dict(size=12, color="white"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.56,
+                y=0.25,
+                text="Medium",
+                showarrow=False,
+                font=dict(size=12, color="black"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.73,
+                y=0.25,
+                text="Good",
+                showarrow=False,
+                font=dict(size=12, color="black"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.9,
+                y=0.25,
+                text="Excellent",
+                showarrow=False,
+                font=dict(size=12, color="white"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.19,
+                y=0,
+                text="[0-19]",
+                showarrow=False,
+                font=dict(size=12, color="black"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.37,
+                y=0,
+                text="[20-39]",
+                showarrow=False,
+                font=dict(size=12, color="black"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.56,
+                y=0,
+                text="[40-59]",
+                showarrow=False,
+                font=dict(size=12, color="black"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.73,
+                y=0,
+                text="[60-79]",
+                showarrow=False,
+                font=dict(size=12, color="black"),
+                xanchor="center",
+            ),
+            dict(
+                x=0.9,
+                y=0,
+                text="[80-100]",
+                showarrow=False,
+                font=dict(size=12, color="black"),
+                xanchor="center",
+            ),
         ],
         title={
-            'text': f"<b>{int(score)}</b>",
-            'y': 0.5,
-            'x': 0.05,
-            'xanchor': 'center',
-            'yanchor': 'top',
-            'font': {'size': 18}
-        }
+            "text": f"<b>{int(score)}</b>",
+            "y": 0.5,
+            "x": 0.05,
+            "xanchor": "center",
+            "yanchor": "top",
+            "font": {"size": 18},
+        },
     )
 
     return fig
+
 
 bkn = "Webster Bank"
 
@@ -461,63 +538,73 @@ fig_hist_general.update_layout(
     uniformtext_minsize=14,
 )
 
-score_by_pillar = df1.groupby('Predicted_SASB').agg(
-    Avg_Score=('Normalized_Sentiment_Score', 'mean')
-).reset_index()
-pillars = score_by_pillar['Predicted_SASB'].unique()
+score_by_pillar = (
+    df1.groupby("Predicted_SASB")
+    .agg(Avg_Score=("Normalized_Sentiment_Score", "mean"))
+    .reset_index()
+)
+pillars = score_by_pillar["Predicted_SASB"].unique()
 # Crear gráficos de medidor para cada pilar
 
 gauge_figures_2 = []
 
 for index, row in score_by_pillar.iterrows():
-    score = row['Avg_Score']
-    pillar_name = row['Predicted_SASB']
+    score = row["Avg_Score"]
+    pillar_name = row["Predicted_SASB"]
     fig = create_gauge_chart_ssindex(score, pillar_name)
     gauge_figures_2.append(
         dbc.Row(
             [
                 dbc.Col(
-                    html.H4(pillar_name, style={'textAlign': 'left', 'padding-right': '20px'}),
+                    html.H4(
+                        pillar_name,
+                        style={"textAlign": "left", "padding-right": "20px"},
+                    ),
                     width=2,
-                    style={'display': 'flex', 'align-items': 'center'}
+                    style={"display": "flex", "align-items": "center"},
                 ),
                 dbc.Col(
-                    dcc.Graph(figure=fig, config={'displayModeBar': False}),
+                    dcc.Graph(figure=fig, config={"displayModeBar": False}),
                     width=10,
-                    style={'padding-left': '0px'}
-                )
+                    style={"padding-left": "0px"},
+                ),
             ],
-            style={'margin-bottom': '0px', 'align-items': 'center'}
+            style={"margin-bottom": "0px", "align-items": "center"},
         )
-    )    
+    )
 
-score_by_pillar = df1.groupby('Pilar').agg(
-    Avg_Score=('Normalized_Sentiment_Score', 'mean')
-).reset_index()
-pillars = score_by_pillar['Pilar'].unique()
+score_by_pillar = (
+    df1.groupby("Pilar")
+    .agg(Avg_Score=("Normalized_Sentiment_Score", "mean"))
+    .reset_index()
+)
+pillars = score_by_pillar["Pilar"].unique()
 gauge_figures_1 = []
 for index, row in score_by_pillar.iterrows():
-    score = row['Avg_Score']
-    pillar_name = row['Pilar']
+    score = row["Avg_Score"]
+    pillar_name = row["Pilar"]
     fig = create_gauge_chart_ssindex(score, pillar_name)
     gauge_figures_1.append(
         dbc.Row(
             [
                 dbc.Col(
-                    html.H4(pillar_name, style={'textAlign': 'left', 'padding-right': '20px'}),
+                    html.H4(
+                        pillar_name,
+                        style={"textAlign": "left", "padding-right": "20px"},
+                    ),
                     width=2,
-                    style={'display': 'flex', 'align-items': 'center'}
+                    style={"display": "flex", "align-items": "center"},
                 ),
                 dbc.Col(
-                    dcc.Graph(figure=fig, config={'displayModeBar': False}),
+                    dcc.Graph(figure=fig, config={"displayModeBar": False}),
                     width=10,
-                    style={'padding-left': '0px'}
-                )
+                    style={"padding-left": "0px"},
+                ),
             ],
-            style={'margin-bottom': '0px', 'align-items': 'center'}
+            style={"margin-bottom": "0px", "align-items": "center"},
         )
     )
-    
+
 GENERAL_ANALYSIS_LAYOUT = html.Div(
     className="container",
     children=[
@@ -647,9 +734,13 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                             children=[
                                 html.Div(
                                     className="col-12",
-                                    style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'stretch'},
-                                    children =gauge_figures_2)
-                                    
+                                    style={
+                                        "display": "flex",
+                                        "flexDirection": "column",
+                                        "alignItems": "stretch",
+                                    },
+                                    children=gauge_figures_2,
+                                )
                             ],
                         ),
                     ],
@@ -671,9 +762,13 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                             children=[
                                 html.Div(
                                     className="col-12",
-                                    style={'display': 'flex', 'flexDirection': 'column', 'alignItems': 'stretch'},
-                                    children =gauge_figures_1)
-                                    
+                                    style={
+                                        "display": "flex",
+                                        "flexDirection": "column",
+                                        "alignItems": "stretch",
+                                    },
+                                    children=gauge_figures_1,
+                                )
                             ],
                         ),
                     ],
