@@ -66,3 +66,7 @@ def setupView(app_settings={}):
     )
 
     return app_settings
+
+
+def register_views_layouts(app):
+    return lyt.register_layouts_and_callbacks(app)
