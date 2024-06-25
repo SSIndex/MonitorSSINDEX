@@ -10,10 +10,19 @@ This file will encapsulate the setup of the Dash server
 
 # local imports
 from DashMonitor.app import app
-from DashMonitor.app.views.layouts.sasb_analysis import register_layout_and_callbacks_sasb
-from DashMonitor.app.views.layouts.ssindex_analysis import register_layout_and_callbacks_ssindex
-from DashMonitor.app.views.layouts.geographic_analysis import register_layout_and_callbacks_map
-from DashMonitor.app.views.layouts.benchmark_analysis import register_layout_and_callbacks_benchmark
+from DashMonitor.app.views.layouts.sasb_analysis import (
+    register_layout_and_callbacks_sasb,
+)
+from DashMonitor.app.views.layouts.ssindex_analysis import (
+    register_layout_and_callbacks_ssindex,
+)
+from DashMonitor.app.views.layouts.geographic_analysis import (
+    register_layout_and_callbacks_map,
+)
+from DashMonitor.app.views.layouts.benchmark_analysis import (
+    register_layout_and_callbacks_benchmark,
+)
+
 
 def main():
     '''
