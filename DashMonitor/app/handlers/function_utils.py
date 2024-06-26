@@ -66,7 +66,7 @@ def create_result_table(data):
     )  # Solo hay una industria en este caso
 
     # Filtrar los datos para la tabla final
-    webster_stats = company_stats[company_stats["Bank Name"] == "Webster Bank"]
+    webster_stats = company_stats[company_stats["Bank Name"] == "Banco de Chile"]
 
     # Crear la tabla de resultados
     result_table = pd.DataFrame(

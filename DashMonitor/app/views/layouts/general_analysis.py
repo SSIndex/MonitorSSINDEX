@@ -28,9 +28,10 @@ custom_colors = {
     "Company": "#ff7f0e",  # Orange
 }
 
-bkn = "Webster Bank"
+bkn = "Banco de Chile"
 
-df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
+#df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
+df = pd.read_csv("/app/DashMonitor/data/data_sampled_full_chile.csv")
 df1 = df.copy()
 filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
 df = df[filtro_general].reset_index(drop=True)
