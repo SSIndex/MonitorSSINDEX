@@ -28,35 +28,48 @@ custom_colors = {
     "Company": "#ff7f0e",  # Orange
 }
 
-bkn = "Banco de Chile"
 
 #df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
-df = pd.read_csv("/app/DashMonitor/data/data_sampled_full_chile.csv")
+#df = pd.read_csv("/app/DashMonitor/data/data_full_bancos_chile_2024.csv")
+#df = pd.read_csv("/app/DashMonitor/data/data.csv")
+from DashMonitor.app.config import Config  # Importar Config
+
+df = pd.read_csv(Config.data_path)
+df.dropna(inplace=True)
+df['month_num'] = df['month_num'].astype(int)
+df["year"] = df["year"].astype(int)
+bkn = Config.bank_name
+df['Industry']="Banking"
+df['Sentiment_Category'] = df['Sentiment_score'].apply(categorize_score)
+df['Total_Count']=1
 df1 = df.copy()
-filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
-df = df[filtro_general].reset_index(drop=True)
+#filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
+#df = df[filtro_general].reset_index(drop=True)
 df = (
     df.groupby(["Bank Name", "Predicted_Pilar", "year", "month_num"])[
-        ["Normalized_Sentiment_Score"]
+        ["Sentiment_score"]
     ]
     .mean()
     .reset_index()
 )
 df["date"] = pd.to_datetime(
-    df["year"].astype(str) + "-" + df["month_num"].map("{:02}".format), format="%Y-%m"
+    df["year"].astype(str) + "-" + df["month_num"].astype(str).str.zfill(2), 
+    format="%Y-%m"
 )
-df["Total_Sentiment_Score"] = df.groupby(["Bank Name", "date"])[
-    "Normalized_Sentiment_Score"
+df["Total_Sentiment_score"] = df.groupby(["Bank Name", "date"])[
+    "Sentiment_score"
 ].transform("mean")
 df.sort_values("date", inplace=True)
 df_grouped = (
-    df1.groupby("state").agg({"Normalized_Sentiment_Score": "mean"}).reset_index()
+    df1.groupby("state").agg({"Sentiment_score": "mean"}).reset_index()
 )
-general_score = df[df["Bank Name"] == bkn]["Total_Sentiment_Score"].mean()
+general_score = df[df["Bank Name"] == bkn]["Total_Sentiment_score"].mean()
+print(general_score)
+print(df)
 general_gauge_chart, explanation_general_gauge_chart = create_gauge_chart(general_score)
 industry_comments = df1[df1["Industry"] == "Banking"]
 industry_comments["Sentiment_Category"] = industry_comments[
-    "Normalized_Sentiment_Score"
+    "Sentiment_score"
 ].apply(categorize_score)
 universe_totals = df1["Sentiment_Category"].value_counts(normalize=True) * 100
 industry_totals = (
@@ -88,7 +101,7 @@ for category in ["Poor", "Low", "Medium", "Good", "Excellent"]:
             "Category": category,
             "Type": "Company",
             "Percentage": obj_bank_totals_corrected.get(category, 0),
-            "Company": "Webster Bank",
+            "Company": "Banco de Chile",
         }
     )
 
@@ -118,7 +131,7 @@ fig_hist_general.update_layout(
 
 score_by_pillar = (
     df1.groupby("Predicted_SASB")
-    .agg(Avg_Score=("Normalized_Sentiment_Score", "mean"))
+    .agg(Avg_Score=("Sentiment_score", "mean"))
     .reset_index()
 )
 pillars = score_by_pillar["Predicted_SASB"].unique()
@@ -153,7 +166,7 @@ for index, row in score_by_pillar.iterrows():
 
 score_by_pillar = (
     df1.groupby("Pilar")
-    .agg(Avg_Score=("Normalized_Sentiment_Score", "mean"))
+    .agg(Avg_Score=("Sentiment_score", "mean"))
     .reset_index()
 )
 pillars = score_by_pillar["Pilar"].unique()
@@ -235,7 +248,7 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                                     className="col-6",
                                     children=[
                                         dcc.Graph(
-                                            id="gauge-chart", figure=general_gauge_chart
+                                            id="gauge-chart-general", figure=general_gauge_chart
                                         )
                                     ],
                                 ),
@@ -281,7 +294,7 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                                     className="col-6",
                                     children=[
                                         dcc.Graph(
-                                            id="histogram", figure=fig_hist_general
+                                            id="histogram-general", figure=fig_hist_general
                                         )
                                     ],
                                 ),

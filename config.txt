@@ -1,0 +1,2 @@
+data_path=/app/DashMonitor/data/data2.csv
+bank_name=Banco Santander

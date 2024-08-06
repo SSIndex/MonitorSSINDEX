@@ -5,6 +5,7 @@ import numpy as np
 import plotly.graph_objects as go
 from dash import Dash, html, dcc, Input, Output, State, dash_table
 import dash_bootstrap_components as dbc
+from DashMonitor.app.config import Config  # Importar Config
 
 # 3rd party imports
 from dash import html
@@ -40,8 +41,8 @@ def create_result_table(data):
     company_stats = (
         data.groupby("Bank Name")
         .agg(
-            Total_Comments=("Normalized_Sentiment_Score", "size"),
-            Avg_Score=("Normalized_Sentiment_Score", "mean"),
+            Total_Comments=("Sentiment_score", "size"),
+            Avg_Score=("Sentiment_score", "mean"),
         )
         .reset_index()
     )
@@ -66,25 +67,22 @@ def create_result_table(data):
     )  # Solo hay una industria en este caso
 
     # Filtrar los datos para la tabla final
-    webster_stats = company_stats[company_stats["Bank Name"] == "Banco de Chile"]
+    webster_stats = company_stats[company_stats["Bank Name"] == Config.bank_name]
 
     # Crear la tabla de resultados
     result_table = pd.DataFrame(
         {
             "Type": [
                 "Global Universe",
-                "Technology Hardware (Industry)",
-                "Communications Equipment (Subindustry)",
+                "Banking (Industry)",
             ],
             "Position": [
                 f"{int(webster_stats['Position_Universe'].iloc[0])} out of {len(company_stats)}",
-                f"{int(webster_stats['Position_Industry'].iloc[0])} out of {len(company_stats)}",  # Solo hay una industria en este caso
-                "-",  # No hay subindustrias definidas en este caso
+                f"{int(webster_stats['Position_Industry'].iloc[0])} out of {len(company_stats)}",  
             ],
             "Percentile": [
                 f"{int(webster_stats['Percentile_Universe'].iloc[0])}th",
-                f"{int(webster_stats['Percentile_Industry'].iloc[0])}th",  # Solo hay una industria en este caso
-                "-",  # No hay subindustrias definidas en este caso
+                f"{int(webster_stats['Percentile_Industry'].iloc[0])}th", 
             ],
         }
     )

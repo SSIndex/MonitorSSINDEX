@@ -12,6 +12,12 @@ import dash_bootstrap_components as dbc
 
 # 3rd party imports
 from dash import html
+import json
+from DashMonitor.app.config import Config  # Importar Config
+
+# Cargar los datos del archivo GeoJSON
+with open("/app/DashMonitor/data/mexicoHigh.json") as f:
+    geojson = json.load(f)
 
 # local imports
 from DashMonitor.app.handlers.function_utils import (
@@ -28,12 +34,20 @@ custom_colors = {
     "Company": "#ff7f0e",  # Orange
 }
 
-bkn = "Banco de Chile"
 
 #df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
-df = pd.read_csv("/app/DashMonitor/data/data_sampled_full_chile.csv")
-filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
-df = df[filtro_general].reset_index(drop=True)
+df = pd.read_csv("/app/DashMonitor/data/data.csv")
+df.dropna(inplace=True)
+df['month_num'] = df['month_num'].astype(int)
+df["year"] = df["year"].astype(int)
+bkn = Config.bank_name
+df['Industry']="Banking"
+df['Sentiment_Category'] = df['Sentiment_score'].apply(categorize_score)
+df['Total_Count']=1
+
+df['city']=df['state']
+#filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
+#df = df[filtro_general].reset_index(drop=True)
 
 GEOGRAPHIC_ANALYSIS_LAYOUT = html.Div(
     className="container",
@@ -93,32 +107,45 @@ def register_callbacks(app):
     )
     def update_general_map(click_data):
         filtered_df = df.copy()
+        colorscale = [
+            [0.0, 'red'],
+            [0.4, 'orange'],
+            [0.5, 'yellow'],
+            [0.8, 'lightgreen'],
+            [1.0, 'green']
+        ]
         filtered_df = filtered_df[filtered_df["Bank Name"] == bkn]
         df_grouped = (
-            filtered_df.groupby("state").agg({"Sentiment_Score": "mean"}).reset_index()
+            filtered_df.groupby("state").agg({"Sentiment_score": "mean"}).reset_index()
         )
-        df_grouped["color"] = df_grouped["Sentiment_Score"].apply(
+        df_grouped["color"] = df_grouped["Sentiment_score"].apply(
             lambda x: "blue" if x > 0 else "red"
         )
 
         fig = go.Figure(
             data=go.Choropleth(
                 locations=df_grouped["state"],
-                z=df_grouped["Sentiment_Score"],
-                locationmode="USA-states",
-                colorscale="Blues",
+                z=df_grouped["Sentiment_score"],
+                geojson=geojson,
+                featureidkey="properties.name",
+                colorscale=colorscale,
+                zmin=0,
+                zmax=100,
                 marker_line_color="white",
             )
         )
         fig.update_layout(
             title_text=f"Average Sentiment Score by State for {bkn}",
-            geo_scope="usa",
-        )
+             geo=dict(
+        scope='north america',
+        projection_scale=5,  # ajustar la escala para centrarse en Chile
+        center={"lat": 23.6345, "lon": -102.5528} # ajustar la posición para centrarse en Chile
+    ))
         reviews_table = html.Table()
         if click_data:
             state = click_data["points"][0]["location"]
             reviews = filtered_df[filtered_df["state"] == state][
-                ["Review", "Sentiment_Score", "Bank Name"]
+                ["Review", "Sentiment_score", "Bank Name", "state"]
             ].head(5)
             reviews_table = html.Table(
                 [
@@ -141,7 +168,7 @@ def register_callbacks(app):
                             html.Tr(
                                 [
                                     html.Td(
-                                        reviews.iloc[i][col],
+                                        round(reviews.iloc[i][col]) if col == "Sentiment_score" else reviews.iloc[i][col],
                                         style={
                                             "padding": "10px",
                                             "border": "1px solid black",

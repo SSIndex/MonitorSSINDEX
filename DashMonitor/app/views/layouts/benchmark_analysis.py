@@ -28,29 +28,39 @@ custom_colors = {
     "Company": "#ff7f0e",  # Orange
 }
 
-bkn = "Banco de Chile"
 
-#df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
-df = pd.read_csv("/app/DashMonitor/data/data_sampled_full_chile.csv")
+# df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
+#df = pd.read_csv("/app/DashMonitor/data/data_full_bancos_chile_2024.csv")
+#df = pd.read_csv("/app/DashMonitor/data/data.csv")
+from DashMonitor.app.config import Config  # Importar Config
+
+df = pd.read_csv(Config.data_path)
+df.dropna(inplace=True)
+df['month_num'] = df['month_num'].astype(int)
+df["year"] = df["year"].astype(int)
+bkn = Config.bank_name
+df['Industry']="Banking"
+df['Sentiment_Category'] = df['Sentiment_score'].apply(categorize_score)
+df['Total_Count']=1
+
 df1 = df.copy()
-filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
-df = df[filtro_general].reset_index(drop=True)
+#filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
+#df = df[filtro_general].reset_index(drop=True)
 df = (
     df.groupby(["Bank Name", "Predicted_Pilar", "year", "month_num"])[
-        ["Normalized_Sentiment_Score"]
+        ["Sentiment_score"]
     ]
     .mean()
     .reset_index()
 )
 df["date"] = pd.to_datetime(
-    df["year"].astype(str) + "-" + df["month_num"].map("{:02}".format), format="%Y-%m"
+    df["year"].astype(str) + "-" + df["month_num"].astype(str).str.zfill(2), 
+    format="%Y-%m"
 )
-df["Total_Sentiment_Score"] = df.groupby(["Bank Name", "date"])[
-    "Normalized_Sentiment_Score"
+df["Total_Sentiment_score"] = df.groupby(["Bank Name", "date"])[
+    "Sentiment_score"
 ].transform("mean")
 df.sort_values("date", inplace=True)
-
-from dash import html
 
 # Your imports and code...
 
@@ -168,8 +178,10 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
                                             inline=False,
                                             style={
                                                 "display": "flex",
-                                                "flex-direction": "column",
+                                                "flex-wrap": "wrap",
                                                 "gap": "10px",
+                                                "max-height": "200px",
+                                                "overflow": "auto",
                                             },
                                         ),
                                     ],
@@ -181,12 +193,17 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
                             className="row",
                             children=[
                                 html.Div(
-                                    className="col-4",
-                                    children=[dcc.Graph(id="boxplot-chart")],
-                                ),
-                                html.Div(
-                                    className="col-8",
+                                    className="col-12",
                                     children=[dcc.Graph(id="overall-time-line-plot")],
+                                ),
+                            ],
+                        ),
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    className="col-12",
+                                    children=[dcc.Graph(id="boxplot-chart")],
                                 ),
                             ],
                         ),
@@ -196,7 +213,6 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
         ),
     ],
 )
-
 
 def register_callbacks(app):
     @app.callback(
@@ -220,7 +236,7 @@ def register_callbacks(app):
         yearly_pilar_line_fig = px.line(
             filtered_df,
             x="date",
-            y="Normalized_Sentiment_Score",
+            y="Sentiment_score",
             color="Bank Name",
             title=f"Sentiment Score for {selected_year} - {selected_pilar}",
         )
@@ -232,7 +248,7 @@ def register_callbacks(app):
         total_score_line_fig = px.line(
             filtered_df,
             x="date",
-            y="Total_Sentiment_Score",
+            y="Total_Sentiment_score",
             color="Bank Name",
             title=f"Total Sentiment Score for {selected_year}",
         )
@@ -244,13 +260,13 @@ def register_callbacks(app):
         overall_df = (
             df[df["Bank Name"].isin(selected_banks)]
             .groupby(["Bank Name", "date"])
-            .agg({"Total_Sentiment_Score": "mean"})
+            .agg({"Total_Sentiment_score": "mean"})
             .reset_index()
         )
         overall_time_line_fig = px.line(
             overall_df,
             x="date",
-            y="Total_Sentiment_Score",
+            y="Total_Sentiment_score",
             color="Bank Name",
             title="Overall Sentiment Score Over Time",
         )
@@ -377,7 +393,7 @@ def register_callbacks(app):
         boxplot_fig = px.box(
             filtered_df,
             x="Bank Name",
-            y="Normalized_Sentiment_Score",
+            y="Sentiment_score",
             color="Bank Name",
             title="Boxplot of Sentiment Scores by Bank",
         )

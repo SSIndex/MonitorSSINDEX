@@ -2,7 +2,6 @@
 Entrypoint Script to run DashMonitor App.
 '''
 
-from DashMonitor import main
+from DashMonitor import main as dash_main
 
-
-main()
+dash_main()

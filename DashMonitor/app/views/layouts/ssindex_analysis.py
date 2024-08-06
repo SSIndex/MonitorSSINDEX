@@ -12,7 +12,11 @@ import dash_bootstrap_components as dbc
 
 # 3rd party imports
 from dash import html
+import json
 
+# Cargar los datos del archivo GeoJSON
+with open("/app/DashMonitor/data/mexicoHigh.json") as f:
+    geojson = json.load(f)
 # local imports
 from DashMonitor.app.handlers.function_utils import (
     categorize_score,
@@ -28,37 +32,49 @@ custom_colors = {
     "Company": "#ff7f0e",  # Orange
 }
 
-bkn = "Banco de Chile"
 
 #df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
-df = pd.read_csv("/app/DashMonitor/data/data_sampled_full_chile.csv")
+#df = pd.read_csv("/app/DashMonitor/data/data.csv")
+from DashMonitor.app.config import Config  # Importar Config
+
+df = pd.read_csv(Config.data_path)
+df.dropna(inplace=True)
+df['month_num'] = df['month_num'].astype(int)
+df["year"] = df["year"].astype(int)
+bkn = Config.bank_name
+df['Industry']="Banking"
+df['Sentiment_Category'] = df['Sentiment_score'].apply(categorize_score)
+df['Total_Count']=1
+
+df['city']=df['state']
 df1 = df.copy()
-filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
-df = df[filtro_general].reset_index(drop=True)
+#filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
+#df = df[filtro_general].reset_index(drop=True)
 df = (
     df.groupby(["Bank Name", "Predicted_Pilar", "year", "month_num"])[
-        ["Normalized_Sentiment_Score"]
+        ["Sentiment_score"]
     ]
     .mean()
     .reset_index()
 )
 df["date"] = pd.to_datetime(
-    df["year"].astype(str) + "-" + df["month_num"].map("{:02}".format), format="%Y-%m"
+    df["year"].astype(str) + "-" + df["month_num"].astype(str).str.zfill(2), 
+    format="%Y-%m"
 )
-df["Total_Sentiment_Score"] = df.groupby(["Bank Name", "date"])[
-    "Normalized_Sentiment_Score"
+df["Total_Sentiment_score"] = df.groupby(["Bank Name", "date"])[
+    "Sentiment_score"
 ].transform("mean")
 df.sort_values("date", inplace=True)
-filtro_ssindex = df1["Pilar"] == "Other"
+filtro_ssindex = df1["Pilar"] != "Other"
 df_ssindex = df1[filtro_ssindex]
 df_ssindex.reset_index(drop=True, inplace=True)
 df_grouped = (
-    df1.groupby("state").agg({"Normalized_Sentiment_Score": "mean"}).reset_index()
+    df1.groupby("state").agg({"Sentiment_score": "mean"}).reset_index()
 )
 df_3 = df_ssindex.copy()
 df_3 = (
     df_3.groupby(["Bank Name", "Predicted_Pilar", "year", "month_num"])[
-        ["Normalized_Sentiment_Score"]
+        ["Sentiment_score"]
     ]
     .mean()
     .reset_index()
@@ -67,15 +83,15 @@ df_3["date"] = pd.to_datetime(
     df_3["year"].astype(str) + "-" + df_3["month_num"].map("{:02}".format),
     format="%Y-%m",
 )
-df_3["Total_Sentiment_Score"] = df_3.groupby(["Bank Name", "date"])[
-    "Normalized_Sentiment_Score"
+df_3["Total_Sentiment_score"] = df_3.groupby(["Bank Name", "date"])[
+    "Sentiment_score"
 ].transform("mean")
 df_3.sort_values("date", inplace=True)
-ssindex_score = df_3[df_3["Bank Name"] == bkn]["Total_Sentiment_Score"].mean()
+ssindex_score = df_3[df_3["Bank Name"] == bkn]["Total_Sentiment_score"].mean()
 ssindex_gauge_chart, explanation_ssindex_gauge_chart = create_gauge_chart(ssindex_score)
 industry_comments = df_ssindex[df_ssindex["Industry"] == "Banking"]
 industry_comments["Sentiment_Category"] = industry_comments[
-    "Normalized_Sentiment_Score"
+    "Sentiment_score"
 ].apply(categorize_score)
 universe_totals = df_ssindex["Sentiment_Category"].value_counts(normalize=True) * 100
 industry_totals = (
@@ -136,7 +152,7 @@ fig_hist_ssindex.update_layout(
 
 score_by_pillar = (
     df1.groupby("Pilar")
-    .agg(Avg_Score=("Normalized_Sentiment_Score", "mean"))
+    .agg(Avg_Score=("Sentiment_score", "mean"))
     .reset_index()
 )
 pillars = score_by_pillar["Pilar"].unique()
@@ -170,7 +186,7 @@ fig_risk_sasb.add_shape(
     type="rect",
     x0=0,
     y0=50,
-    x1=1,
+    x1=2,
     y1=100,
     fillcolor="lightgreen",
     opacity=0.5,
@@ -180,7 +196,7 @@ fig_risk_sasb.add_shape(
     type="rect",
     x0=0,
     y0=0,
-    x1=1,
+    x1=2,
     y1=50,
     fillcolor="lightcoral",
     opacity=0.5,
@@ -191,7 +207,7 @@ for sentiment in df_ssindex["Sentiment_gen"].unique():
     fig_risk_sasb.add_trace(
         go.Scatter(
             x=filtered_df_1["Total_Count"],
-            y=filtered_df_1["Normalized_Sentiment_Score"],
+            y=filtered_df_1["Sentiment_score"],
             mode="markers",
             name=sentiment,
             marker=dict(size=6, line=dict(width=1)),
@@ -200,7 +216,7 @@ for sentiment in df_ssindex["Sentiment_gen"].unique():
 fig_risk_sasb.update_layout(
     title="Sentiment vs Exposure and Management",
     xaxis_title="Exposure (Total_Count)",
-    yaxis_title="Sentiment (Normalized_Sentiment_Score)",
+    yaxis_title="Sentiment (Sentiment_score)",
     showlegend=True,
     annotations=[
         dict(
@@ -321,7 +337,7 @@ SSINDEX_ANALYSIS_LAYOUT = html.Div(
                                     className="col-6",
                                     children=[
                                         dcc.Graph(
-                                            id="gauge-chart", figure=ssindex_gauge_chart
+                                            id="gauge-chart-ssindex", figure=ssindex_gauge_chart
                                         )
                                     ],
                                 ),
@@ -367,7 +383,7 @@ SSINDEX_ANALYSIS_LAYOUT = html.Div(
                                     className="col-6",
                                     children=[
                                         dcc.Graph(
-                                            id="histogram", figure=fig_hist_ssindex
+                                            id="histogram-ssindex", figure=fig_hist_ssindex
                                         )
                                     ],
                                 ),
@@ -475,7 +491,7 @@ SSINDEX_ANALYSIS_LAYOUT = html.Div(
                                         "alignItems": "stretch",
                                     },
                                     children=[
-                                        dcc.Graph(id="risk-fig", figure=fig_risk_sasb)
+                                        dcc.Graph(id="risk-fig-ssindex", figure=fig_risk_sasb)
                                     ],
                                 )
                             ],
@@ -495,32 +511,45 @@ def register_callbacks(app):
     )
     def update_ssindex_map(click_data):
         filtered_df = df_ssindex.copy()
+        colorscale = [
+            [0.0, 'red'],
+            [0.4, 'orange'],
+            [0.5, 'yellow'],
+            [0.8, 'lightgreen'],
+            [1.0, 'green']
+        ]
         filtered_df = filtered_df[filtered_df["Bank Name"] == bkn]
         df_grouped = (
-            filtered_df.groupby("state").agg({"Sentiment_Score": "mean"}).reset_index()
+            filtered_df.groupby("state").agg({"Sentiment_score": "mean"}).reset_index()
         )
-        df_grouped["color"] = df_grouped["Sentiment_Score"].apply(
+        df_grouped["color"] = df_grouped["Sentiment_score"].apply(
             lambda x: "blue" if x > 0 else "red"
         )
 
         fig = go.Figure(
             data=go.Choropleth(
                 locations=df_grouped["state"],
-                z=df_grouped["Sentiment_Score"],
-                locationmode="USA-states",
-                colorscale="Blues",
+                z=df_grouped["Sentiment_score"],
+                geojson=geojson,
+                featureidkey="properties.name",
+                colorscale=colorscale,
+                zmin=0,
+                zmax=100,
                 marker_line_color="white",
             )
         )
         fig.update_layout(
             title_text=f"Average Sentiment Score by State for {bkn}",
-            geo_scope="usa",
-        )
+             geo=dict(
+        scope='north america',
+        projection_scale=5,  # ajustar la escala para centrarse en Chile
+        center={"lat": 23.6345, "lon": -102.5528} # ajustar la posición para centrarse en Chile
+    ))
         reviews_table = html.Table()
         if click_data:
             state = click_data["points"][0]["location"]
             reviews = filtered_df[filtered_df["state"] == state][
-                ["Review", "Sentiment_Score", "Bank Name"]
+                ["Review", "Sentiment_score", "Bank Name"]
             ].head(5)
             reviews_table = html.Table(
                 [
@@ -543,7 +572,7 @@ def register_callbacks(app):
                             html.Tr(
                                 [
                                     html.Td(
-                                        reviews.iloc[i][col],
+                                        round(reviews.iloc[i][col]) if col == "Sentiment_score" else reviews.iloc[i][col],
                                         style={
                                             "padding": "10px",
                                             "border": "1px solid black",
