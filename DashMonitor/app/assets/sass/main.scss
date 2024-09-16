@@ -1,27 +1,38 @@
-// custom variables 
-// example: (the following changes the primary color variable of bootstrap to green)
-// $primary: green;
+// custom variables
+$font-family-base: 'Manrope', 'Roboto', 'sans-serif'; // Override bootstrap font-family
 
-// Import the functions and variables
+// Import the functions and variables to define custom-theme-colors
 @import '../../node_modules/bootstrap/scss/functions';
 @import '../../node_modules/bootstrap/scss/variables';
 
-// Definition of theme colors: (for now examples)
+// Definition of theme colors:
 $custom-theme-colors : (
-    'ssindex-primary': #007bff,
-    'ssindex-secondary': #6c757d,
-    'ssindex-success': #28a745,
-    'ssindex-info': #17a2b8,
-    'ssindex-warning': #ffc107,
-    'ssindex-danger': #dc3545,
-    'ssindex-light': #f8f9fa,
-    'ssindex-dark': #343a40,
-    'ssindex-white': #ffffff,
-    'ssindex-black': #000000,
-    'ssindex-gray': #6c757d,
-    'ssindex-gray-dark': #343a40
+    'ssindex-red': #FF3E32,
+    'ssindex-orange': #F7941C,
+    'ssindex-yellow': #FFCE29,
+    'ssindex-light-green': #97CC3E,
+    'ssindex-green': #2FB14C,
+    'ssindex-white': #FFFFFF,
+    'ssindex-grey': #D6D6D6,
+    'ssindex-header': #333B69,
+    'ssindex-unselected-tab': #D4D4D4,
+    'ssindex-section-title': #333B69,
+    'ssindex-section-description': #848484,
+    'ssindex-footer-text': #A3AED0,
+    'ssindex-background': #F2F2F2,
+    'ssindex-div-title': #05004E,
+    'ssindex-div-blue': #4880FF80,
+    'ssindex-div-gray-blue': #718EBF,
+    'ssindex-div-light-blue': #E8F4FF,
+    'ssindex-chart-blue': #0069C0,
+    'ssindex-chart-light-blue': #2196F3,
+    'ssindex-chart-sky-blue': #97E9FF,
+    'ssindex-chart-purple': #AB3ED8,
+    'ssindex-chart-green': #19915C,
+    'ssindex-chart-dark-green': #5C7E21,
 );
 
+// Merge the custom-theme-colors with the default theme-colors from bootstrap
 $theme-colors : map-merge($custom-theme-colors, $theme-colors);
 
 //import bootstrap
