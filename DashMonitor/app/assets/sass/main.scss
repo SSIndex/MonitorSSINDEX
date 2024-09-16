@@ -2,5 +2,27 @@
 // example: (the following changes the primary color variable of bootstrap to green)
 // $primary: green;
 
+// Import the functions and variables
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+
+// Definition of theme colors:
+$custom-theme-colors : (
+    'ssindex-primary': #007bff,
+    'ssindex-secondary': #6c757d,
+    'ssindex-success': #28a745,
+    'ssindex-info': #17a2b8,
+    'ssindex-warning': #ffc107,
+    'ssindex-danger': #dc3545,
+    'ssindex-light': #f8f9fa,
+    'ssindex-dark': #343a40,
+    'ssindex-white': #ffffff,
+    'ssindex-black': #000000,
+    'ssindex-gray': #6c757d,
+    'ssindex-gray-dark': #343a40
+);
+
+$theme-colors : map-merge($custom-theme-colors, $theme-colors);
+
 //import bootstrap
 @import '../../node_modules/bootstrap/scss/bootstrap';
