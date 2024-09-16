@@ -21,7 +21,7 @@ class Footer(BaseComponent):
             children=[
                 html.Div(
                     className='container',
-                    children=[html.P(className='mb-0', children=['© 2024 SSINDEX'])],
+                    children=[html.P(className='mb-0 text-ssindex-footer-text', children=['© 2024 SSINDEX'])],
                 )
             ],
         )
