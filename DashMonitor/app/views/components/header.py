@@ -17,6 +17,7 @@ class HeaderTabBtn(BaseComponent):
     '''
     Header Tab. Each Tab Button associated to a Tab Content for the Main element.
     '''
+
     # TODO: Change BASE_BUTTON_CLASS_NAME text-light to ssindex-unselected-tab
     # And ACTIVE_BUTTON_CLASS_NAME text-light active to ssindex-white
     BASE_BUTTON_CLASS_NAME = 'nav-link text-light'
