@@ -6,7 +6,7 @@ from DashMonitor.app.views.components.base_component import BaseComponent
 class Card(BaseComponent):
 
     _BASE_CARD_CLASS_NAME = 'card text-bg-primary'
- 
+
     def __init__(self, company_name: str, industry: str, country: str, company_image: str, overview: str, overview_text: str, overview_graph: BaseComponent, text_color: str = None, background_color: str = None):
         self.company_name = company_name
         self.industry = industry
@@ -34,31 +34,35 @@ class Card(BaseComponent):
                                         html.Div(
                                             className='d-flex gap-4 align-items-center',
                                             children=[
-                                                html.Img(
-                                                    src=self.company_image,
-                                                    className='rounded-circle img-fluid',
-                                                    width='158px',
-                                                    alt='Company Image'
-                                                ),
+                                                html.Div(
+                                                    html.Img(
+                                                        src=self.company_image,
+                                                        className='rounded-circle img-fluid',
+                                                        width='158px',
+                                                        alt='Company Image'
+                                                    )),
                                                 html.Div(
                                                     children=[
-                                                        html.H3(self.company_name),
-                                                        html.P(self.industry),
-                                                        html.P(self.country)
+                                                        html.P(
+                                                            self.company_name, className='fs-3'),
+                                                        html.P(
+                                                            self.industry, className='fs-5'),
+                                                        html.P(
+                                                            self.country, className='fs-5')
                                                     ]
                                                 ),
                                             ]
                                         ),
                                         html.Div(
                                             children=[
-                                                html.P(children = [html.P(children=[html.Span(
+                                                html.P(children=[html.P(children=[html.Span(
                                                     className="fw-bold",
                                                     children=f"Overview: {self.overview}. "
-                                                    ),
+                                                ),
                                                     self.overview_text])], className='mt-2'),
                                             ]
                                         )],
-                                    ),
+                                ),
                                 html.Div(
                                     className="col-6 border rounded",
                                     children=[self.overview_graph]
