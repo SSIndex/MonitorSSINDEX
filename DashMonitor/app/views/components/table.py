@@ -23,7 +23,7 @@ class Table:
         Custom class name to apply to the main table. Defaults to _BASE_CLASS_NAME.
     class_name_headers : Optional[str], default None
     class_name_rows : Optional[str], default None
-        
+
     Data payload example:
     data = [
         {"data": [html.Div("Row 1"), html.Div("Value 1")]},
@@ -35,7 +35,7 @@ class Table:
         ]
     """
 
-    _BASE_CLASS_NAME = "table table-bordered table-hover table-responsive mt-4"
+    _BASE_CLASS_NAME = 'table table-bordered table-hover table-responsive mt-4'
 
     def __init__(
         self,
@@ -48,9 +48,11 @@ class Table:
 
         self.headers = headers
         self.data = data
-        self.class_name_table = class_name_table if class_name_table else self._BASE_CLASS_NAME
-        self.class_name_headers = class_name_headers if class_name_headers else ""
-        self.class_name_rows = class_name_rows if class_name_rows else ""
+        self.class_name_table = (
+            class_name_table if class_name_table else self._BASE_CLASS_NAME
+        )
+        self.class_name_headers = class_name_headers if class_name_headers else ''
+        self.class_name_rows = class_name_rows if class_name_rows else ''
 
     def _render_nested_table(
         self, nested_data: List[List[str]], nested_headers: List[str], index: int
@@ -59,20 +61,19 @@ class Table:
         Generates a nested table as a Dash component inside a collapsible row.
         '''
         return html.Tr(
-            children=
-            html.Td(
+            children=html.Td(
                 colSpan=len(self.headers),
                 children=[
                     html.Div(
-                        className=f"nestedTable{index}",
+                        className=f'nestedTable{index}',
                         children=html.Table(
-                            className="table table-bordered table-hover table-responsive",
+                            className='table table-bordered table-hover table-responsive',
                             children=[
                                 html.Thead(
                                     children=[
                                         html.Tr(
                                             children=[
-                                                html.Th(header, scope="col")
+                                                html.Th(header, scope='col')
                                                 for header in nested_headers
                                             ]
                                         )
@@ -93,7 +94,7 @@ class Table:
                     )
                 ],
             ),
-            className=f"collapse nestedTable{index} {self.class_name_rows}",
+            className=f'collapse nestedTable{index} {self.class_name_rows}',
         )
 
     def render(self) -> html.Table:
@@ -110,8 +111,8 @@ class Table:
                 children=[html.Td(val) for val in row['data']],
                 **(
                     {
-                        "data-bs-toggle": "collapse",
-                        "data-bs-target": f".nestedTable{index}",
+                        'data-bs-toggle': 'collapse',
+                        'data-bs-target': f'.nestedTable{index}',
                     }
                     if 'nested_data' in row
                     else {}
@@ -135,7 +136,12 @@ class Table:
                     children=[
                         html.Tr(
                             children=[
-                                html.Th(header, scope="col", className=self.class_name_headers) for header in self.headers
+                                html.Th(
+                                    header,
+                                    scope='col',
+                                    className=self.class_name_headers,
+                                )
+                                for header in self.headers
                             ]
                         )
                     ]
