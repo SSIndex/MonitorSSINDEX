@@ -26,12 +26,14 @@ class Table:
 
     Data payload example:
     data = [
-        {"data": [html.Div("Row 1"), html.Div("Value 1")]},
-        {"data": ["Row 2", "Value 2"],
-            "nested_data": [["Nested Value 1", "Nested Value 2"], ["Nested Value 3", "Nested Value 4"]],
-            "nested_headers": ["Custom Header 1", "Custom Header 2"]},
-        {"data": ["Row 3", "Value 3"]},
-        {"data": ["Row 4", "Value 4"], "nested_data": [[html.Div("Nested Value 5")]]}
+        {"data": [html.Div("Value 1"), html.Div("Value 2")]},
+        {"data": ["Value 3", "Value 4"],
+        "nested_data": [
+            ["Nested Value 1", "Nested Value 2"],
+            ["Nested Value 3", "Nested Value 4"]],
+        "nested_headers": ["Custom Header 1", "Custom Header 2"]},
+        {"data": ["Value 5", "Value 6"]},
+        {"data": ["Value 7", "Value 8"], "nested_data": [[html.Div("Nested Value 5")]]},
         ]
     """
 
