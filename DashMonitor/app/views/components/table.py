@@ -32,7 +32,7 @@ class Table:
         ]
     """
 
-    _BASE_CLASS_NAME = "table table-bordered table-hover table-responsive"
+    _BASE_CLASS_NAME = "table table-bordered table-hover table-responsive mt-4"
 
     def __init__(
         self,
