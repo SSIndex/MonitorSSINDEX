@@ -24,10 +24,12 @@ class Table:
     Data payload example:
     data = [
         {"data": [html.Div("Row 1"), html.Div("Value 1")]},
-        {"data": ["Row 2", "Value 2"], "nested_data": [["Nested Value 1", "Nested Value 2"]], "nested_headers": ["Custom Header 1", "Custom Header 2"],
+        {"data": ["Row 2", "Value 2"], 
+            "nested_data": [["Nested Value 1", "Nested Value 2"], ["Nested Value 3", "Nested Value 4"]], 
+            "nested_headers": ["Custom Header 1", "Custom Header 2"]},
         {"data": ["Row 3", "Value 3"]},
-        {"data": ["Row 4", "Value 4"], "nested_data": [[html.Div("Nested Value 3")]]},
-    ]
+        {"data": ["Row 4", "Value 4"], "nested_data": [[html.Div("Nested Value 5")]]}
+        ]
     """
 
     _BASE_CLASS_NAME = "table table-bordered table-hover table-responsive"
