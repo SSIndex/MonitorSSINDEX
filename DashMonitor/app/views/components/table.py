@@ -22,7 +22,9 @@ class Table:
     class_name_table : Optional[str], default None
         Custom class name to apply to the main table. Defaults to _BASE_CLASS_NAME.
     class_name_headers : Optional[str], default None
+        Custom class name to aply to main table headers. Defaults to an empty string.
     class_name_rows : Optional[str], default None
+        Custom class name to apply to main table rows. Defaults to an empty string.
 
     Data payload example:
     data = [
