@@ -101,10 +101,7 @@ class Table:
             className=f'collapse nestedTable{index} {self.class_name_rows}',
         )
 
-    def render(self) -> html.Table:
-        '''
-        Generates the Dash Component for the main table.
-        '''
+    def _render_rows(self) -> html.Tr:
         rows = []
 
         # Loop through each row of data
@@ -132,7 +129,13 @@ class Table:
                     row['nested_data'], nested_headers, index
                 )
                 rows.append(nested_row)
+        return rows
 
+    def render(self) -> html.Table:
+        '''
+        Generates the Dash Component for the main table.
+        '''
+        rows = self._render_rows()
         return html.Table(
             className=self.class_name_table,
             children=[
