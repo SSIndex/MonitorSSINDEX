@@ -4,6 +4,30 @@ from DashMonitor.app.views.components.base_component import BaseComponent
 
 
 class Card(BaseComponent):
+    """
+    Card Component. Generates a card component which displays information of the company and its overview/score.
+    
+    Parameters
+    ----------
+    company_name : str
+        Company Name
+    industry : str
+        Industry of the Company
+    country : str
+        Country of the Company
+    company_image : str
+        URL of the Company Image. It must be a square image.
+    overview : str
+        Overview of the Company: Ex: 'Average'
+    overview_text : str
+        Text of the Overview
+    overview_graph : BaseComponent
+        Graph of the Overview Score
+    text_color : Optional[str]
+        Text Color of the Card. Ex: 'text-white'
+    background_color : Optional[str]
+        Background Color of the Card. Ex: 'bg-primary'
+    """
 
     _BASE_CARD_CLASS_NAME = 'card text-bg-primary'
 
