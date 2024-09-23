@@ -19,8 +19,11 @@ class Table:
           Example: 'nested_headers': ['Nested Header 1', 'Nested Header 2']
         - 'nested_data': List of lists, where each inner list represents a row of data for the nested table.
           Example: 'nested_data': [['Nested Value 1', 'Nested Value 2']]
-    class_name : Optional[str], default None
+    class_name_table : Optional[str], default None
         Custom class name to apply to the main table. Defaults to _BASE_CLASS_NAME.
+    class_name_headers : Optional[str], default None
+    class_name_rows : Optional[str], default None
+        
     Data payload example:
     data = [
         {"data": [html.Div("Row 1"), html.Div("Value 1")]},
@@ -38,12 +41,16 @@ class Table:
         self,
         headers: List[str],
         data: List[Dict[str, Any]],
-        class_name: Optional[str] = None,
+        class_name_table: Optional[str] = None,
+        class_name_headers: Optional[str] = None,
+        class_name_rows: Optional[str] = None,
     ):
 
         self.headers = headers
         self.data = data
-        self.class_name = class_name if class_name else self._BASE_CLASS_NAME
+        self.class_name_table = class_name_table if class_name_table else self._BASE_CLASS_NAME
+        self.class_name_headers = class_name_headers if class_name_headers else ""
+        self.class_name_rows = class_name_rows if class_name_rows else ""
 
     def _render_nested_table(
         self, nested_data: List[List[str]], nested_headers: List[str], index: int
@@ -52,6 +59,7 @@ class Table:
         Generates a nested table as a Dash component inside a collapsible row.
         '''
         return html.Tr(
+            children=
             html.Td(
                 colSpan=len(self.headers),
                 children=[
@@ -85,7 +93,7 @@ class Table:
                     )
                 ],
             ),
-            className=f"collapse nestedTable{index}",
+            className=f"collapse nestedTable{index} {self.class_name_rows}",
         )
 
     def render(self) -> html.Table:
@@ -98,6 +106,7 @@ class Table:
         for index, row in enumerate(self.data):
             # Create the main row
             main_row = html.Tr(
+                className=self.class_name_rows,
                 children=[html.Td(val) for val in row['data']],
                 **(
                     {
@@ -120,13 +129,13 @@ class Table:
                 rows.append(nested_row)
 
         return html.Table(
-            className=self.class_name,
+            className=self.class_name_table,
             children=[
                 html.Thead(
                     children=[
                         html.Tr(
                             children=[
-                                html.Th(header, scope="col") for header in self.headers
+                                html.Th(header, scope="col", className=self.class_name_headers) for header in self.headers
                             ]
                         )
                     ]
