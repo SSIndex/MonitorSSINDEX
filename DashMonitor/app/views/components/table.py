@@ -16,15 +16,15 @@ class Table:
         Each dictionary must contain a key 'data' with a list of values corresponding to the main table's row data.
         Optionally, a dictionary can contain:
         - 'nested_headers': List of strings representing headers for the nested table (if present).
-          Example: {'data': ['Row 2', 'Value 2'], 'nested_headers': ['Nested Header 1', 'Nested Header 2']}
+          Example: 'nested_headers': ['Nested Header 1', 'Nested Header 2']
         - 'nested_data': List of lists, where each inner list represents a row of data for the nested table.
-          Example: {'data': ['Row 2', 'Value 2'], 'nested_data': [['Nested Row 1', 'Nested Value 1']]}
+          Example: 'nested_data': [['Nested Value 1', 'Nested Value 2']]
     class_name : Optional[str], default None
-        Custom class name to apply to the main table. Defaults to '_BASE_CLASS_NAME'.
+        Custom class name to apply to the main table. Defaults to _BASE_CLASS_NAME.
     Data payload example:
     data = [
         {"data": [html.Div("Row 1"), html.Div("Value 1")]},
-        {"data": ["Row 2", "Value 2"], "nested_data": [["Nested Value 1", "Nested Value 2"]], "nested_headers": ["Custom Header 1", "Custom Header 2"]},
+        {"data": ["Row 2", "Value 2"], "nested_data": [["Nested Value 1", "Nested Value 2"]], "nested_headers": ["Custom Header 1", "Custom Header 2"],
         {"data": ["Row 3", "Value 3"]},
         {"data": ["Row 4", "Value 4"], "nested_data": [[html.Div("Nested Value 3")]]},
     ]
