@@ -1,7 +1,7 @@
 
 from dash import html
 from DashMonitor.app.views.components.base_component import BaseComponent
-
+from typing import Optional
 
 class Card(BaseComponent):
     """
@@ -31,7 +31,10 @@ class Card(BaseComponent):
 
     _BASE_CARD_CLASS_NAME = 'card text-bg-primary'
 
-    def __init__(self, company_name: str, industry: str, country: str, company_image: str, overview: str, overview_text: str, overview_graph: BaseComponent, text_color: str = None, background_color: str = None):
+    def __init__(self, company_name: str, industry: str, country: str, company_image: str, 
+             overview: str, overview_text: str, overview_graph: BaseComponent, 
+             text_color: Optional[str] = None, background_color: Optional[str] = None):
+        
         self.company_name = company_name
         self.industry = industry
         self.country = country
