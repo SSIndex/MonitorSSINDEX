@@ -289,9 +289,14 @@ overview_graph = html.Div(
 SASB_ANALYSIS_LAYOUT = html.Div(
     className="container",
     children=[
+        # Date Picker Section
+        html.Section(
+            className='section pt-3 d-flex justify-content-end',
+            children=[cpt.DatePicker().render()],
+        ),
         # Company Card Section
         html.Section(
-            className="section bg-light pt-3",
+            className='section pt-3',
             children=[
                 cpt.Card(
                     company_name,
@@ -302,56 +307,6 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                     overview_text,
                     overview_graph,
                 ).render(),
-            ],
-        ),
-        html.Section(
-            className="section bg-white pt-3",
-            children=[
-                html.Div(
-                    className="container border-bottom border-dark",
-                    children=[
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-2",
-                                    children=[
-                                        html.H6(
-                                            className="text-end",
-                                            children=["ESG COMPASS Overview:"],
-                                        )
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-10",
-                                    children=[
-                                        html.P(
-                                            className="text-center",
-                                            children=[explanation_sasb_gauge_chart],
-                                        )  # Here goes the overview description
-                                    ],
-                                ),
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        dcc.Graph(id="histogram", figure=fig_hist_sasb)
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        create_result_table(df_sasb),
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
-                )
             ],
         ),
         html.Section(
