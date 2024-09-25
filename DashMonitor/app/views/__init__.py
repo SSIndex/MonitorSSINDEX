@@ -8,8 +8,10 @@ Here Layout and html Building will be defined
 
 # 3rd party imports
 from dash.html import Div
+from dash.dcc import Store
 
 # local imports
+from DashMonitor.app.data.providers import FileStreamProvider
 from DashMonitor.app.views.configs import (
     EXTERNAL_SCRIPTS,
     EXTERNAL_STYLESHEETS,
@@ -21,38 +23,57 @@ from DashMonitor.app.views import components as cpt
 from DashMonitor.app.views import layouts as lyt
 
 
+main_df_provider = FileStreamProvider(
+    '/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv'
+)
+
+GLOBAL_STATE = [
+    Store(id='stateCompanyName', data={}, storage_type='local'),
+    Store(id='stateMainDataFrame', data={}),
+]
+
+
 ENTRY_LAYOUT = Div(
     className='m-0 p-0',
-    children=list(
-        map(
-            lambda x: x.render(),
-            (
-                cpt.Header(
-                    'https://elasticbeanstalk-us-east-1-518344696083.s3.amazonaws.com/esg3-static-files/app/images/Branding2023/03+Isotipo/SVG/4-Negativo+Isotipo.svg',
-                    'ESG COMPASS',
-                    tabs=[
-                        cpt.HeaderTabBtn('GENERAL'),
-                        cpt.HeaderTabBtn('SASB'),
-                        cpt.HeaderTabBtn('SSINDEX'),
-                        cpt.HeaderTabBtn('MAP'),
-                        cpt.HeaderTabBtn('BENCHMARK'),
-                    ],
+    children=[
+        *GLOBAL_STATE,
+        *list(
+            map(
+                lambda x: x.render(),
+                (
+                    cpt.Header(
+                        'https://elasticbeanstalk-us-east-1-518344696083.s3.amazonaws.com/esg3-static-files/app/images/Branding2023/03+Isotipo/SVG/4-Negativo+Isotipo.svg',
+                        'ESG COMPASS',
+                        tabs=[
+                            cpt.HeaderTabBtn('GENERAL'),
+                            cpt.HeaderTabBtn('SASB'),
+                            cpt.HeaderTabBtn('SSINDEX'),
+                            cpt.HeaderTabBtn('MAP'),
+                            cpt.HeaderTabBtn('BENCHMARK'),
+                        ],
+                    ),
+                    cpt.Main(
+                        tab_bodies=[
+                            cpt.MainTabPanel(
+                                'GENERAL', view=lyt.GENERAL_ANALYSIS_LAYOUT
+                            ),
+                            cpt.MainTabPanel('SASB', view=lyt.SASB_ANALYSIS_LAYOUT),
+                            cpt.MainTabPanel(
+                                'SSINDEX', view=lyt.SSINDEX_ANALYSIS_LAYOUT
+                            ),
+                            cpt.MainTabPanel(
+                                'MAP', view=lyt.GEOGRAPHIC_ANALYSIS_LAYOUT
+                            ),
+                            cpt.MainTabPanel(
+                                'BENCHMARK', view=lyt.BENCHMARK_ANALYSIS_LAYOUT
+                            ),
+                        ]
+                    ),
+                    cpt.Footer(),
                 ),
-                cpt.Main(
-                    tab_bodies=[
-                        cpt.MainTabPanel('GENERAL', view=lyt.GENERAL_ANALYSIS_LAYOUT),
-                        cpt.MainTabPanel('SASB', view=lyt.SASB_ANALYSIS_LAYOUT),
-                        cpt.MainTabPanel('SSINDEX', view=lyt.SSINDEX_ANALYSIS_LAYOUT),
-                        cpt.MainTabPanel('MAP', view=lyt.GEOGRAPHIC_ANALYSIS_LAYOUT),
-                        cpt.MainTabPanel(
-                            'BENCHMARK', view=lyt.BENCHMARK_ANALYSIS_LAYOUT
-                        ),
-                    ]
-                ),
-                cpt.Footer(),
-            ),
-        )
-    ),
+            )
+        ),
+    ],
 )
 
 

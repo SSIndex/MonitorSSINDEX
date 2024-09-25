@@ -9,3 +9,4 @@ will be defined here.
 
 # local imports
 from DashMonitor.app.handlers.tab_utils import TabArgsProvider
+from DashMonitor.app.handlers import graphics_utils as gu

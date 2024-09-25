@@ -14,19 +14,14 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 # local imports
-from ...handlers.function_utils import (
+from DashMonitor.app.handlers.function_utils import (
     categorize_score,
     create_result_table,
     create_gauge_chart,
     create_gauge_chart_ssindex,
 )
+from DashMonitor.app.handlers import gu
 
-category_order = ["Universe", "Industry", "Company"]
-custom_colors = {
-    "Universe": "#1f77b4",  # Blue
-    "Industry": "#2ca02c",  # Green
-    "Company": "#ff7f0e",  # Orange
-}
 
 bkn = "Webster Bank"
 
@@ -67,7 +62,7 @@ obj_bank_totals_corrected = (
     obj_bank["Sentiment_Category"].value_counts(normalize=True) * 100
 )
 percentage_data_corrected = []
-for category in ["Poor", "Low", "Medium", "Good", "Excellent"]:
+for category in gu.CATEGORY_ORDER:
     percentage_data_corrected.append(
         {
             "Category": category,
@@ -107,8 +102,8 @@ fig_hist_general = px.bar(
     barmode="group",
     text="Percentage",
     height=400,
-    category_orders={"Type": category_order},
-    color_discrete_map=custom_colors,
+    category_orders={"Type": gu.CATEGORY_ORDER},
+    color_discrete_map=gu.CUSTOM_COLORS,
 )
 fig_hist_general.update_traces(texttemplate="%{text:.2f}%", textposition="outside")
 fig_hist_general.update_layout(
@@ -182,6 +177,7 @@ for index, row in score_by_pillar.iterrows():
         )
     )
 
+# ------------------------------------------------------------------------------
 GENERAL_ANALYSIS_LAYOUT = html.Div(
     className="container",
     children=[
