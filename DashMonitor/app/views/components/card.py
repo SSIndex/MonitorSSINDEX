@@ -68,7 +68,7 @@ class Card(BaseComponent):
                     className='card-body',
                     children=[
                         html.Div(
-                            className='row gx-5 pt-3 pb-3 ps-5 pe-5',
+                            className='row gx-5 pt-3 pb-3 ps-5 pe-5 align-items-center',
                             children=[
                                 html.Div(
                                     className='col-6',
@@ -123,7 +123,7 @@ class Card(BaseComponent):
                                     ],
                                 ),
                                 html.Div(
-                                    className='col-6 border rounded',
+                                    className='col-6',
                                     children=[self.overview_graph],
                                 ),
                             ],
