@@ -5,10 +5,6 @@ Configs module with all view related configurations and constants.
 HTML_TITLE = 'ESG COMPASS'
 
 EXTERNAL_STYLESHEETS = [
-    {
-        'rel': 'stylesheet',
-        'href': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',  # Bootstrap
-    }
 ]
 
 EXTERNAL_SCRIPTS = [
