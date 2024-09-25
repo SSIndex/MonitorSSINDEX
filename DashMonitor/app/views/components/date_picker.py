@@ -4,17 +4,19 @@ from datetime import date, timedelta
 
 
 class DatePicker(BaseComponent):
-    """
+    '''
     Date Picker Component. Generates a date picker component which allows the user to select a date
     and predefined ranges like 'Today', '5 days', etc.
-    """
+    '''
 
     # Constants for labels and button IDs
     BUTTON_LABELS = ['Today', '5 days', '1 month', '3 months', '6 months', '1 year']
     BUTTON_IDS = [f'btn-nclicks-{i}' for i in range(len(BUTTON_LABELS))]
+    DATE_RANGES = [5, 30, 90, 180, 365]  # Corresponding ranges
 
-    def __init__(self):
-        pass
+    # Styles for predefined ranges buttons
+    STYLE_SELECTED_BUTTON = 'btn btn-primary m-1'
+    STYLE_UNSELECTED_BUTTON = 'btn btn-outline-primary m-1'
 
     def render(self):
         return html.Div(
@@ -30,6 +32,7 @@ class DatePicker(BaseComponent):
                         'data-bs-target': '#date-picker-container',
                     },
                 ),
+                # Collapsible container for Date Picker
                 html.Div(
                     id='date-picker-container',
                     className='collapse',
@@ -41,13 +44,14 @@ class DatePicker(BaseComponent):
                                 html.Div(
                                     className='mb-2',
                                     children=[
+                                        # Buttons for predefined date ranges
                                         html.Div(
                                             className='text-center',
                                             children=[
                                                 html.Button(
                                                     label,
                                                     type='button',
-                                                    className='btn btn-outline-primary m-1',
+                                                    className=DatePicker.STYLE_UNSELECTED_BUTTON,
                                                     id=btn_id,
                                                     n_clicks=0,
                                                 )
@@ -58,7 +62,7 @@ class DatePicker(BaseComponent):
                                         ),
                                     ],
                                 ),
-                                # Date Picker
+                                # Calendar Date Picker
                                 html.Div(
                                     className='text-center',
                                     children=[
@@ -68,7 +72,7 @@ class DatePicker(BaseComponent):
                                         ),
                                     ],
                                 ),
-                                # Submit Button
+                                # Submit Filter Button
                                 html.Div(
                                     className='text-center mt-3',
                                     children=[
@@ -87,6 +91,23 @@ class DatePicker(BaseComponent):
             ]
         )
 
+    @staticmethod
+    def calculate_date_range(selected_index: int) -> str:
+        '''Static helper method to calculate date range based on selected button.'''
+        today = date.today()
+        # Today button selected
+        if selected_index == 0:
+            return f"{today}"
+        # Custom range selected from DATE_RANGES
+        if selected_index in range(1, 6):
+            start_date = today - timedelta(
+                days=DatePicker.DATE_RANGES[selected_index - 1]
+            )
+            return f"{start_date} - {today}"
+
+        # Default label if no range is selected
+        return f"{today - timedelta(days=365)} - {today}"
+
     @callback(
         Output('date-picker-button', 'children'),
         Input('submit-btn', 'n_clicks'),
@@ -94,52 +115,27 @@ class DatePicker(BaseComponent):
         State('date-picker-range', 'end_date'),
         [State(btn_id, 'className') for btn_id in BUTTON_IDS],
     )
-    def display_submission_info(n_clicks, start_date, end_date, *button_classes):
-        today = date.today()
+    def display_submission_info(
+        n_clicks, start_date: str, end_date: str, *button_classes
+    ):
+        '''
+        Display the existing date range filter in the Time Frame button.
+        '''
+        # Custom or single date range was manually selected
+        if start_date:
+            return f'{start_date} - {end_date}' if end_date else f'{start_date}'
 
-        # If a custom date range was manually selected
-        if start_date and end_date:
-            # Show the selected range as "start-date - end-date"
-            date_range_text = f'{start_date} - {end_date}'
-
-            # Change the button style to outline
-            return date_range_text
-
-        # Check which predefined date button is selected
+        # Predefined button selected
         selected_index = next(
             (
                 i
                 for i, class_name in enumerate(button_classes)
-                if 'btn-primary' in class_name
+                if DatePicker.STYLE_SELECTED_BUTTON in class_name
             ),
             None,
         )
-
-        # Calculate the date ranges based on the selected button
-        if selected_index is not None:
-            if selected_index == 0:  # Today
-                return f"{today}"
-            elif selected_index == 1:  # Last 5 days
-                start_date = today - timedelta(days=5)
-                return f"{start_date} - {today}"
-            elif selected_index == 2:  # Last 1 month
-                start_date = today - timedelta(days=30)
-                return f"{start_date} - {today}"
-            elif selected_index == 3:  # Last 3 months
-                start_date = today - timedelta(days=90)
-                return f"{start_date} - {today}"
-            elif selected_index == 4:  # Last 6 months
-                start_date = today - timedelta(days=180)
-                return f"{start_date} - {today}"
-            elif selected_index == 5:  # Last 1 year
-                start_date = today - timedelta(days=365)
-                return f"{start_date} - {today}"
-
-        # Default return if nothing is selected
-        default_label = (
-            f"{today - timedelta(days=365)} - {today}"  # Default button label (1 year)
-        )
-        return default_label
+        # Calculate date range based on selected button
+        return DatePicker.calculate_date_range(selected_index)
 
     @callback(
         [Output(btn_id, 'className') for btn_id in BUTTON_IDS],
@@ -148,11 +144,14 @@ class DatePicker(BaseComponent):
         Input('date-picker-range', 'end_date'),
     )
     def update_button_style(*button_clicks):
+        '''
+        Update button styles of predefined date ranges. If a button is clicked, it will be highlighted.
+        '''
         # Default to outline for all buttons
-        btn_classes = ['btn btn-outline-primary m-1'] * len(DatePicker.BUTTON_IDS)
+        btn_classes = [DatePicker.STYLE_UNSELECTED_BUTTON] * len(DatePicker.BUTTON_IDS)
         triggered_id = ctx.triggered_id
         # Set clicked button to primary
         if triggered_id in DatePicker.BUTTON_IDS:
             btn_index = DatePicker.BUTTON_IDS.index(triggered_id)
-            btn_classes[btn_index] = 'btn btn-primary m-1'
+            btn_classes[btn_index] = DatePicker.STYLE_SELECTED_BUTTON
         return btn_classes
