@@ -7,3 +7,4 @@ from DashMonitor.app.views.components.main import Main, MainTabPanel
 from DashMonitor.app.views.components.footer import Footer
 from DashMonitor.app.views.components.card import Card
 from DashMonitor.app.views.components.date_picker import DatePicker
+from DashMonitor.app.views.components.table import Table
