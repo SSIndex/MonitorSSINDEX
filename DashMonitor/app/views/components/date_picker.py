@@ -35,11 +35,10 @@ class DatePicker(BaseComponent):
                 # Collapsible container for Date Picker
                 html.Div(
                     id='date-picker-container',
-                    className='collapse',
+                    className='collapse z-3 position-absolute bg-white border rounded shadow-lg w-25',
                     children=[
                         html.Div(
-                            className='d-flex flex-column mt-4 mb-5 border p-3',
-                            style={'width': '30%'},
+                            className='d-flex flex-column mt-4 mb-3 p-1',
                             children=[
                                 html.Div(
                                     className='mb-2',
