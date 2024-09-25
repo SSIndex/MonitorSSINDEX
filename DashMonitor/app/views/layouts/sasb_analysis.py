@@ -20,6 +20,7 @@ from DashMonitor.app.handlers.function_utils import (
     create_gauge_chart,
     create_gauge_chart_ssindex,
 )
+from DashMonitor.app.views import components as cpt
 
 category_order = ["Universe", "Industry", "Company"]
 custom_colors = {
@@ -273,66 +274,34 @@ fig_risk_sasb.update_layout(
         ),
     ],
 )
+
+company_name = bkn  # 'Webster Bank'
+industry = 'Bank'
+country = 'EEUU'
+company_image = 'https://wallpaperaccess.com/full/1642272.jpg'
+overview = 'Medium'
+overview_text = 'This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents.'
+overview_graph = html.Div(
+    className="col",
+    children=[dcc.Graph(id="gauge-chart", figure=sasb_gauge_chart)],
+)
+
 SASB_ANALYSIS_LAYOUT = html.Div(
     className="container",
     children=[
+        # Company Card Section
         html.Section(
             className="section bg-light pt-3",
             children=[
-                html.Div(
-                    className="container border-bottom border-dark",
-                    children=[
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-12 justify-content-end",
-                                    children=[
-                                        html.P(
-                                            children=[
-                                                "2024-06-12"
-                                            ]  # Here Goes the Date of last data extracted
-                                        )
-                                    ],
-                                )
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        html.Div(
-                                            className="row",
-                                            children=[
-                                                html.H4(children=[bkn])
-                                            ],  # Here goes Company Name
-                                        ),
-                                        html.Div(
-                                            className="row",
-                                            children=[
-                                                html.P(
-                                                    children=[
-                                                        "Bank | EEUU | Market Name"
-                                                    ]
-                                                )
-                                            ],  # Here goes Company Details
-                                        ),
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        dcc.Graph(
-                                            id="gauge-chart", figure=sasb_gauge_chart
-                                        )
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
-                )
+                cpt.Card(
+                    company_name,
+                    industry,
+                    country,
+                    company_image,
+                    overview,
+                    overview_text,
+                    overview_graph,
+                ).render(),
             ],
         ),
         html.Section(
