@@ -2,6 +2,9 @@
 Configs module with all view related configurations and constants.
 '''
 
+# local imports
+from DashMonitor.app.data.providers import FileStreamProvider
+
 HTML_TITLE = 'ESG COMPASS'
 
 EXTERNAL_STYLESHEETS = []
@@ -15,6 +18,10 @@ EXTERNAL_SCRIPTS = [
         'src': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
     },
 ]
+
+main_df_provider = FileStreamProvider(
+    '/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv'
+)
 
 
 def get_main_html() -> str:
