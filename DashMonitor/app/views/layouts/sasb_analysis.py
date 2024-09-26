@@ -471,184 +471,86 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                 )
             ],
         ),
-        html.Section(
-            className="section bg-light pt-3",
-            children=[
-                html.Div(
-                    className="container border-bottom border-dark",
-                    children=[
-                        html.Div(
-                            className="row",
-                            children=[html.H3(children=["Analisis SASB"])],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-12",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=gauge_figures_2,
-                                )
-                            ],
-                        ),
-                    ],
-                )
-            ],
-        ),
-        html.Section(
-            className="section bg-light pt-3",
-            children=[
-                html.Div(
-                    className="container border-bottom border-dark",
-                    children=[
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.H3(children=["Analisis Geografico Pilar SASB"])
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-6",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=dcc.Graph(id="sasb-map"),
-                                ),
-                                html.Div(
-                                    className="col-6",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=html.Div(id="sasb-table"),
-                                ),
-                            ],
-                        ),
-                    ],
-                )
-            ],
-        ),
-        html.Section(
-            className="section bg-light pt-3",
-            children=[
-                html.Div(
-                    className="container border-bottom border-dark",
-                    children=[
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.H3(children=["Analisis De Impacto y Riesgo SASB"])
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-12",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=[
-                                        dcc.Graph(id="risk-fig", figure=fig_risk_sasb)
-                                    ],
-                                )
-                            ],
-                        ),
-                    ],
-                )
-            ],
-        ),
     ],
 )
 
 
 def register_callbacks(app):
-    @app.callback(
-        [Output("sasb-map", "figure"), Output("sasb-table", "children")],
-        [Input("sasb-map", "clickData")],
-    )
-    def update_sasb_map(click_data):
-        filtered_df = df_sasb.copy()
-        filtered_df = filtered_df[filtered_df["Bank Name"] == bkn]
-        df_grouped = (
-            filtered_df.groupby("state").agg({"Sentiment_Score": "mean"}).reset_index()
-        )
-        df_grouped["color"] = df_grouped["Sentiment_Score"].apply(
-            lambda x: "blue" if x > 0 else "red"
-        )
+    pass
+    # @app.callback(
+    #     [Output("sasb-map", "figure"), Output("sasb-table", "children")],
+    #     [Input("sasb-map", "clickData")],
+    # )
+    # def update_sasb_map(click_data):
+    #     filtered_df = df_sasb.copy()
+    #     filtered_df = filtered_df[filtered_df["Bank Name"] == bkn]
+    #     df_grouped = (
+    #         filtered_df.groupby("state").agg({"Sentiment_Score": "mean"}).reset_index()
+    #     )
+    #     df_grouped["color"] = df_grouped["Sentiment_Score"].apply(
+    #         lambda x: "blue" if x > 0 else "red"
+    #     )
 
-        fig = go.Figure(
-            data=go.Choropleth(
-                locations=df_grouped["state"],
-                z=df_grouped["Sentiment_Score"],
-                locationmode="USA-states",
-                colorscale="Blues",
-                marker_line_color="white",
-            )
-        )
-        fig.update_layout(
-            title_text=f"Average Sentiment Score by State for {bkn}",
-            geo_scope="usa",
-        )
-        reviews_table = html.Table()
-        if click_data:
-            state = click_data["points"][0]["location"]
-            reviews = filtered_df[filtered_df["state"] == state][
-                ["Review", "Sentiment_Score", "Bank Name"]
-            ].head(5)
-            reviews_table = html.Table(
-                [
-                    html.Thead(
-                        html.Tr(
-                            [
-                                html.Th(
-                                    col,
-                                    style={
-                                        "padding": "10px",
-                                        "border": "1px solid black",
-                                    },
-                                )
-                                for col in reviews.columns
-                            ]
-                        )
-                    ),
-                    html.Tbody(
-                        [
-                            html.Tr(
-                                [
-                                    html.Td(
-                                        reviews.iloc[i][col],
-                                        style={
-                                            "padding": "10px",
-                                            "border": "1px solid black",
-                                        },
-                                    )
-                                    for col in reviews.columns
-                                ]
-                            )
-                            for i in range(len(reviews))
-                        ]
-                    ),
-                ],
-                style={
-                    "width": "100%",
-                    "borderCollapse": "collapse",
-                    "marginTop": "20px",
-                },
-            )
-        return fig, reviews_table
+    #     fig = go.Figure(
+    #         data=go.Choropleth(
+    #             locations=df_grouped["state"],
+    #             z=df_grouped["Sentiment_Score"],
+    #             locationmode="USA-states",
+    #             colorscale="Blues",
+    #             marker_line_color="white",
+    #         )
+    #     )
+    #     fig.update_layout(
+    #         title_text=f"Average Sentiment Score by State for {bkn}",
+    #         geo_scope="usa",
+    #     )
+    #     reviews_table = html.Table()
+    #     if click_data:
+    #         state = click_data["points"][0]["location"]
+    #         reviews = filtered_df[filtered_df["state"] == state][
+    #             ["Review", "Sentiment_Score", "Bank Name"]
+    #         ].head(5)
+    #         reviews_table = html.Table(
+    #             [
+    #                 html.Thead(
+    #                     html.Tr(
+    #                         [
+    #                             html.Th(
+    #                                 col,
+    #                                 style={
+    #                                     "padding": "10px",
+    #                                     "border": "1px solid black",
+    #                                 },
+    #                             )
+    #                             for col in reviews.columns
+    #                         ]
+    #                     )
+    #                 ),
+    #                 html.Tbody(
+    #                     [
+    #                         html.Tr(
+    #                             [
+    #                                 html.Td(
+    #                                     reviews.iloc[i][col],
+    #                                     style={
+    #                                         "padding": "10px",
+    #                                         "border": "1px solid black",
+    #                                     },
+    #                                 )
+    #                                 for col in reviews.columns
+    #                             ]
+    #                         )
+    #                         for i in range(len(reviews))
+    #                     ]
+    #                 ),
+    #             ],
+    #             style={
+    #                 "width": "100%",
+    #                 "borderCollapse": "collapse",
+    #                 "marginTop": "20px",
+    #             },
+    #         )
+    #     return fig, reviews_table
 
 
 def register_layout_and_callbacks_sasb(app):
