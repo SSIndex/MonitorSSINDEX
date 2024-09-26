@@ -45,7 +45,7 @@ class Table:
         ]
     """
 
-    _BASE_CLASS_NAME = 'table table-borderless table-hover table-responsive mt-4'
+    _BASE_CLASS_NAME = 'table table-borderless table-responsive mt-4'
     _BASE_DIV_CLASS_NAME = 'bg-white rounded p-3 shadow-sm'
 
     def __init__(
@@ -80,28 +80,50 @@ class Table:
         '''
         return html.Tr(
             children=html.Td(
+                className='table-ssindex-nested-table-background text-center rounded-3',
                 colSpan=len(self.headers),
                 children=[
                     html.Div(
                         className=f'nestedTable{index}',
                         children=html.Table(
-                            className='table table-bordered table-hover table-responsive',
+                            className='table table-borderless table-responsive table-ssindex-nested-table-background rounded',
                             children=[
                                 html.Thead(
+                                    className='text-center table-white align-middle',
                                     children=[
                                         html.Tr(
+                                            className='text-center',
                                             children=[
-                                                html.Th(header, scope='col')
-                                                for header in nested_headers
-                                            ]
+                                                html.Th(
+                                                    header,
+                                                    className=(
+                                                        'text-center table-white fs-7'
+                                                        + (
+                                                            ' rounded-start-4 '
+                                                            if i == 0
+                                                            else ''
+                                                        )
+                                                        + (
+                                                            ' rounded-end-4'
+                                                            if i
+                                                            == len(nested_headers) - 1
+                                                            else ''
+                                                        )
+                                                    ),
+                                                    style={
+                                                        'width': f'{100 / len(nested_headers)}%'
+                                                    },
+                                                )
+                                                for i, header in enumerate(nested_headers)
+                                            ],
                                         )
-                                    ]
+                                    ],
                                 ),
                                 html.Tbody(
                                     children=[
                                         html.Tr(
                                             children=[
-                                                html.Td(val) for val in nested_row
+                                                html.Td(className="text-center align-middle fs-7" ,children=val) for val in nested_row
                                             ]
                                         )
                                         for nested_row in nested_data
@@ -192,18 +214,20 @@ class Table:
                             children=[
                                 html.Tr(
                                     children=[
-                                        html.Th(
-                                            val,
-                                        ) if i == 0 else html.Td(
-                                            val,
-                                            className=(
-                                                'text-center'
-                                            ),
+                                        (
+                                            html.Th(
+                                                val,
+                                            )
+                                            if i == 0
+                                            else html.Td(
+                                                val,
+                                                className=('text-center'),
+                                            )
                                         )
                                         for i, val in enumerate(self.footer_data)
                                     ]
                                 )
-                            ]
+                            ],
                         ),
                     ],
                 ),
