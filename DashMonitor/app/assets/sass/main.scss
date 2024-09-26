@@ -1,27 +1,29 @@
-// custom variables 
-// example: (the following changes the primary color variable of bootstrap to green)
-// $primary: green;
+// custom variables
+$font-family-base: 'Manrope', 'Roboto', 'sans-serif'; // Override bootstrap font-family
 
-// Import the functions and variables
+// Import the functions and variables to define custom-theme-colors
 @import '../../node_modules/bootstrap/scss/functions';
 @import '../../node_modules/bootstrap/scss/variables';
 
-// Definition of theme colors: (for now examples)
+// Definition of theme colors:
 $custom-theme-colors : (
-    'ssindex-primary': #007bff,
-    'ssindex-secondary': #6c757d,
-    'ssindex-success': #28a745,
-    'ssindex-info': #17a2b8,
-    'ssindex-warning': #ffc107,
-    'ssindex-danger': #dc3545,
-    'ssindex-light': #f8f9fa,
-    'ssindex-dark': #343a40,
-    'ssindex-white': #ffffff,
-    'ssindex-black': #000000,
-    'ssindex-gray': #6c757d,
-    'ssindex-gray-dark': #343a40
+    'primary': #452e7a,
+    'secondary': #718EBF,
+    'light': #E8F4FF,
+    'dark': #232323,
+    'ssindex-poor': #FF3E32,
+    'ssindex-low': #F7941C,
+    'ssindex-average': #FFCE29,
+    'ssindex-good': #97CC3E,
+    'ssindex-excellent': #2FB14C,
+    'ssindex-no-data': #D6D6D6,
+    'ssindex-graph-grey': #848484,
+    'ssindex-graph-blue': #0069C0,
+    'ssindex-graph-light-blue': #BFEEFF,
+    'ssindex-graph-purple': #AB3ED8,
 );
 
+// Merge the custom-theme-colors with the default theme-colors from bootstrap
 $theme-colors : map-merge($custom-theme-colors, $theme-colors);
 
 //import bootstrap
