@@ -147,6 +147,7 @@ class Table:
                                     header,
                                     scope='col',
                                     className=self.class_name_headers,
+                                    style={'width': f'{100 / len(self.headers)}%'},
                                 )
                                 for header in self.headers
                             ]
