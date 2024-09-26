@@ -43,7 +43,7 @@ class Table:
         ]
     """
 
-    _BASE_CLASS_NAME = 'table table-bordered table-hover table-responsive mt-4'
+    _BASE_CLASS_NAME = 'table table-borderless table-hover table-responsive mt-4'
     _BASE_DIV_CLASS_NAME = 'bg-white rounded p-3 shadow-sm'
 
     def __init__(
@@ -152,6 +152,7 @@ class Table:
                 className=self.class_name_table,
                 children=[
                     html.Thead(
+                        className='text-center',
                         children=[
                             html.Tr(
                                 children=[
@@ -166,7 +167,7 @@ class Table:
                             )
                         ]
                     ),
-                    html.Tbody(children=rows),
+                    html.Tbody(className="align-middle", children=rows),
                 ],
             )
         ])
