@@ -64,7 +64,9 @@ class Table:
         )
         self.class_name_headers = class_name_headers if class_name_headers else ''
         self.class_name_rows = class_name_rows if class_name_rows else ''
-        self.class_name_div = class_name_div if class_name_div else self._BASE_DIV_CLASS_NAME
+        self.class_name_div = (
+            class_name_div if class_name_div else self._BASE_DIV_CLASS_NAME
+        )
 
     def _render_nested_table(
         self, nested_data: List[List[str]], nested_headers: List[str], index: int
@@ -145,29 +147,39 @@ class Table:
         '''
         rows = self._render_rows()
         return html.Div(
-                className=self.class_name_div,
-                children=[
+            className=self.class_name_div,
+            children=[
                 html.H5(f'{self.table_title}'),
                 html.Table(
-                className=self.class_name_table,
-                children=[
-                    html.Thead(
-                        className='text-center',
-                        children=[
-                            html.Tr(
-                                children=[
-                                    html.Th(
-                                        header,
-                                        scope='col',
-                                        className=self.class_name_headers,
-                                        style={'width': f'{100 / len(self.headers)}%'},
-                                    )
-                                    for header in self.headers
-                                ]
-                            )
-                        ]
-                    ),
-                    html.Tbody(className="align-middle", children=rows),
-                ],
-            )
-        ])
+                    className=self.class_name_table,
+                    children=[
+                        html.Thead(
+                            className='text-center',
+                            children=[
+                                html.Tr(
+                                    children=[
+                                        html.Th(
+                                            header,
+                                            className=(
+                                                self.class_name_headers
+                                                + (' rounded-start-4 ' if i == 0 else '')
+                                                + (
+                                                    ' rounded-end-4'
+                                                    if i == len(self.headers) - 1
+                                                    else ''
+                                                )
+                                            ),
+                                            style={
+                                                'width': f'{100 / len(self.headers)}%'
+                                            },
+                                        )
+                                        for i, header in enumerate(self.headers)
+                                    ]
+                                )
+                            ],
+                        ),
+                        html.Tbody(className="align-middle", children=rows),
+                    ],
+                ),
+            ],
+        )
