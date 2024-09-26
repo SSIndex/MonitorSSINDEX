@@ -18,6 +18,8 @@ class HeaderTabBtn(BaseComponent):
     Header Tab. Each Tab Button associated to a Tab Content for the Main element.
     '''
 
+    # TODO: Change BASE_BUTTON_CLASS_NAME text-light to ssindex-unselected-tab
+    # And ACTIVE_BUTTON_CLASS_NAME text-light active to ssindex-white
     BASE_BUTTON_CLASS_NAME = 'nav-link text-light'
     ACTIVE_BUTTON_CLASS_NAME = 'nav-link text-light active'
 
@@ -129,7 +131,7 @@ class Header(BaseComponent):
         Generate the Dash Component for the Header
         '''
         return html.Header(
-            className='bg-dark text-white',
+            className='bg-ssindex-header text-white',
             children=[
                 html.Nav(
                     className='navbar navbar-expand-lg',

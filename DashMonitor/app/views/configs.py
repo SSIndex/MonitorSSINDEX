@@ -4,8 +4,7 @@ Configs module with all view related configurations and constants.
 
 HTML_TITLE = 'ESG COMPASS'
 
-EXTERNAL_STYLESHEETS = [
-]
+EXTERNAL_STYLESHEETS = []
 
 EXTERNAL_SCRIPTS = [
     {'src': 'https://code.jquery.com/jquery-3.6.0.min.js'},
