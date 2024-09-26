@@ -25,11 +25,43 @@ $custom-theme-colors : (
     'ssindex-table-header-gray':#F1F4F9,
     'ssindex-background-color': #F2F2F2,
     'ssindex-footer-text':  #A3AED0,
+    'ssindex-nested-table-background': #F7F7F7,
+    'white': #FFFFFF,
 
 );
 
 // Merge the custom-theme-colors with the default theme-colors from bootstrap
 $theme-colors : map-merge($theme-colors, $custom-theme-colors);
+$table-variants: map-merge($table-variants, $custom-theme-colors);
+
+// Import utilities
+@import '../../node_modules/bootstrap/scss/maps';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/utilities';
+
+// Define font sizes
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size,
+  7: $font-size-base * 0.85,
+);
+
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "font-size": map-merge(
+      map-get($utilities, "font-size"),
+      (
+        values: $font-sizes,
+      ),
+    ),
+  )
+);
 
 //import bootstrap
 @import '../../node_modules/bootstrap/scss/bootstrap';
