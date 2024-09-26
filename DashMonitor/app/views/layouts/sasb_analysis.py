@@ -275,6 +275,7 @@ fig_risk_sasb.update_layout(
     ],
 )
 
+# Example data for custom components
 company_name = bkn  # 'Webster Bank'
 industry = 'Bank'
 country = 'EEUU'
@@ -285,6 +286,145 @@ overview_graph = html.Div(
     className="col",
     children=[dcc.Graph(id="gauge-chart", figure=sasb_gauge_chart)],
 )
+headers = [
+    "Dimension ESG",
+    "No Data",
+    "Poor",
+    "Low",
+    "Average",
+    "Good",
+    "Excellent",
+    "Score",
+    "Percentil",
+]
+data = [
+    {
+        "data": [
+            html.P(className='text-color-primary', children="Environment"),
+            html.Div(className="bg-ssindex-no-data w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-poor w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-low border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(className="bg-ssindex-average w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-good w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-excellent w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 text-center", children=html.B(className='text-white', children="45%")
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center", children=html.B(className='text-white', children="20th")
+            ),
+        ]
+    },
+    {
+        "data": [
+            "Social Capital",
+            html.Div(className="bg-ssindex-no-data w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-poor border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(className="bg-ssindex-low w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-average w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-good w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-excellent w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 text-center", children=html.B(className='text-white', children="15%")
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center", children=html.B(className='text-white', children="20th")
+            ),
+        ],
+        "nested_data": [
+            ["Nested Value 1", "Nested Value 2"],
+            ["Nested Value 3", "Nested Value 4"],
+        ],
+        "nested_headers": ["Review", "Sentiment Score"],
+    },
+    {
+        "data": [
+            "Human Capital",
+            html.Div(className="bg-ssindex-no-data w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-poor w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-low w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-average border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(className="bg-ssindex-good w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-excellent w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 text-center", children=html.B(className='text-white', children="30%")
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center", children=html.B(className='text-white', children="20th")
+            ),
+        ]
+    },
+    {
+        "data": [
+            "Business Model & Innovation",
+            html.Div(className="bg-ssindex-no-data w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-poor w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-low w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-average w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-good border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(className="bg-ssindex-excellent w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center", children=html.B(className='text-white', children="65%")
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center", children=html.B(className='text-white',children="20th")
+            ),
+        ]
+    },
+    {
+        "data": [
+            "Leadership & Governance",
+            html.Div(className="bg-ssindex-no-data opacity-50 w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-poor w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-low w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-average w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-good w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 border border-dark border-4",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center", children=html.B(className='text-white', children="95%")
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center", children=html.B(className='text-white', children="20th")
+            ),
+        ]
+    },
+    {
+        "data": [
+            "Others",
+            html.Div(
+                className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(className="bg-ssindex-poor w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-low w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-average w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-good w-100 h-100", children="\u200B"),
+            html.Div(className="bg-ssindex-excellent w-100 h-100", children="\u200B"),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center", children=html.B(className='text-white', children="0%")
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center", children=html.B(className='text-white', children="0th")
+            ),
+        ]
+    },
+]
+class_name_headers = 'bg-ssindex-table-header-gray'
 
 SASB_ANALYSIS_LAYOUT = html.Div(
     className="container",
@@ -307,6 +447,27 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                     overview_text,
                     overview_graph,
                 ).render(),
+            ],
+        ),
+        html.Section(
+            className="section pt-5",
+            children=[
+                html.Div(
+                    children=[
+                        html.H4(
+                            className="text-primary",
+                            children=['SASB Impact Analysis']),
+                        html.P(
+                            className='ssindex-graph-grey',
+                            children=['Stakeholders evaluate how the company is performing according to the Sustainability Accounting Standards Board (SASB)smethodology']
+                        ),
+                        cpt.Table(
+                            headers=headers,
+                            data=data,
+                            class_name_headers=class_name_headers,
+                        ).render()
+                    ]
+                )
             ],
         ),
         html.Section(
