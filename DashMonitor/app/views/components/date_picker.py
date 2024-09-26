@@ -26,7 +26,7 @@ class DatePicker(BaseComponent):
                 html.Button(
                     children=f'{date.today() - timedelta(days=365)} - {date.today()}',
                     id='date-picker-button',
-                    className='btn btn-secondary m-1',
+                    className='btn m-1 border border-dark text-ssindex-graph-grey',
                     **{
                         'data-bs-toggle': 'collapse',
                         'data-bs-target': '#date-picker-container',
