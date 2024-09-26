@@ -19,6 +19,8 @@ class Table:
           Example: 'nested_headers': ['Nested Header 1', 'Nested Header 2']
         - 'nested_data': List of lists, where each inner list represents a row of data for the nested table.
           Example: 'nested_data': [['Nested Value 1', 'Nested Value 2']]
+    footer_data : List[str]
+        List of values to display in the footer row of the table. Example: ['Total', 'Value 1', 'Value 2'].
     table_title : Optional[str], default ''
         Title to display above the table. Defaults to an empty string.
     class_name_table : Optional[str], default None
@@ -50,6 +52,7 @@ class Table:
         self,
         headers: List[str],
         data: List[Dict[str, Any]],
+        footer_data: Optional[List[str]] = [],
         table_title: Optional[str] = '',
         class_name_table: Optional[str] = None,
         class_name_headers: Optional[str] = None,
@@ -59,6 +62,7 @@ class Table:
         self.table_title = table_title
         self.headers = headers
         self.data = data
+        self.footer_data = footer_data
         self.class_name_table = (
             class_name_table if class_name_table else self._BASE_CLASS_NAME
         )
@@ -162,7 +166,11 @@ class Table:
                                             header,
                                             className=(
                                                 self.class_name_headers
-                                                + (' rounded-start-4 ' if i == 0 else '')
+                                                + (
+                                                    ' rounded-start-4 '
+                                                    if i == 0
+                                                    else ''
+                                                )
                                                 + (
                                                     ' rounded-end-4'
                                                     if i == len(self.headers) - 1
@@ -179,6 +187,24 @@ class Table:
                             ],
                         ),
                         html.Tbody(className="align-middle", children=rows),
+                        html.Tfoot(
+                            className='border-top',
+                            children=[
+                                html.Tr(
+                                    children=[
+                                        html.Th(
+                                            val,
+                                        ) if i == 0 else html.Td(
+                                            val,
+                                            className=(
+                                                'text-center'
+                                            ),
+                                        )
+                                        for i, val in enumerate(self.footer_data)
+                                    ]
+                                )
+                            ]
+                        ),
                     ],
                 ),
             ],
