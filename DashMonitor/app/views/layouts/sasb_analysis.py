@@ -458,13 +458,14 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                             className="text-primary",
                             children=['SASB Impact Analysis']),
                         html.P(
-                            className='ssindex-graph-grey',
+                            className='text-ssindex-graph-grey',
                             children=['Stakeholders evaluate how the company is performing according to the Sustainability Accounting Standards Board (SASB)smethodology']
                         ),
                         cpt.Table(
                             headers=headers,
                             data=data,
                             class_name_headers=class_name_headers,
+                            table_title='Overall Score SASB',
                         ).render()
                     ]
                 )
