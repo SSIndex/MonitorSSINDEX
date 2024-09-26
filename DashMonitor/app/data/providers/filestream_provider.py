@@ -24,4 +24,4 @@ class FileStreamProvider(BaseProvider):
         self.__df = pd_read_csv(path)
 
     def __call__(self):
-        return self.__df
+        return self.__df.copy()
