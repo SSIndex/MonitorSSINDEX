@@ -11,7 +11,6 @@ from dash.html import Div
 from dash.dcc import Store
 
 # local imports
-from DashMonitor.app.data.providers import FileStreamProvider
 from DashMonitor.app.views.configs import (
     EXTERNAL_SCRIPTS,
     EXTERNAL_STYLESHEETS,
@@ -21,11 +20,6 @@ from DashMonitor.app.views.configs import (
 
 from DashMonitor.app.views import components as cpt
 from DashMonitor.app.views import layouts as lyt
-
-
-main_df_provider = FileStreamProvider(
-    '/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv'
-)
 
 GLOBAL_STATE = [
     Store(id='stateCompanyName', data={}, storage_type='local'),
