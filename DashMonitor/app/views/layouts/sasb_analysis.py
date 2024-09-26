@@ -297,6 +297,11 @@ headers = [
     "Score",
     "Percentil",
 ]
+nested_headers = ["Review", "Sentiment Score", "Category", "ESG Pilar", "Dimension", "Territory or State", "City", "Date", "Source"]
+nested_data = [[html.P(children="I called and called an no one answered the phone"), html.P("8%"), html.P(className="text-ssindex-poor", children="Poor"), html.P("Social External"), html.P("Complaints"), html.P("New York"), html.P("New York"), html.P("2021-01-01"), html.P("Google")],
+               [html.P("I called and called an no one answered the phone"), html.P("12%"), html.P(className="text-ssindex-poor", children="Poor"), html.P("Social External"), html.P("Complaints"), html.P("California"), html.P("Los Angeles"), html.P("2021-01-01"), html.P("Instagram")],
+                [html.P("I had a problem with one of the products, called, no one answered, then sent an email and the got back to me in two days. Fortunately the problem was solved"), html.P("54%"), html.P(className='text-ssindex-average',children="Average"), html.P("Social External"), html.P("Complaints"), html.P("Texas"), html.P("Houston"), html.P("2021-01-01"), html.P("Facebook")],
+               ]
 data = [
     {
         "data": [
@@ -365,11 +370,8 @@ data = [
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
-        "nested_data": [
-            ["Nested Value 1", "Nested Value 2"],
-            ["Nested Value 3", "Nested Value 4"],
-        ],
-        "nested_headers": ["Review", "Sentiment Score"],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
     },
     {
         "data": [
