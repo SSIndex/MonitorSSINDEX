@@ -7,7 +7,7 @@ $font-family-base: 'Manrope', 'Roboto', 'sans-serif'; // Override bootstrap font
 
 // Definition of theme colors:
 $custom-theme-colors : (
-    'primary': #452e7a,
+    'primary':#333B69,
     'secondary': #718EBF,
     'light': #E8F4FF,
     'dark': #232323,
@@ -17,14 +17,17 @@ $custom-theme-colors : (
     'ssindex-good': #97CC3E,
     'ssindex-excellent': #2FB14C,
     'ssindex-no-data': #D6D6D6,
+    'ssindex-card-blue': #4880FF,
     'ssindex-graph-grey': #848484,
     'ssindex-graph-blue': #0069C0,
     'ssindex-graph-light-blue': #BFEEFF,
     'ssindex-graph-purple': #AB3ED8,
+    'ssindex-table-header-gray':#F1F4F9,
+
 );
 
 // Merge the custom-theme-colors with the default theme-colors from bootstrap
-$theme-colors : map-merge($custom-theme-colors, $theme-colors);
+$theme-colors : map-merge($theme-colors, $custom-theme-colors);
 
 //import bootstrap
 @import '../../node_modules/bootstrap/scss/bootstrap';
