@@ -314,7 +314,7 @@ data = [
                 className="bg-ssindex-low w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="45%")
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="20th")
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="20th")
             ),
         ]
     },
@@ -334,7 +334,7 @@ data = [
                 className="bg-ssindex-poor w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="15%")
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="20th")
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="20th")
             ),
         ],
         "nested_data": [
@@ -359,7 +359,7 @@ data = [
                 className="bg-ssindex-average w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="30%")
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="20th")
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="20th")
             ),
         ]
     },
@@ -379,7 +379,7 @@ data = [
                 className="bg-ssindex-good w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="65%")
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 text-center border rounded", children=html.B(className='text-white',children="20th")
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded", children=html.B(className='text-white',children="20th")
             ),
         ]
     },
@@ -399,7 +399,7 @@ data = [
                 className="bg-ssindex-excellent w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="95%")
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="20th")
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded", children=html.B(className='text-white', children="20th")
             ),
         ]
     },
