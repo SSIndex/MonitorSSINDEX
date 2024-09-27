@@ -74,7 +74,7 @@ class Card(BaseComponent):
                                     className='col-6',
                                     children=[
                                         html.Div(
-                                            className='d-flex gap-4 align-items-center',
+                                            className='d-flex gap-4',
                                             children=[
                                                 html.Div(
                                                     html.Img(
