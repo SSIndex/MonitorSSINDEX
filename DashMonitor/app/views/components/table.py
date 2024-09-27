@@ -182,7 +182,7 @@ class Table:
                     className=self.class_name_table,
                     children=[
                         html.Thead(
-                            className='text-center',
+                            className='text-center align-middle',
                             children=[
                                 html.Tr(
                                     children=[
@@ -210,7 +210,7 @@ class Table:
                                 )
                             ],
                         ),
-                        html.Tbody(className="align-middle", children=rows),
+                        html.Tbody(className="align-middle text-center", children=rows),
                         html.Tfoot(
                             className='border-top',
                             children=[
