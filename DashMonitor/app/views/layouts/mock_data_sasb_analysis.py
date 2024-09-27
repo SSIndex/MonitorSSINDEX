@@ -1387,6 +1387,7 @@ footer_data = [
     "",
     "",
     "",
+    "",
     html.Div(
         className="bg-ssindex-average w-100 h-100 text-center border rounded",
         children=html.B(className='text-white', children="45%"),
