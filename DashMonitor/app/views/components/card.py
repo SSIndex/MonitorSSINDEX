@@ -123,7 +123,7 @@ class Card(BaseComponent):
                                     ],
                                 ),
                                 html.Div(
-                                    className='col-6',
+                                    className='col-6 border rounded-4 bg-white',
                                     children=[self.overview_graph],
                                 ),
                             ],
