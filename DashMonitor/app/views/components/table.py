@@ -45,7 +45,7 @@ class Table:
         ]
     """
 
-    _BASE_CLASS_NAME = 'table table-borderless table-responsive mt-4'
+    _BASE_CLASS_NAME = 'table table-borderless table-responsive table-hover mt-4'
     _BASE_DIV_CLASS_NAME = 'bg-white rounded p-3 shadow-sm'
 
     def __init__(
@@ -81,6 +81,7 @@ class Table:
         return html.Tr(
             children=html.Td(
                 className='table-ssindex-nested-table-background text-center rounded-3',
+                style={'box-shadow': 'none'},
                 colSpan=len(self.headers),
                 children=[
                     html.Div(
@@ -145,6 +146,7 @@ class Table:
             # Create the main row
             main_row = html.Tr(
                 className=self.class_name_rows,
+                style={'cursor': 'pointer'} if 'nested_data' in row else {},
                 children=[html.Td(val) for val in row['data']],
                 **(
                     {
