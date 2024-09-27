@@ -29,7 +29,7 @@ class Card(BaseComponent):
         Background Color of the Card. Ex: 'bg-primary'
     """
 
-    _BASE_CARD_CLASS_NAME = 'card text-bg-primary'
+    _BASE_CARD_CLASS_NAME = 'card text-bg-ssindex-card-blue rounded-3'
 
     def __init__(
         self,
@@ -65,16 +65,16 @@ class Card(BaseComponent):
             className=self.class_name,
             children=[
                 html.Div(
-                    className='card-body',
+                    className='card-body text-white',
                     children=[
                         html.Div(
-                            className='row gx-5 pt-3 pb-3 ps-5 pe-5',
+                            className='row gx-5 pt-3 pb-3 ps-5 pe-5 align-items-center',
                             children=[
                                 html.Div(
                                     className='col-6',
                                     children=[
                                         html.Div(
-                                            className='d-flex gap-4 align-items-center',
+                                            className='d-flex gap-4',
                                             children=[
                                                 html.Div(
                                                     html.Img(
@@ -123,7 +123,7 @@ class Card(BaseComponent):
                                     ],
                                 ),
                                 html.Div(
-                                    className='col-6 border rounded',
+                                    className='col-6 border rounded-4 bg-white',
                                     children=[self.overview_graph],
                                 ),
                             ],

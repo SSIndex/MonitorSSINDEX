@@ -20,6 +20,10 @@ from DashMonitor.app.handlers.function_utils import (
     create_gauge_chart,
     create_gauge_chart_ssindex,
 )
+from DashMonitor.app.views import components as cpt
+
+# Import mock data
+from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
 
 category_order = ["Universe", "Industry", "Company"]
 custom_colors = {
@@ -273,214 +277,147 @@ fig_risk_sasb.update_layout(
         ),
     ],
 )
+
+overview_graph = html.Div(
+    className="col",
+    children=[dcc.Graph(id="gauge-chart", figure=sasb_gauge_chart)],
+)
+
 SASB_ANALYSIS_LAYOUT = html.Div(
     className="container",
     children=[
+        # Date Picker Section
         html.Section(
-            className="section bg-light pt-3",
+            className='section pt-3 d-flex justify-content-end',
+            children=[cpt.DatePicker().render()],
+        ),
+        # Company Card Section
+        html.Section(
+            className='section pt-3',
+            children=[
+                cpt.Card(
+                    company_name,
+                    industry,
+                    country,
+                    company_image,
+                    overview,
+                    overview_text,
+                    overview_graph,
+                ).render(),
+            ],
+        ),
+        html.Section(
+            className="section pt-5",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
                     children=[
-                        html.Div(
-                            className="row",
+                        html.H4(
+                            className="text-primary", children=['SASB Impact Analysis']
+                        ),
+                        html.P(
+                            className='text-ssindex-graph-grey',
                             children=[
-                                html.Div(
-                                    className="col-12 justify-content-end",
-                                    children=[
-                                        html.P(
-                                            children=[
-                                                "2024-06-12"
-                                            ]  # Here Goes the Date of last data extracted
-                                        )
-                                    ],
-                                )
+                                'Stakeholders evaluate how the company is performing according to the Sustainability Accounting Standards Board (SASB)smethodology'
                             ],
                         ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        html.Div(
-                                            className="row",
-                                            children=[
-                                                html.H4(children=[bkn])
-                                            ],  # Here goes Company Name
-                                        ),
-                                        html.Div(
-                                            className="row",
-                                            children=[
-                                                html.P(
-                                                    children=[
-                                                        "Bank | EEUU | Market Name"
-                                                    ]
-                                                )
-                                            ],  # Here goes Company Details
-                                        ),
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        dcc.Graph(
-                                            id="gauge-chart", figure=sasb_gauge_chart
-                                        )
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
+                        cpt.Table(
+                            headers=headers,
+                            data=data,
+                            footer_data=footer_data,
+                            class_name_headers=class_name_headers,
+                            table_title='Overall Score SASB',
+                        ).render(),
+                    ]
                 )
             ],
         ),
         html.Section(
-            className="section bg-white pt-3",
+            className="section pt-5",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
                     children=[
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-2",
-                                    children=[
-                                        html.H6(
-                                            className="text-end",
-                                            children=["ESG COMPASS Overview:"],
-                                        )
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-10",
-                                    children=[
-                                        html.P(
-                                            className="text-center",
-                                            children=[explanation_sasb_gauge_chart],
-                                        )  # Here goes the overview description
-                                    ],
-                                ),
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        dcc.Graph(id="histogram", figure=fig_hist_sasb)
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        create_result_table(df_sasb),
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
+                        cpt.Table(
+                            headers=headers,
+                            data=data_environment,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded-4 p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Environment',
+                        ).render(),
+                    ]
                 )
             ],
         ),
         html.Section(
-            className="section bg-light pt-3",
+            className="section pt-5",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
                     children=[
-                        html.Div(
-                            className="row",
-                            children=[html.H3(children=["Analisis SASB"])],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-12",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=gauge_figures_2,
-                                )
-                            ],
-                        ),
-                    ],
+                        cpt.Table(
+                            headers=headers,
+                            data=data_social_capital,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded-4 p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Social Capital',
+                        ).render(),
+                    ]
                 )
             ],
         ),
         html.Section(
-            className="section bg-light pt-3",
+            className="section pt-5",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
                     children=[
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.H3(children=["Analisis Geografico Pilar SASB"])
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-6",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=dcc.Graph(id="sasb-map"),
-                                ),
-                                html.Div(
-                                    className="col-6",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=html.Div(id="sasb-table"),
-                                ),
-                            ],
-                        ),
-                    ],
+                        cpt.Table(
+                            headers=headers,
+                            data=data_human_capital,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded-4 p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Human Capital',
+                        ).render(),
+                    ]
                 )
             ],
         ),
         html.Section(
-            className="section bg-light pt-3",
+            className="section pt-5",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
                     children=[
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.H3(children=["Analisis De Impacto y Riesgo SASB"])
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-12",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=[
-                                        dcc.Graph(id="risk-fig", figure=fig_risk_sasb)
-                                    ],
-                                )
-                            ],
-                        ),
-                    ],
+                        cpt.Table(
+                            headers=headers,
+                            data=data_business_model_innovation,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded-4 p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Business Model & Innovation',
+                        ).render(),
+                    ]
+                )
+            ],
+        ),
+        html.Section(
+            className="section pt-5",
+            children=[
+                html.Div(
+                    children=[
+                        cpt.Table(
+                            headers=headers,
+                            data=data_leadership_governance,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded-4 p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Leadership & Governance',
+                        ).render(),
+                    ]
                 )
             ],
         ),
@@ -489,80 +426,81 @@ SASB_ANALYSIS_LAYOUT = html.Div(
 
 
 def register_callbacks(app):
-    @app.callback(
-        [Output("sasb-map", "figure"), Output("sasb-table", "children")],
-        [Input("sasb-map", "clickData")],
-    )
-    def update_sasb_map(click_data):
-        filtered_df = df_sasb.copy()
-        filtered_df = filtered_df[filtered_df["Bank Name"] == bkn]
-        df_grouped = (
-            filtered_df.groupby("state").agg({"Sentiment_Score": "mean"}).reset_index()
-        )
-        df_grouped["color"] = df_grouped["Sentiment_Score"].apply(
-            lambda x: "blue" if x > 0 else "red"
-        )
+    pass
+    # @app.callback(
+    #     [Output("sasb-map", "figure"), Output("sasb-table", "children")],
+    #     [Input("sasb-map", "clickData")],
+    # )
+    # def update_sasb_map(click_data):
+    #     filtered_df = df_sasb.copy()
+    #     filtered_df = filtered_df[filtered_df["Bank Name"] == bkn]
+    #     df_grouped = (
+    #         filtered_df.groupby("state").agg({"Sentiment_Score": "mean"}).reset_index()
+    #     )
+    #     df_grouped["color"] = df_grouped["Sentiment_Score"].apply(
+    #         lambda x: "blue" if x > 0 else "red"
+    #     )
 
-        fig = go.Figure(
-            data=go.Choropleth(
-                locations=df_grouped["state"],
-                z=df_grouped["Sentiment_Score"],
-                locationmode="USA-states",
-                colorscale="Blues",
-                marker_line_color="white",
-            )
-        )
-        fig.update_layout(
-            title_text=f"Average Sentiment Score by State for {bkn}",
-            geo_scope="usa",
-        )
-        reviews_table = html.Table()
-        if click_data:
-            state = click_data["points"][0]["location"]
-            reviews = filtered_df[filtered_df["state"] == state][
-                ["Review", "Sentiment_Score", "Bank Name"]
-            ].head(5)
-            reviews_table = html.Table(
-                [
-                    html.Thead(
-                        html.Tr(
-                            [
-                                html.Th(
-                                    col,
-                                    style={
-                                        "padding": "10px",
-                                        "border": "1px solid black",
-                                    },
-                                )
-                                for col in reviews.columns
-                            ]
-                        )
-                    ),
-                    html.Tbody(
-                        [
-                            html.Tr(
-                                [
-                                    html.Td(
-                                        reviews.iloc[i][col],
-                                        style={
-                                            "padding": "10px",
-                                            "border": "1px solid black",
-                                        },
-                                    )
-                                    for col in reviews.columns
-                                ]
-                            )
-                            for i in range(len(reviews))
-                        ]
-                    ),
-                ],
-                style={
-                    "width": "100%",
-                    "borderCollapse": "collapse",
-                    "marginTop": "20px",
-                },
-            )
-        return fig, reviews_table
+    #     fig = go.Figure(
+    #         data=go.Choropleth(
+    #             locations=df_grouped["state"],
+    #             z=df_grouped["Sentiment_Score"],
+    #             locationmode="USA-states",
+    #             colorscale="Blues",
+    #             marker_line_color="white",
+    #         )
+    #     )
+    #     fig.update_layout(
+    #         title_text=f"Average Sentiment Score by State for {bkn}",
+    #         geo_scope="usa",
+    #     )
+    #     reviews_table = html.Table()
+    #     if click_data:
+    #         state = click_data["points"][0]["location"]
+    #         reviews = filtered_df[filtered_df["state"] == state][
+    #             ["Review", "Sentiment_Score", "Bank Name"]
+    #         ].head(5)
+    #         reviews_table = html.Table(
+    #             [
+    #                 html.Thead(
+    #                     html.Tr(
+    #                         [
+    #                             html.Th(
+    #                                 col,
+    #                                 style={
+    #                                     "padding": "10px",
+    #                                     "border": "1px solid black",
+    #                                 },
+    #                             )
+    #                             for col in reviews.columns
+    #                         ]
+    #                     )
+    #                 ),
+    #                 html.Tbody(
+    #                     [
+    #                         html.Tr(
+    #                             [
+    #                                 html.Td(
+    #                                     reviews.iloc[i][col],
+    #                                     style={
+    #                                         "padding": "10px",
+    #                                         "border": "1px solid black",
+    #                                     },
+    #                                 )
+    #                                 for col in reviews.columns
+    #                             ]
+    #                         )
+    #                         for i in range(len(reviews))
+    #                     ]
+    #                 ),
+    #             ],
+    #             style={
+    #                 "width": "100%",
+    #                 "borderCollapse": "collapse",
+    #                 "marginTop": "20px",
+    #             },
+    #         )
+    #     return fig, reviews_table
 
 
 def register_layout_and_callbacks_sasb(app):

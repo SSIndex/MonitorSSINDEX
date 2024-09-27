@@ -17,7 +17,7 @@ class Footer(BaseComponent):
 
     def render(self) -> html.Footer:
         return html.Footer(
-            className='footer',
+            className='footer p-5 text-center',
             children=[
                 html.Div(
                     className='container',
