@@ -50,6 +50,15 @@ $font-sizes: (
   7: $font-size-base * 0.85,
 );
 
+// Define opacities
+$opacities: (
+  0: 0,
+  25: 0.25,
+  40: 0.4,
+  50: 0.5,
+  75: 0.75,
+  100: 1,
+);
 
 $utilities: map-merge(
   $utilities,
@@ -58,6 +67,13 @@ $utilities: map-merge(
       map-get($utilities, "font-size"),
       (
         values: $font-sizes,
+      ),
+    ),
+    "opacity": map-merge(
+      map-get($utilities, "opacity"),
+      (
+        property: opacity,
+        values: $opacities,
       ),
     ),
   )
