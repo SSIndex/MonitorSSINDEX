@@ -288,7 +288,7 @@ overview_graph = html.Div(
 )
 headers = [
     "Dimension ESG",
-    html.P(className="align-center text-ssindex-no-data mb-0", children="No Data"),
+    html.P(className="align-center text-ssindex-graph-grey mb-0", children="No Data"),
     html.P(className="align-center text-ssindex-poor mb-0", children="Poor"),
     html.P(className="align-center text-ssindex-low mb-0", children="Low"),
     html.P(className="align-center text-ssindex-average mb-0", children="Average"),
@@ -307,23 +307,23 @@ data = [
         "data": [
             html.P(className='text-primary align-middle mb-0', children="Environment"),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100 opacity-50",
+                className="bg-ssindex-low w-100 h-100 opacity-40",
                 children="\u200B",
             ),
             html.Div(
                 className="bg-ssindex-average border border-dark border-4 w-100 h-100", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100 opacity-50",
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
                 children="\u200B",
             ),
             html.Div(
@@ -342,23 +342,23 @@ data = [
                 className='text-primary align-middle mb-0', children="Social Capital"
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
                 className="bg-ssindex-poor border border-dark border-4 w-100 h-100",
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100 opacity-50",
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
                 children="\u200B",
             ),
             html.Div(
@@ -379,23 +379,23 @@ data = [
                 className='text-primary align-middle mb-0', children="Human Capital"
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
                 className="bg-ssindex-low w-100 h-100 border border-dark border-4", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-average opacity-50 w-100 h-100",
+                className="bg-ssindex-average opacity-40 w-100 h-100",
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100 opacity-50",
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
                 children="\u200B",
             ),
             html.Div(
@@ -415,23 +415,23 @@ data = [
                 children="Business Model & Innovation",
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
                 className="bg-ssindex-good border border-dark border-4 w-100 h-100",
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100 opacity-50",
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
                 children="\u200B",
             ),
             html.Div(
@@ -451,19 +451,19 @@ data = [
                 children="Leadership & Governance",
             ),
             html.Div(
-                className="bg-ssindex-no-data opacity-50 w-100 h-100", children="\u200B"
+                className="bg-ssindex-no-data opacity-40 w-100 h-100", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
                 className="bg-ssindex-excellent w-100 h-100 border border-dark border-4",
@@ -487,19 +487,19 @@ data = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100 opacity-50", children="\u200B"
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100 opacity-50",
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
                 children="\u200B",
             ),
             html.Div(
