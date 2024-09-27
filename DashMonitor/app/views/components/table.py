@@ -20,7 +20,7 @@ class Table:
         - 'nested_data': List of lists, where each inner list represents a row of data for the nested table.
           Example: 'nested_data': [['Nested Value 1', 'Nested Value 2']]
     footer_data : List[str]
-        List of values to display in the footer row of the table. Example: ['Total', 'Value 1', 'Value 2'].
+        List of values to display in the footer row of the table. Example: ['Total', 'Value 1', 'Value 2']. Empty strings can be used to omit columns
     table_title : Optional[str], default ''
         Title to display above the table. Defaults to an empty string.
     class_name_table : Optional[str], default None
