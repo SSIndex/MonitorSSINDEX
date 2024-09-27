@@ -338,7 +338,7 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                     children=[
                         cpt.Table(
                             headers=headers,
-                            data=data,
+                            data=data_environment,
                             footer_data=footer_data,
                             class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
                             class_name_div='bg-light rounded p-3 shadow-sm',
@@ -356,7 +356,7 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                     children=[
                         cpt.Table(
                             headers=headers,
-                            data=data,
+                            data=data_social_capital,
                             footer_data=footer_data,
                             class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
                             class_name_div='bg-light rounded p-3 shadow-sm',
@@ -374,7 +374,7 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                     children=[
                         cpt.Table(
                             headers=headers,
-                            data=data,
+                            data=data_human_capital,
                             footer_data=footer_data,
                             class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
                             class_name_div='bg-light rounded p-3 shadow-sm',
@@ -392,7 +392,7 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                     children=[
                         cpt.Table(
                             headers=headers,
-                            data=data,
+                            data=data_business_model_innovation,
                             footer_data=footer_data,
                             class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
                             class_name_div='bg-light rounded p-3 shadow-sm',
@@ -410,7 +410,7 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                     children=[
                         cpt.Table(
                             headers=headers,
-                            data=data,
+                            data=data_leadership_governance,
                             footer_data=footer_data,
                             class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
                             class_name_div='bg-light rounded p-3 shadow-sm',
