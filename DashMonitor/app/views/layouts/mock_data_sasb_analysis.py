@@ -72,7 +72,9 @@ data = [
                 className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
                 children=html.B(className='text-white', children="20th"),
             ),
-        ]
+        ],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
     },
     {
         "data": [
@@ -146,7 +148,9 @@ data = [
                 className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
                 children=html.B(className='text-white', children="20th"),
             ),
-        ]
+        ],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
     },
     {
         "data": [
@@ -183,7 +187,9 @@ data = [
                 className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
                 children=html.B(className='text-white', children="20th"),
             ),
-        ]
+        ],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
     },
     {
         "data": [
@@ -219,7 +225,9 @@ data = [
                 className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
                 children=html.B(className='text-white', children="20th"),
             ),
-        ]
+        ],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
     },
     {
         "data": [
