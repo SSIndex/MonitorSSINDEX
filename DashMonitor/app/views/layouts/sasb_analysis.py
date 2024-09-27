@@ -287,7 +287,8 @@ overview_graph = html.Div(
     children=[dcc.Graph(id="gauge-chart", figure=sasb_gauge_chart)],
 )
 headers = [
-    "Dimension ESG",
+    html.P(className="align-center text-primary mb-0" ,children = "#"),
+    html.P(className="align-center text-primary mb-0", children="Dimension ESG"),
     html.P(className="align-center text-ssindex-graph-grey mb-0", children="No Data"),
     html.P(className="align-center text-ssindex-poor mb-0", children="Poor"),
     html.P(className="align-center text-ssindex-low mb-0", children="Low"),
@@ -305,6 +306,7 @@ nested_data = [[html.P(children="I called and called an no one answered the phon
 data = [
     {
         "data": [
+            html.P(className="text-primary align-middle mb-0", children="0"),
             html.P(className='text-primary align-middle mb-0', children="Environment"),
             html.Div(
                 className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
@@ -338,6 +340,7 @@ data = [
     },
     {
         "data": [
+            html.P(className="text-primary align-middle mb-0", children="1"),
             html.P(
                 className='text-primary align-middle mb-0', children="Social Capital"
             ),
@@ -375,6 +378,7 @@ data = [
     },
     {
         "data": [
+            html.P(className="text-primary align-middle mb-0", children="2"),
             html.P(
                 className='text-primary align-middle mb-0', children="Human Capital"
             ),
@@ -410,6 +414,7 @@ data = [
     },
     {
         "data": [
+            html.P(className="text-primary align-middle mb-0", children="3"),
             html.P(
                 className='text-primary align-middle mb-0',
                 children="Business Model & Innovation",
@@ -446,6 +451,7 @@ data = [
     },
     {
         "data": [
+            html.P(className="text-primary align-middle mb-0", children="4"),
             html.P(
                 className='text-primary align-middle mb-0',
                 children="Leadership & Governance",
@@ -481,6 +487,7 @@ data = [
     },
     {
         "data": [
+            html.P(className="text-primary align-middle mb-0", children="5"),
             html.P(className='text-primary align-middle mb-0', children="Others"),
             html.Div(
                 className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
