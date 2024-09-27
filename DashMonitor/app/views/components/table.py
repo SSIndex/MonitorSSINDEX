@@ -46,7 +46,7 @@ class Table:
     """
 
     _BASE_CLASS_NAME = 'table table-borderless table-responsive table-hover mt-4'
-    _BASE_DIV_CLASS_NAME = 'bg-white rounded p-3 shadow-sm'
+    _BASE_DIV_CLASS_NAME = 'bg-white rounded rounded-4 p-3 shadow-sm'
 
     def __init__(
         self,
