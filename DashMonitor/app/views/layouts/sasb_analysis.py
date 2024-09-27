@@ -306,6 +306,224 @@ nested_data = [[html.P(children="I called and called an no one answered the phon
 data = [
     {
         "data": [
+            html.P(className="text-primary align-middle mb-0", children="01"),
+            html.P(className='text-primary align-middle mb-0', children="Environment"),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average border border-dark border-4 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="45%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="02"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Social Capital"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="15%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="03"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Human Capital"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 border border-dark border-4", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average opacity-40 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="30%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="04"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Business Model & Innovation",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="65%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="05"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Leadership & Governance",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data opacity-40 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 border border-dark border-4",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="95%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="06"),
+            html.P(className='text-primary align-middle mb-0', children="Others"),
+            html.Div(
+                className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0%"),
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0th"),
+            ),
+        ]
+    },
+]
+
+data_environment = [
+    {
+        "data": [
             html.P(className="text-primary align-middle mb-0", children="0"),
             html.P(className='text-primary align-middle mb-0', children="Environment"),
             html.Div(
@@ -520,6 +738,7 @@ data = [
         ]
     },
 ]
+
 footer_data = [
     html.P(className='text-primary align-middle mb-0', children="Total Score"),
     "",
@@ -539,6 +758,7 @@ footer_data = [
 ]
 
 class_name_headers = 'bg-ssindex-table-header-gray'
+class_name_headers_2 = 'bg-white'
 
 SASB_ANALYSIS_LAYOUT = html.Div(
     className="container",
@@ -583,6 +803,96 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                             footer_data=footer_data,
                             class_name_headers=class_name_headers,
                             table_title='Overall Score SASB',
+                        ).render(),
+                    ]
+                )
+            ],
+        ),
+        html.Section(
+            className="section pt-5",
+            children=[
+                html.Div(
+                    children=[
+                        cpt.Table(
+                            headers=headers,
+                            data=data,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Environment',
+                        ).render(),
+                    ]
+                )
+            ],
+        ),
+        html.Section(
+            className="section pt-5",
+            children=[
+                html.Div(
+                    children=[
+                        cpt.Table(
+                            headers=headers,
+                            data=data,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Social Capital',
+                        ).render(),
+                    ]
+                )
+            ],
+        ),
+        html.Section(
+            className="section pt-5",
+            children=[
+                html.Div(
+                    children=[
+                        cpt.Table(
+                            headers=headers,
+                            data=data,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Human Capital',
+                        ).render(),
+                    ]
+                )
+            ],
+        ),
+        html.Section(
+            className="section pt-5",
+            children=[
+                html.Div(
+                    children=[
+                        cpt.Table(
+                            headers=headers,
+                            data=data,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Business Model & Innovation',
+                        ).render(),
+                    ]
+                )
+            ],
+        ),
+        html.Section(
+            className="section pt-5",
+            children=[
+                html.Div(
+                    children=[
+                        cpt.Table(
+                            headers=headers,
+                            data=data,
+                            footer_data=footer_data,
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_div='bg-light rounded p-3 shadow-sm',
+                            class_name_headers=class_name_headers_2,
+                            table_title='Leadership & Governance',
                         ).render(),
                     ]
                 )
