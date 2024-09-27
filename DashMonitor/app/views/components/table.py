@@ -177,7 +177,7 @@ class Table:
         return html.Div(
             className=self.class_name_div,
             children=[
-                html.H5(f'{self.table_title}'),
+                html.H5(className='text-primary', children=f'{self.table_title}'),
                 html.Table(
                     className=self.class_name_table,
                     children=[
@@ -212,7 +212,7 @@ class Table:
                         ),
                         html.Tbody(className="align-middle text-center", children=rows),
                         html.Tfoot(
-                            className='border-top',
+                            className='border-top text-center',
                             children=[
                                 html.Tr(
                                     children=[
