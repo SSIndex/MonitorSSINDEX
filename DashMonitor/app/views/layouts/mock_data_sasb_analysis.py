@@ -260,8 +260,8 @@ data = [
 data_environment = [
     {
         "data": [
-            html.P(className="text-primary align-middle mb-0", children="0"),
-            html.P(className='text-primary align-middle mb-0', children="Environment"),
+            html.P(className="text-primary align-middle mb-0", children="01"),
+            html.P(className='text-primary align-middle mb-0', children="GHG Emissions"),
             html.Div(
                 className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
             ),
@@ -294,9 +294,9 @@ data_environment = [
     },
     {
         "data": [
-            html.P(className="text-primary align-middle mb-0", children="1"),
+            html.P(className="text-primary align-middle mb-0", children="02"),
             html.P(
-                className='text-primary align-middle mb-0', children="Social Capital"
+                className='text-primary align-middle mb-0', children="Air Quality"
             ),
             html.Div(
                 className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
@@ -327,14 +327,12 @@ data_environment = [
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
-        "nested_data": nested_data,
-        "nested_headers": nested_headers,
     },
     {
         "data": [
-            html.P(className="text-primary align-middle mb-0", children="2"),
+            html.P(className="text-primary align-middle mb-0", children="03"),
             html.P(
-                className='text-primary align-middle mb-0', children="Human Capital"
+                className='text-primary align-middle mb-0', children="Energy Management"
             ),
             html.Div(
                 className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
@@ -368,10 +366,10 @@ data_environment = [
     },
     {
         "data": [
-            html.P(className="text-primary align-middle mb-0", children="3"),
+            html.P(className="text-primary align-middle mb-0", children="04"),
             html.P(
                 className='text-primary align-middle mb-0',
-                children="Business Model & Innovation",
+                children="Water & Wastewater Management",
             ),
             html.Div(
                 className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
@@ -405,10 +403,10 @@ data_environment = [
     },
     {
         "data": [
-            html.P(className="text-primary align-middle mb-0", children="4"),
+            html.P(className="text-primary align-middle mb-0", children="05"),
             html.P(
                 className='text-primary align-middle mb-0',
-                children="Leadership & Governance",
+                children="Waste & Hazardous Material Management",
             ),
             html.Div(
                 className="bg-ssindex-no-data opacity-40 w-100 h-100", children="\u200B"
@@ -441,7 +439,905 @@ data_environment = [
     },
     {
         "data": [
-            html.P(className="text-primary align-middle mb-0", children="5"),
+            html.P(className="text-primary align-middle mb-0", children="06"),
+            html.P(className='text-primary align-middle mb-0', children="Ecological Impacts"),
+            html.Div(
+                className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0%"),
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0th"),
+            ),
+        ]
+    },
+     {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="07"),
+            html.P(className='text-primary align-middle mb-0', children="Others"),
+            html.Div(
+                className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0%"),
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0th"),
+            ),
+        ]
+    },
+]
+
+data_social_capital = [
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="01"),
+            html.P(className='text-primary align-middle mb-0', children="Human Rights & Community Relations"),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average border border-dark border-4 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="45%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="02"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Customer Privacy"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="15%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="03"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Data Security"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 border border-dark border-4", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average opacity-40 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="30%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="04"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Access & Affordability",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="65%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="05"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Product Quality & Safety",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data opacity-40 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 border border-dark border-4",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="95%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="06"),
+            html.P(className='text-primary align-middle mb-0', children="Customer Welfare"),
+            html.Div(
+                className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0%"),
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0th"),
+            ),
+        ]
+    },
+     {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="07"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Selling Practices & Product Labeling",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data opacity-40 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 border border-dark border-4",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="95%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="08"),
+            html.P(className='text-primary align-middle mb-0', children="Others"),
+            html.Div(
+                className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0%"),
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0th"),
+            ),
+        ]
+    },
+]
+
+data_human_capital = [
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="01"),
+            html.P(className='text-primary align-middle mb-0', children="Labor Practices"),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average border border-dark border-4 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="45%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="02"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Employee Health & Safety"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="15%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="03"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Employee Engagement, Diversity & Inclusion"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 border border-dark border-4", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average opacity-40 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="30%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="04"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Others",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="65%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+]
+
+data_business_model_innovation = [
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="01"),
+            html.P(className='text-primary align-middle mb-0', children="Product Desing & Lifecycle  Management"),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average border border-dark border-4 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="45%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="02"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Business Model Resilience"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="15%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="03"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Supply Chain Management"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 border border-dark border-4", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average opacity-40 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="30%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="04"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Materials Sourcing & Efficiency",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="65%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="05"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Physical Impacts of Climate Change",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data opacity-40 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 border border-dark border-4",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="95%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="06"),
+            html.P(className='text-primary align-middle mb-0', children="Others"),
+            html.Div(
+                className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0%"),
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="0th"),
+            ),
+        ]
+    },
+]
+
+data_leadership_governance = [
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="01"),
+            html.P(className='text-primary align-middle mb-0', children="Business Ethics"),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average border border-dark border-4 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="45%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="02"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Competitive Behaviour"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="15%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="03"),
+            html.P(
+                className='text-primary align-middle mb-0', children="Managament of The Legal and Regulatory Environment"
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 border border-dark border-4", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average opacity-40 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="30%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="04"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Critical Incident Risk Management",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good border border-dark border-4 w-100 h-100",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 opacity-40",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="65%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="05"),
+            html.P(
+                className='text-primary align-middle mb-0',
+                children="Systemic Risk Management",
+            ),
+            html.Div(
+                className="bg-ssindex-no-data opacity-40 w-100 h-100", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100 opacity-40", children="\u200B"
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 border border-dark border-4",
+                children="\u200B",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="95%"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 text-center border rounded",
+                children=html.B(className='text-white', children="20th"),
+            ),
+        ]
+    },
+    {
+        "data": [
+            html.P(className="text-primary align-middle mb-0", children="06"),
             html.P(className='text-primary align-middle mb-0', children="Others"),
             html.Div(
                 className="bg-ssindex-no-data border border-dark border-4 w-100 h-100",
