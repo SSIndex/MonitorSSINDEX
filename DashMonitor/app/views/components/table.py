@@ -115,7 +115,9 @@ class Table:
                                                         'width': f'{100 / len(nested_headers)}%'
                                                     },
                                                 )
-                                                for i, header in enumerate(nested_headers)
+                                                for i, header in enumerate(
+                                                    nested_headers
+                                                )
                                             ],
                                         )
                                     ],
@@ -124,7 +126,11 @@ class Table:
                                     children=[
                                         html.Tr(
                                             children=[
-                                                html.Td(className="text-center align-middle fs-7" ,children=val) for val in nested_row
+                                                html.Td(
+                                                    className="text-center align-middle fs-7",
+                                                    children=val,
+                                                )
+                                                for val in nested_row
                                             ]
                                         )
                                         for nested_row in nested_data
