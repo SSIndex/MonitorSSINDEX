@@ -21,6 +21,12 @@ from ...handlers.function_utils import (
     create_gauge_chart_ssindex,
 )
 
+from DashMonitor.app.views import components as cpt
+
+# Import mock data
+from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
+from DashMonitor.app.views.layouts.mock_data_general_analysis import *
+
 category_order = ["Universe", "Industry", "Company"]
 custom_colors = {
     "Universe": "#1f77b4",  # Blue
@@ -113,6 +119,8 @@ fig_hist_general = px.bar(
 fig_hist_general.update_traces(texttemplate="%{text:.2f}%", textposition="outside")
 fig_hist_general.update_layout(
     uniformtext_minsize=14,
+    plot_bgcolor='#E8F4FF',
+    paper_bgcolor='#E8F4FF'
 )
 
 score_by_pillar = (
@@ -185,139 +193,116 @@ for index, row in score_by_pillar.iterrows():
 GENERAL_ANALYSIS_LAYOUT = html.Div(
     className="container",
     children=[
+        # Date Picker Section
         html.Section(
-            className="section bg-light pt-3",
+            className='section pt-3 d-flex justify-content-end',
+            children=[cpt.DatePicker().render()],
+        ),
+        # Company Card Section
+        html.Section(
+            className='section pt-3',
+            children=[
+                cpt.Card(
+                    company_name,
+                    industry,
+                    country,
+                    company_image,
+                    overview,
+                    overview_text,
+                    cpt.GaugeChart(
+                        score=mock_score,
+                        score_text=mock_score_text,
+                        min_value=mock_min_value,
+                        max_value=mock_max_value,
+                        labels=mock_labels,
+                        score_labels=mock_score_labels,
+                    ).render(),
+                ).render(),
+            ],
+        ),
+        # Percentile Analysis Section
+        html.Section(
+            className="section pt-3 container",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
+                    className="row",
                     children=[
                         html.Div(
-                            className="row",
+                            className="p-3 col bg-secondary text-white rounded-3",
                             children=[
-                                html.Div(
-                                    className="col-12 justify-content-end",
+                                html.H5(children=["Percentile Analysis"]),
+                                html.P(
                                     children=[
-                                        html.P(
+                                        "The result of the company in analysis is benchmarked with three groups of data:"
+                                    ]
+                                ),
+                                html.Ol(
+                                    children=[
+                                        html.Li(
                                             children=[
-                                                "2024-06-12"
-                                            ]  # Here Goes the Date of last data extracted
-                                        )
-                                    ],
-                                )
+                                                html.B("GLOBAL UNIVERSE"),
+                                                ", includes a sample of companies of different industries and countries, worldwide.",
+                                            ]
+                                        ),
+                                        html.Li(
+                                            children=[
+                                                html.B("INDUSTRY IN REGION"),
+                                                ", includes a sample of companies of the same industry and geographical region where the company in analysis is located.",
+                                            ]
+                                        ),
+                                        html.Li(
+                                            children=[
+                                                html.B("INDUSTRY IN COUNTRY"),
+                                                ", includes a benchmark of companies of the same industry and in the same country where the company in analysis is located.",
+                                            ]
+                                        ),
+                                    ]
+                                ),
                             ],
                         ),
                         html.Div(
-                            className="row",
+                            className="col",
                             children=[
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        html.Div(
-                                            className="row",
-                                            children=[
-                                                html.H4(children=[bkn])
-                                            ],  # Here goes Company Name
-                                        ),
-                                        html.Div(
-                                            className="row",
-                                            children=[
-                                                html.P(
-                                                    children=[
-                                                        "Bank | EEUU | Market Name"
-                                                    ]
-                                                )
-                                            ],  # Here goes Company Details
-                                        ),
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        dcc.Graph(
-                                            id="gauge-chart", figure=general_gauge_chart
-                                        )
-                                    ],
-                                ),
+                                cpt.Table(
+                                    headers=percentyle_analysis_headers,
+                                    data=data_percentile_analysis,
+                                    class_name_headers=class_name_headers,
+                                ).render()
                             ],
                         ),
                     ],
                 )
             ],
         ),
+        # Performance Analysis Section
         html.Section(
-            className="section bg-white pt-3",
+            className="section pt-3",
             children=[
-                html.Div(
-                    className="container border-bottom border-dark",
+                html.H5(children=["Performance Analysis"]),
+                html.P(
                     children=[
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-2",
-                                    children=[
-                                        html.H6(
-                                            className="text-end",
-                                            children=["ESG COMPASS Overview:"],
-                                        )
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-10",
-                                    children=[
-                                        html.P(
-                                            className="text-center",
-                                            children=[explanation_general_gauge_chart],
-                                        )  # Here goes the overview description
-                                    ],
-                                ),
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        dcc.Graph(
-                                            id="histogram", figure=fig_hist_general
-                                        )
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        create_result_table(df1),
-                                    ],
-                                ),
-                            ],
-                        ),
-                    ],
-                )
+                        "The results of the company in analysis are classified in a 5-category ratio and benchmarked with three groups of data."
+                    ]
+                ),
             ],
         ),
         html.Section(
-            className="section bg-light pt-3",
+            className="section pt-3",
             children=[
                 html.Div(
                     className="container border-bottom border-dark",
                     children=[
-                        html.Div(
-                            className="row",
-                            children=[html.H3(children=["Analisis SASB"])],
-                        ),
                         html.Div(
                             className="row",
                             children=[
                                 html.Div(
                                     className="col-12",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=gauge_figures_2,
-                                )
+                                    children=[
+                                        dcc.Graph(
+                                            id="histogram", figure=fig_hist_general,
+                                        )
+                                    ],
+                                ),
                             ],
                         ),
                     ],
@@ -325,54 +310,53 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
             ],
         ),
         html.Section(
-            className="section bg-light pt-3",
+            className="section pt-3",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
                     children=[
-                        html.Div(
-                            className="row",
-                            children=[html.H3(children=["Analisis SSINDEX"])],
+                        html.H4(
+                            className="text-primary", children=['SASB Impact Analysis']
                         ),
-                        html.Div(
-                            className="row",
+                        html.P(
+                            className='text-ssindex-graph-grey',
                             children=[
-                                html.Div(
-                                    className="col-12",
-                                    style={
-                                        "display": "flex",
-                                        "flexDirection": "column",
-                                        "alignItems": "stretch",
-                                    },
-                                    children=gauge_figures_1,
-                                )
+                                'Stakeholders evaluate how the company is performing according to the Sustainability Accounting Standards Board (SASB) methodology'
                             ],
                         ),
-                    ],
+                        cpt.Table(
+                            headers=headers,
+                            data=data,
+                            footer_data=footer_data,
+                            class_name_headers=class_name_headers,
+                            table_title='Overall Score SASB',
+                        ).render(),
+                    ]
                 )
             ],
         ),
         html.Section(
-            className="section bg-light pt-3",
+            className="section pt-5",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
                     children=[
-                        "Analisis Detallado SASB",
-                        "Columnas: Dimension | Porcentaje Comentarios del Pilar con respecto a Total | Puntaje | Categorizacion",
-                    ],
-                )
-            ],
-        ),
-        html.Section(
-            className="section bg-white pt-3",
-            children=[
-                html.Div(
-                    className="container border-bottom border-dark",
-                    children=[
-                        "Analisis Detallado SSINDEX",
-                        "Mismos comentarios de Analisis detallado SASB",
-                    ],
+                        html.H4(
+                            className="text-primary",
+                            children=['SSINDEX Impact Analysis'],
+                        ),
+                        html.P(
+                            className='text-ssindex-graph-grey',
+                            children=[
+                                'Stakeholders evaluate how the company is performing according to the Stakeholders Sustainability Index (SSINDEX) methodology'
+                            ],
+                        ),
+                        cpt.Table(
+                            headers=ssindex_impact_analysis_headers,
+                            data=data_ssindex_impact_analysis,
+                            footer_data=footer_data,
+                            class_name_headers=class_name_headers,
+                            table_title='Overall Score SASB',
+                        ).render(),
+                    ]
                 )
             ],
         ),
