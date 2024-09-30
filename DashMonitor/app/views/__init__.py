@@ -22,7 +22,10 @@ from DashMonitor.app.views import components as cpt
 from DashMonitor.app.views import layouts as lyt
 
 GLOBAL_STATE = [
-    Store(id='stateCompanyName', data={}, storage_type='local'),
+    Store(id='stateCompanyData', data={
+        'companyName': 'Boeing',
+        'Industry': 'Aviation & Aerospace.'
+    }, storage_type='local'),
     Store(id='stateMainDataFrame', data={}),
 ]
 
