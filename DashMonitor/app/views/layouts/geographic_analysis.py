@@ -57,9 +57,7 @@ GEOGRAPHIC_ANALYSIS_LAYOUT = html.Div(
                         ),
                         html.P(
                             className='text-ssindex-graph-grey',
-                            children=[
-                                'Stakeholders feedback classified by territory'
-                            ],
+                            children=['Stakeholders feedback classified by territory'],
                         ),
                         cpt.Table(
                             headers=headers,
@@ -72,7 +70,6 @@ GEOGRAPHIC_ANALYSIS_LAYOUT = html.Div(
         ),
     ],
 )
-
 
 
 # def register_callbacks(app):
