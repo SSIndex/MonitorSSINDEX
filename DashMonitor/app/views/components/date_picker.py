@@ -21,12 +21,12 @@ class DatePicker(BaseComponent):
     def render(self):
         return html.Div(
             children=[
-                html.Label('Time Frame:', className='form-label'),
+                html.Label('Time Frame', className='form-label'),
                 # Button to open DatePicker, initially shows the last year date range
                 html.Button(
                     children=f'{date.today() - timedelta(days=365)} - {date.today()}',
                     id='date-picker-button',
-                    className='btn btn-secondary m-1',
+                    className='btn m-1 ms-2 border border-dark text-ssindex-graph-grey',
                     **{
                         'data-bs-toggle': 'collapse',
                         'data-bs-target': '#date-picker-container',
@@ -35,11 +35,10 @@ class DatePicker(BaseComponent):
                 # Collapsible container for Date Picker
                 html.Div(
                     id='date-picker-container',
-                    className='collapse',
+                    className='collapse z-3 position-absolute bg-white border rounded shadow-lg w-25',
                     children=[
                         html.Div(
-                            className='d-flex flex-column mt-4 mb-5 border p-3',
-                            style={'width': '30%'},
+                            className='d-flex flex-column mt-4 mb-3 p-1',
                             children=[
                                 html.Div(
                                     className='mb-2',

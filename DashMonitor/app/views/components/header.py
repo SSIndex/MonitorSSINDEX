@@ -131,7 +131,7 @@ class Header(BaseComponent):
         Generate the Dash Component for the Header
         '''
         return html.Header(
-            className='bg-ssindex-header text-white',
+            className='bg-primary text-white',
             children=[
                 html.Nav(
                     className='navbar navbar-expand-lg',

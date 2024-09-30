@@ -7,7 +7,7 @@ $font-family-base: 'Manrope', 'Roboto', 'sans-serif'; // Override bootstrap font
 
 // Definition of theme colors:
 $custom-theme-colors : (
-    'primary': #452e7a,
+    'primary':#333B69,
     'secondary': #718EBF,
     'light': #E8F4FF,
     'dark': #232323,
@@ -17,14 +17,67 @@ $custom-theme-colors : (
     'ssindex-good': #97CC3E,
     'ssindex-excellent': #2FB14C,
     'ssindex-no-data': #D6D6D6,
+    'ssindex-card-blue': #4880FF,
     'ssindex-graph-grey': #848484,
     'ssindex-graph-blue': #0069C0,
     'ssindex-graph-light-blue': #BFEEFF,
     'ssindex-graph-purple': #AB3ED8,
+    'ssindex-table-header-gray':#F1F4F9,
+    'ssindex-background-color': #F2F2F2,
+    'ssindex-footer-text':  #A3AED0,
+    'ssindex-nested-table-background': #F7F7F7,
+    'white': #FFFFFF,
+
 );
 
 // Merge the custom-theme-colors with the default theme-colors from bootstrap
-$theme-colors : map-merge($custom-theme-colors, $theme-colors);
+$theme-colors : map-merge($theme-colors, $custom-theme-colors);
+$table-variants: map-merge($table-variants, $custom-theme-colors);
+
+// Import utilities
+@import '../../node_modules/bootstrap/scss/maps';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/utilities';
+
+// Define font sizes
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size,
+  7: $font-size-base * 0.85,
+);
+
+// Define opacities
+$opacities: (
+  0: 0,
+  25: 0.25,
+  40: 0.4,
+  50: 0.5,
+  75: 0.75,
+  100: 1,
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "font-size": map-merge(
+      map-get($utilities, "font-size"),
+      (
+        values: $font-sizes,
+      ),
+    ),
+    "opacity": map-merge(
+      map-get($utilities, "opacity"),
+      (
+        property: opacity,
+        values: $opacities,
+      ),
+    ),
+  )
+);
 
 //import bootstrap
 @import '../../node_modules/bootstrap/scss/bootstrap';
