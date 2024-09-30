@@ -20,7 +20,7 @@ EXTERNAL_SCRIPTS = [
 ]
 
 main_df_provider = FileStreamProvider(
-    '/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv'
+    '/app/DashMonitor/data/boeing_case_use.csv'
 )
 
 
