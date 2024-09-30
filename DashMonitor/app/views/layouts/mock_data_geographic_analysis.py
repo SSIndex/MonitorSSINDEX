@@ -17,7 +17,7 @@ nested_headers = ["Comment", "Score", "Category", "City", "Date", "Source"]
 nested_data = [
     [
         html.P(children="I called and called an no one answered the phone"),
-        html.P("8%"),
+        html.P(className="text-ssindex-poor", children="8%"),
         html.P("Social External"),
         html.P("New York"),
         html.P("12/08/23"),
@@ -25,7 +25,7 @@ nested_data = [
     ],
     [
         html.P("I called and called an no one answered the phone"),
-        html.P("12%"),
+        html.P(className="text-ssindex-poor", children="12%"),
         html.P("Social External"),
         html.P("Los Angeles"),
         html.P("05/07/24"),
@@ -35,7 +35,7 @@ nested_data = [
         html.P(
             "I had a problem with one of the products, called, no one answered, then sent an email and the got back to me in two days. Fortunately the problem was solved"
         ),
-        html.P("54%"),
+        html.P(className="text-ssindex-average", children="54%"),
         html.P("Social External"),
         html.P("Houston"),
         html.P("24/04/24"),
@@ -46,7 +46,7 @@ data = [
     {
         "data": [
             html.Div(
-                className="bg-ssindex-excellent border border-dark border-4",
+                className="bg-ssindex-excellent",
                 style={
                     "width": "50px",
                     "height": "50px",
@@ -71,7 +71,7 @@ data = [
     {
         "data": [
             html.Div(
-                className="bg-ssindex-low border border-dark border-4",
+                className="bg-ssindex-low",
                 style={
                     "width": "50px",
                     "height": "50px",
@@ -96,7 +96,7 @@ data = [
     {
         "data": [
             html.Div(
-                className="bg-ssindex-poor border border-dark border-4",
+                className="bg-ssindex-poor",
                 style={
                     "width": "50px",
                     "height": "50px",
@@ -121,7 +121,7 @@ data = [
     {
         "data": [
             html.Div(
-                className="bg-ssindex-good border border-dark border-4",
+                className="bg-ssindex-good",
                 style={
                     "width": "50px",
                     "height": "50px",
@@ -146,7 +146,7 @@ data = [
     {
         "data": [
             html.Div(
-                className="bg-ssindex-average border border-dark border-4",
+                className="bg-ssindex-average",
                 style={
                     "width": "50px",
                     "height": "50px",
@@ -171,7 +171,7 @@ data = [
     {
         "data": [
             html.Div(
-                className="bg-ssindex-excellent border border-dark border-4",
+                className="bg-ssindex-excellent",
                 style={
                     "width": "50px",
                     "height": "50px",
@@ -189,7 +189,9 @@ data = [
                 className="bg-ssindex-excellent w-100 h-100  border rounded",
                 children=html.B(className='text-white', children="20th"),
             ),
-        ]
+        ],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
     },
 ]
 
