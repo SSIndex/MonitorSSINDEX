@@ -14,6 +14,7 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 # local imports
+from DashMonitor.app.data.analyzers import GeneralAnalyzer
 from DashMonitor.app.handlers.function_utils import (
     categorize_score,
     create_result_table,
@@ -21,36 +22,28 @@ from DashMonitor.app.handlers.function_utils import (
     create_gauge_chart_ssindex,
 )
 from DashMonitor.app.handlers import gu
+from DashMonitor.app.views.configs import main_df_provider
 
 
-bkn = "Webster Bank"
+bkn = "Boeing"
 
-df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
-df1 = df.copy()
-filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
-df = df[filtro_general].reset_index(drop=True)
-df = (
-    df.groupby(["Bank Name", "Predicted_Pilar", "year", "month_num"])[
-        ["Normalized_Sentiment_Score"]
-    ]
-    .mean()
-    .reset_index()
+analyzer = GeneralAnalyzer(
+    main_df_provider,
+    None  # Should be the app to register recalculation callbacks
 )
-df["date"] = pd.to_datetime(
-    df["year"].astype(str) + "-" + df["month_num"].map("{:02}".format), format="%Y-%m"
-)
-df["Total_Sentiment_Score"] = df.groupby(["Bank Name", "date"])[
-    "Normalized_Sentiment_Score"
-].transform("mean")
-df.sort_values("date", inplace=True)
-df_grouped = (
-    df1.groupby("state").agg({"Normalized_Sentiment_Score": "mean"}).reset_index()
-)
-general_score = df[df["Bank Name"] == bkn]["Total_Sentiment_Score"].mean()
+
+df = analyzer.execute()
+general_score = analyzer.general_score(bkn)
 general_gauge_chart, explanation_general_gauge_chart = create_gauge_chart(general_score)
-industry_comments = df1[df1["Industry"] == "Banking"]
+
+
+df1 = main_df_provider()
+df_grouped = (
+    df1.groupby("state").agg({"Sentiment_score": "mean"}).reset_index()
+)
+industry_comments = df1[df1["Industry"] == "Aviation & Aerospace."]
 industry_comments["Sentiment_Category"] = industry_comments[
-    "Normalized_Sentiment_Score"
+    "Sentiment_score"
 ].apply(categorize_score)
 universe_totals = df1["Sentiment_Category"].value_counts(normalize=True) * 100
 industry_totals = (
@@ -89,7 +82,7 @@ for category in gu.CATEGORY_ORDER:
 percentage_df_corrected = pd.DataFrame(percentage_data_corrected)
 percentage_df_corrected["Category"] = pd.Categorical(
     percentage_df_corrected["Category"],
-    categories=["Poor", "Low", "Medium", "Good", "Excellent"],
+    categories=gu.CATEGORY_ORDER,
     ordered=True,
 )
 percentage_df_corrected = percentage_df_corrected.sort_values("Category")
@@ -112,7 +105,7 @@ fig_hist_general.update_layout(
 
 score_by_pillar = (
     df1.groupby("Predicted_SASB")
-    .agg(Avg_Score=("Normalized_Sentiment_Score", "mean"))
+    .agg(Avg_Score=("Sentiment_score", "mean"))
     .reset_index()
 )
 pillars = score_by_pillar["Predicted_SASB"].unique()
@@ -147,7 +140,7 @@ for index, row in score_by_pillar.iterrows():
 
 score_by_pillar = (
     df1.groupby("Pilar")
-    .agg(Avg_Score=("Normalized_Sentiment_Score", "mean"))
+    .agg(Avg_Score=("Sentiment_score", "mean"))
     .reset_index()
 )
 pillars = score_by_pillar["Pilar"].unique()
