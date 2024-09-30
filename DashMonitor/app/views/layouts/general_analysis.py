@@ -21,24 +21,15 @@ from DashMonitor.app.handlers.function_utils import (
     create_gauge_chart,
     create_gauge_chart_ssindex,
 )
-from DashMonitor.app.handlers import gu
-from DashMonitor.app.views.configs import main_df_provider
 
-<<<<<<< HEAD
-=======
 from DashMonitor.app.views import components as cpt
 
 # Import mock data
 from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
 from DashMonitor.app.views.layouts.mock_data_general_analysis import *
+from DashMonitor.app.handlers import gu
+from DashMonitor.app.views.configs import main_df_provider
 
-category_order = ["Universe", "Industry", "Company"]
-custom_colors = {
-    "Universe": "#1f77b4",  # Blue
-    "Industry": "#2ca02c",  # Green
-    "Company": "#ff7f0e",  # Orange
-}
->>>>>>> feat/rebase_new
 
 bkn = "Boeing"
 
