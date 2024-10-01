@@ -45,7 +45,7 @@ ENTRY_LAYOUT = Div(
                         tabs=[
                             cpt.HeaderTabBtn('GENERAL'),
                             cpt.HeaderTabBtn('SASB'),
-                            cpt.HeaderTabBtn('SSINDEX'),
+                            # cpt.HeaderTabBtn('SSINDEX'),
                             cpt.HeaderTabBtn('MAP'),
                             cpt.HeaderTabBtn('BENCHMARK'),
                         ],
@@ -56,9 +56,9 @@ ENTRY_LAYOUT = Div(
                                 'GENERAL', view=lyt.GENERAL_ANALYSIS_LAYOUT
                             ),
                             cpt.MainTabPanel('SASB', view=lyt.SASB_ANALYSIS_LAYOUT),
-                            cpt.MainTabPanel(
-                                'SSINDEX', view=lyt.SSINDEX_ANALYSIS_LAYOUT
-                            ),
+                            # cpt.MainTabPanel(
+                            #     'SSINDEX', view=lyt.SSINDEX_ANALYSIS_LAYOUT
+                            # ),
                             cpt.MainTabPanel(
                                 'MAP', view=lyt.GEOGRAPHIC_ANALYSIS_LAYOUT
                             ),

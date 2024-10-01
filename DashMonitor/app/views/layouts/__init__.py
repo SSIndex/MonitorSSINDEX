@@ -25,6 +25,6 @@ def register_layouts_and_callbacks(app):
     register_layout_and_callbacks_benchmark(app)
     register_layout_and_callbacks_map(app)
     register_layout_and_callbacks_sasb(app)
-    register_layout_and_callbacks_ssindex(app)
+    # register_layout_and_callbacks_ssindex(app)
 
     return app
