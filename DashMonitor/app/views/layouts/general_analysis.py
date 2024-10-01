@@ -29,9 +29,9 @@ from DashMonitor.app.views.layouts.mock_data_general_analysis import *
 
 category_order = ["Universe", "Industry", "Company"]
 custom_colors = {
-    "Universe": "#1f77b4",  # Blue
-    "Industry": "#2ca02c",  # Green
-    "Company": "#ff7f0e",  # Orange
+    "Universe": "#0069C0",  # ssindex-graph-blue
+    "Industry": "#848484",  # ssindex-graph-grey
+    "Company": "#AB3ED8",  # ssindex-graph-purple
 }
 
 bkn = "Webster Bank"
@@ -112,7 +112,7 @@ fig_hist_general = px.bar(
     color="Type",
     barmode="group",
     text="Percentage",
-    height=400,
+    height=500,
     category_orders={"Type": category_order},
     color_discrete_map=custom_colors,
 )
@@ -120,7 +120,30 @@ fig_hist_general.update_traces(texttemplate="%{text:.2f}%", textposition="outsid
 fig_hist_general.update_layout(
     uniformtext_minsize=14,
     plot_bgcolor='#E8F4FF',
-    paper_bgcolor='#E8F4FF'
+    paper_bgcolor='#E8F4FF',
+    barcornerradius=25,
+    yaxis_title="",
+    xaxis_title="",
+    legend_title="",
+    legend=dict(
+        orientation="h",  # Horizontal orientation
+        yanchor="bottom", # Anchor the legend to the bottom
+        y=-0.2,           # Place the legend slightly below the chart
+        xanchor="center", # Center the legend
+        x=0.5,
+    )
+)
+
+# Update layout and styling for the text
+fig_hist_general.update_traces(
+    texttemplate='%{text:.0f}%',  # Format the text to display no decimals (whole numbers)
+    textposition='outside',  # Adjust text position (optional)
+    textfont=dict(
+        family="Manrope",
+        size=14,         # Set font size
+        color="#333B69",   # Set text color
+        weight='bold'    # Make text bold
+    )
 )
 
 score_by_pillar = (
