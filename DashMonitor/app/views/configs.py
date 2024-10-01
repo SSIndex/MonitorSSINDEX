@@ -5,6 +5,12 @@ Configs module with all view related configurations and constants.
 # local imports
 from DashMonitor.app.data.providers import FileStreamProvider
 
+
+# company variables
+COMPANY_NAME = 'Boeing'
+INDUSTRY_NAME = 'Aviation & Aerospace.'
+COUNTRY = 'United States'
+
 HTML_TITLE = 'ESG COMPASS'
 
 EXTERNAL_STYLESHEETS = []
