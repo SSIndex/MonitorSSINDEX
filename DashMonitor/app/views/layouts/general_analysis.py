@@ -17,7 +17,6 @@ from dash import html
 from DashMonitor.app.data.analyzers import GeneralAnalyzer, GeneralComparisonAnalyzer
 from DashMonitor.app.handlers.function_utils import (
     categorize_score,
-    create_result_table,
     create_gauge_chart,
     create_gauge_chart_ssindex,
 )
@@ -60,11 +59,10 @@ fig_hist_general = px.bar(
     color="Type",
     barmode="group",
     text="Percentage",
-    height=500,
+    height=600,
     category_orders={"Type": gu.CATEGORY_ORDER},
     color_discrete_map=gu.CUSTOM_COLORS,
 )
-fig_hist_general.update_traces(texttemplate="%{text:.2f}%", textposition="outside")
 fig_hist_general.update_layout(
     uniformtext_minsize=14,
     plot_bgcolor='#E8F4FF',
