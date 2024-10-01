@@ -1,5 +1,6 @@
 from dash import html
 
+from DashMonitor.app.handlers.function_utils import categorize_score_to_text_class_name
 
 class GaugeChart:
     # TODO: ADD DOCS and type hints, and refactor styles
@@ -40,6 +41,20 @@ class GaugeChart:
         self.max_value = self.mock_max_value
         self.text_labels = self.mock_labels
         self.score_labels = self.mock_score_labels
+
+    def _generate_score_text(self) -> None:
+        """Generate the score text based on the score value."""
+        text_class_name = categorize_score_to_text_class_name(self.score)
+        if self.score < 20:
+             self.score_text = html.B(className=text_class_name, children=self.score_text)
+        elif self.score < 40:
+            return html.B(className=text_class_name, children=self.score_text)
+        elif self.score < 60:
+            self.score_text = html.B(className=text_class_name, children=self.score_text)
+        elif self.score < 80:
+             self.score_text = html.B(className=text_class_name, children=self.score_text)
+        else:
+             self.score_text = html.B(className=text_class_name, children=self.score_text)
 
     def calculate_position(self):
         """Calculate the percentage position of the score along the bar."""
@@ -123,6 +138,7 @@ class GaugeChart:
 
     def render(self):
         """Render the entire GaugeChart component."""
+        self._generate_score_text()
         return html.Div(
             className='text-center p-3',
             children=[
