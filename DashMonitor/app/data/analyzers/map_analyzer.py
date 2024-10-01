@@ -31,6 +31,12 @@ class MapAnalyzer(BaseAnalyzer):
     def _having(self): ...
 
     def _sort(self): ...
+    
+    def get_all_reviews_by_company(self, bank_name):
+        df = self.__data_analyzed
+
+        return df[df["bank_name"] == bank_name]
+
 
     def execute(self):
         super().execute()
