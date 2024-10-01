@@ -19,7 +19,7 @@ def categorize_score(score):
     elif score <= 40:
         return "Low"
     elif score <= 60:
-        return "Average"
+        return "Medium"
     elif score <= 80:
         return "Good"
     else:
