@@ -28,14 +28,14 @@ class GaugeChart:
 
     def __init__(self, score, score_text, min_value, max_value, labels, score_labels):
         # TODO: when not using mock data, uncomment the following lines
-        # self.score = score
-        # self.score_text = score_text
+        self.score = score
+        self.score_text = score_text
         # self.min_value = min_value
         # self.max_value = max_value
         # self.text_labels = labels
         # self.score_labels = score_labels
-        self.score = self.mock_score
-        self.score_text = self.mock_score_text
+        # self.score = self.mock_score
+        # self.score_text = self.mock_score_text
         self.min_value = self.mock_min_value
         self.max_value = self.mock_max_value
         self.text_labels = self.mock_labels
