@@ -23,7 +23,7 @@ class GeneralAnalyzer(BaseAnalyzer):
     def _filter(self):
         df = self.__data_analyzed
 
-        general_filter = (df["pilar"] == "Other") & (df["predicted_sasb"] == "Other")
+        general_filter = (df["pilar"] != "Other") & (df["predicted_sasb"] != "Other")
 
         self.__data_analyzed = df[general_filter].reset_index(drop=True)
 
@@ -54,7 +54,8 @@ class GeneralAnalyzer(BaseAnalyzer):
         df = self.__data_analyzed
 
         res = df[df["bank_name"] == bank_name]["total_sentiment_score"].mean()
-        return 0 if np_isnan(res) else res
+
+        return 0 if np_isnan(res) else round(res)
 
     def execute(self):
         super().execute()
