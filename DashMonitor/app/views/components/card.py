@@ -64,7 +64,7 @@ class Card(BaseComponent):
 
     def _generate_overview_text(self) -> None:
         if self.overview == 'Poor':
-            self.overview_text = ' Thieees company holds a low sentiment score. Feedback is mostly negative, with 80% of comments being negative and 20% positive. This indicates a negative perception among respondents'
+            self.overview_text = ' This company holds a low sentiment score. Feedback is mostly negative, with 80% of comments being negative and 20% positive. This indicates a negative perception among respondents'
         
         elif self.overview in ['Average', 'Medium']:
             self.overview_text = ' This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents'
