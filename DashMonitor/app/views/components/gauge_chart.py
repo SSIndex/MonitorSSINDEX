@@ -41,6 +41,19 @@ class GaugeChart:
         self.text_labels = self.mock_labels
         self.score_labels = self.mock_score_labels
 
+    def _generate_score_text(self) -> None:
+        """Generate the score text based on the score value."""
+        if self.score < 20:
+             self.score_text = html.B(className='text-ssindex-poor', children=self.score_text)
+        elif self.score < 40:
+            return html.B(className='text-ssindex-low', children=self.score_text)
+        elif self.score < 60:
+            self.score_text = html.B(className='text-ssindex-average', children=self.score_text)
+        elif self.score < 80:
+             self.score_text = html.B(className='text-ssindex-good', children=self.score_text)
+        else:
+             self.score_text = html.B(className='text-ssindex-excellent', children=self.score_text)
+
     def calculate_position(self):
         """Calculate the percentage position of the score along the bar."""
         return (self.score - self.min_value) / (self.max_value - self.min_value) * 100
@@ -123,6 +136,7 @@ class GaugeChart:
 
     def render(self):
         """Render the entire GaugeChart component."""
+        self._generate_score_text()
         return html.Div(
             className='text-center p-3',
             children=[
