@@ -11,12 +11,12 @@ class GaugeChart:
     mock_min_value = 0
     mock_max_value = 100
     mock_labels = [
-            html.B(className='text-ssindex-poor', children='Poor'),
-            html.B(className='text-ssindex-low', children='Low'),
-            html.B(className='text-ssindex-average', children='Average'),
-            html.B(className='text-ssindex-good', children='Good'),
-            html.B(className='text-ssindex-excellent', children='Excellent'),
-        ]
+        html.B(className='text-ssindex-poor', children='Poor'),
+        html.B(className='text-ssindex-low', children='Low'),
+        html.B(className='text-ssindex-average', children='Average'),
+        html.B(className='text-ssindex-good', children='Good'),
+        html.B(className='text-ssindex-excellent', children='Excellent'),
+    ]
 
     mock_score_labels = [
         html.P(className='text-secondary', children='[0-19]'),
@@ -40,7 +40,6 @@ class GaugeChart:
         self.max_value = self.mock_max_value
         self.text_labels = self.mock_labels
         self.score_labels = self.mock_score_labels
-
 
     def calculate_position(self):
         """Calculate the percentage position of the score along the bar."""
@@ -129,14 +128,10 @@ class GaugeChart:
             children=[
                 self.render_score_display(),
                 # Labels above the gradient bar
-                self.render_labels(
-                    labels=self.text_labels
-                ),
+                self.render_labels(labels=self.text_labels),
                 # Gradient bar with score marker
                 self.render_gradient_bar(),
                 # Score labels below the gradient bar
-                self.render_labels(
-                    labels=self.score_labels
-                ),
+                self.render_labels(labels=self.score_labels),
             ],
         )
