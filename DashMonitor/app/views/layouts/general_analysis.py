@@ -14,7 +14,7 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 # local imports
-from DashMonitor.app.data.analyzers import GeneralAnalyzer
+from DashMonitor.app.data.analyzers import GeneralAnalyzer, GeneralComparisonAnalyzer
 from DashMonitor.app.handlers.function_utils import (
     categorize_score,
     create_result_table,
@@ -34,8 +34,7 @@ from DashMonitor.app.views.configs import main_df_provider
 bkn = "Boeing"
 
 analyzer = GeneralAnalyzer(
-    main_df_provider,
-    None  # Should be the app to register recalculation callbacks
+    main_df_provider, None  # Should be the app to register recalculation callbacks
 )
 
 df = analyzer.execute()
@@ -43,55 +42,16 @@ general_score = analyzer.general_score(bkn)
 general_gauge_chart, explanation_general_gauge_chart = create_gauge_chart(general_score)
 
 
-df1 = main_df_provider()
-df_grouped = (
-    df1.groupby("state").agg({"Sentiment_score": "mean"}).reset_index()
+comparison_analyzer = GeneralComparisonAnalyzer(
+    "Aviation & Aerospace.",
+    "Boeing",
+    main_df_provider,
+    None,  # Should be the app to register recalculation callbacks
 )
-industry_comments = df1[df1["Industry"] == "Aviation & Aerospace."]
-industry_comments["Sentiment_Category"] = industry_comments[
-    "Sentiment_score"
-].apply(categorize_score)
-universe_totals = df1["Sentiment_Category"].value_counts(normalize=True) * 100
-industry_totals = (
-    industry_comments["Sentiment_Category"].value_counts(normalize=True) * 100
-)
-obj_bank = df1[df1["Bank Name"] == bkn]
-total_obj_bank = len(obj_bank)
-obj_bank_totals_corrected = (
-    obj_bank["Sentiment_Category"].value_counts(normalize=True) * 100
-)
-percentage_data_corrected = []
-for category in gu.CATEGORY_ORDER:
-    percentage_data_corrected.append(
-        {
-            "Category": category,
-            "Type": "Universe",
-            "Percentage": universe_totals.get(category, 0),
-        }
-    )
-    percentage_data_corrected.append(
-        {
-            "Category": category,
-            "Type": "Industry",
-            "Percentage": industry_totals.get(category, 0),
-        }
-    )
-    percentage_data_corrected.append(
-        {
-            "Category": category,
-            "Type": "Company",
-            "Percentage": obj_bank_totals_corrected.get(category, 0),
-            "Company": "Webster Bank",
-        }
-    )
 
-percentage_df_corrected = pd.DataFrame(percentage_data_corrected)
-percentage_df_corrected["Category"] = pd.Categorical(
-    percentage_df_corrected["Category"],
-    categories=gu.CATEGORY_ORDER,
-    ordered=True,
-)
-percentage_df_corrected = percentage_df_corrected.sort_values("Category")
+percentage_df_corrected = comparison_analyzer.execute()
+
+print(percentage_df_corrected.head(100))
 
 fig_hist_general = px.bar(
     percentage_df_corrected,
@@ -106,77 +66,8 @@ fig_hist_general = px.bar(
 )
 fig_hist_general.update_traces(texttemplate="%{text:.2f}%", textposition="outside")
 fig_hist_general.update_layout(
-    uniformtext_minsize=14,
-    plot_bgcolor='#E8F4FF',
-    paper_bgcolor='#E8F4FF'
+    uniformtext_minsize=14, plot_bgcolor='#E8F4FF', paper_bgcolor='#E8F4FF'
 )
-
-score_by_pillar = (
-    df1.groupby("Predicted_SASB")
-    .agg(Avg_Score=("Sentiment_score", "mean"))
-    .reset_index()
-)
-pillars = score_by_pillar["Predicted_SASB"].unique()
-# Crear gráficos de medidor para cada pilar
-
-gauge_figures_2 = []
-
-for index, row in score_by_pillar.iterrows():
-    score = row["Avg_Score"]
-    pillar_name = row["Predicted_SASB"]
-    fig = create_gauge_chart_ssindex(score, pillar_name)
-    gauge_figures_2.append(
-        dbc.Row(
-            [
-                dbc.Col(
-                    html.H4(
-                        pillar_name,
-                        style={"textAlign": "left", "padding-right": "20px"},
-                    ),
-                    width=2,
-                    style={"display": "flex", "align-items": "center"},
-                ),
-                dbc.Col(
-                    dcc.Graph(figure=fig, config={"displayModeBar": False}),
-                    width=10,
-                    style={"padding-left": "0px"},
-                ),
-            ],
-            style={"margin-bottom": "0px", "align-items": "center"},
-        )
-    )
-
-score_by_pillar = (
-    df1.groupby("Pilar")
-    .agg(Avg_Score=("Sentiment_score", "mean"))
-    .reset_index()
-)
-pillars = score_by_pillar["Pilar"].unique()
-gauge_figures_1 = []
-for index, row in score_by_pillar.iterrows():
-    score = row["Avg_Score"]
-    pillar_name = row["Pilar"]
-    fig = create_gauge_chart_ssindex(score, pillar_name)
-    gauge_figures_1.append(
-        dbc.Row(
-            [
-                dbc.Col(
-                    html.H4(
-                        pillar_name,
-                        style={"textAlign": "left", "padding-right": "20px"},
-                    ),
-                    width=2,
-                    style={"display": "flex", "align-items": "center"},
-                ),
-                dbc.Col(
-                    dcc.Graph(figure=fig, config={"displayModeBar": False}),
-                    width=10,
-                    style={"padding-left": "0px"},
-                ),
-            ],
-            style={"margin-bottom": "0px", "align-items": "center"},
-        )
-    )
 
 # ------------------------------------------------------------------------------
 GENERAL_ANALYSIS_LAYOUT = html.Div(
@@ -288,7 +179,8 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                                     className="col-12",
                                     children=[
                                         dcc.Graph(
-                                            id="histogram", figure=fig_hist_general,
+                                            id="histogram",
+                                            figure=fig_hist_general,
                                         )
                                     ],
                                 ),
@@ -323,31 +215,31 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                 )
             ],
         ),
-        html.Section(
-            className="section pt-5",
-            children=[
-                html.Div(
-                    children=[
-                        html.H4(
-                            className="text-primary",
-                            children=['SSINDEX Impact Analysis'],
-                        ),
-                        html.P(
-                            className='text-ssindex-graph-grey',
-                            children=[
-                                'Stakeholders evaluate how the company is performing according to the Stakeholders Sustainability Index (SSINDEX) methodology'
-                            ],
-                        ),
-                        cpt.Table(
-                            headers=ssindex_impact_analysis_headers,
-                            data=data_ssindex_impact_analysis,
-                            footer_data=footer_data,
-                            class_name_headers=class_name_headers,
-                            table_title='Overall Score SASB',
-                        ).render(),
-                    ]
-                )
-            ],
-        ),
+        # html.Section(
+        #     className="section pt-5",
+        #     children=[
+        #         html.Div(
+        #             children=[
+        #                 html.H4(
+        #                     className="text-primary",
+        #                     children=['SSINDEX Impact Analysis'],
+        #                 ),
+        #                 html.P(
+        #                     className='text-ssindex-graph-grey',
+        #                     children=[
+        #                         'Stakeholders evaluate how the company is performing according to the Stakeholders Sustainability Index (SSINDEX) methodology'
+        #                     ],
+        #                 ),
+        #                 cpt.Table(
+        #                     headers=ssindex_impact_analysis_headers,
+        #                     data=data_ssindex_impact_analysis,
+        #                     footer_data=footer_data,
+        #                     class_name_headers=class_name_headers,
+        #                     table_title='Overall Score SASB',
+        #                 ).render(),
+        #             ]
+        #         )
+        #     ],
+        # ),
     ],
 )
