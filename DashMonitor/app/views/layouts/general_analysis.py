@@ -108,13 +108,12 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
             className='section pt-3',
             children=[
                 cpt.Card(
-                    COMPANY_NAME,
-                    INDUSTRY_NAME,
-                    COUNTRY,
-                    company_image,
-                    overview,
-                    overview_text,
-                    cpt.GaugeChart(
+                    company_name = COMPANY_NAME,
+                    industry=INDUSTRY_NAME,
+                    country=COUNTRY,
+                    company_image=company_image,
+                    overview=categorize_score(general_score),
+                    overview_graph=cpt.GaugeChart(
                         score=general_score,
                         score_text=categorize_score(general_score),
                         min_value=mock_min_value,
