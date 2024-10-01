@@ -40,8 +40,92 @@ analyzer = GeneralAnalyzer(
     main_df_provider, None  # Should be the app to register recalculation callbacks
 )
 
+rows = analyzer.size()[0]
 analyzer.execute()
 general_score = analyzer.general_score(COMPANY_NAME)
+
+
+data_percentile_analysis = [
+    {
+        "data": [
+            html.P(
+                className='text-dark mb-0 d-flex align-items-center fs-7 gap-1',
+                children=[
+                    # Blue box beside the text
+                    html.Span(
+                        className='bg-primary rounded-1',
+                        style={"width": "20px", "height": "20px", "min-width": "20px"},
+                        children="\u200B",
+                    ),
+                    # Text
+                    "Global Universe",
+                ],
+            ),
+            html.P(
+                className='text-ssindex-graph-grey mb-0',
+                children=[html.B("1"), " out of 1"],
+            ),
+            html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
+            html.P(className='text-ssindex-graph-grey mb-0', children=f"{rows} out of {rows}"),
+        ]
+    },
+    {
+        "data": [
+            html.Div(
+                className='text-dark m-0 d-flex align-items-center fs-7',
+                children=[
+                    html.P(
+                        className='text-dark mb-0 d-flex align-items-center fs-7',
+                        children=[
+                            # Blue box beside the text
+                            html.Span(
+                                className='bg-secondary rounded-1',
+                                style={
+                                    "width": "20px",
+                                    "height": "20px",
+                                    "min-width": "20px",
+                                },
+                                children="\u200B",
+                            ),
+                            # Text
+                            "Industry, South America",
+                        ],
+                    ),
+                ],
+            ),
+            html.P(
+                className='text-ssindex-graph-grey mb-0',
+                children=[html.B("1"), " out of 1"],
+            ),
+            html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
+            html.P(className='text-ssindex-graph-grey mb-0', children=f"{rows} out of {rows}"),
+        ]
+    },
+    {
+        "data": [
+            html.P(
+                className='text-dark mb-0 d-flex align-items-center fs-7',
+                children=[
+                    # Blue box beside the text
+                    html.Span(
+                        className='bg-light rounded-1',
+                        style={"width": "20px", "height": "20px", "min-width": "20px"},
+                        children="\u200B",
+                    ),
+                    # Text
+                    "Industry, Country",
+                ],
+            ),
+            html.P(
+                className='text-ssindex-graph-grey mb-0',
+                children=[html.B("1"), " out of 1"],
+            ),
+            html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
+            html.P(className='text-ssindex-graph-grey mb-0', children=f"{rows} out of {rows}"),
+        ]
+    },
+]
+    
 
 
 comparison_analyzer = GeneralComparisonAnalyzer(
