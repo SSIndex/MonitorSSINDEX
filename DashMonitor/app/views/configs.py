@@ -19,9 +19,7 @@ EXTERNAL_SCRIPTS = [
     },
 ]
 
-main_df_provider = FileStreamProvider(
-    '/app/DashMonitor/data/boeing_case_use.csv'
-)
+main_df_provider = FileStreamProvider('/app/DashMonitor/data/boeing_case_use.csv')
 
 
 def get_main_html() -> str:
