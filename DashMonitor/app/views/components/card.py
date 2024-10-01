@@ -30,6 +30,7 @@ class Card(BaseComponent):
     """
 
     _BASE_CARD_CLASS_NAME = 'card text-bg-ssindex-card-blue rounded-3'
+    mock_image = 'assets/boeing.png'
 
     def __init__(
         self,
@@ -47,7 +48,8 @@ class Card(BaseComponent):
         self.company_name = company_name
         self.industry = industry
         self.country = country
-        self.company_image = company_image
+        # self.company_image = company_image
+        self.company_image = self.mock_image
         self.overview = overview
         self.overview_text = overview_text
         self.overview_graph = overview_graph
@@ -64,7 +66,7 @@ class Card(BaseComponent):
         if self.overview == 'Poor':
             self.overview_text = ' Thieees company holds a low sentiment score. Feedback is mostly negative, with 80% of comments being negative and 20% positive. This indicates a negative perception among respondents'
         
-        elif self.overview == 'Average':
+        elif self.overview in ['Average', 'Medium']:
             self.overview_text = ' This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents'
         
         elif self.overview == 'Good':
