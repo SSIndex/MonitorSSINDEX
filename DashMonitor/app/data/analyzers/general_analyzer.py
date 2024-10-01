@@ -50,6 +50,9 @@ class GeneralAnalyzer(BaseAnalyzer):
     def _sort(self):
         self.__data_analyzed.sort_values("date", inplace=True)
 
+    def size(self) -> tuple:
+        return (self.__data_analyzed.shape[0], self.__data_analyzed.shape[1])
+
     def general_score(self, bank_name):
         df = self.__data_analyzed
 

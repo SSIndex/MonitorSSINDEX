@@ -296,13 +296,13 @@ SASB_ANALYSIS_LAYOUT = html.Div(
             className='section pt-3',
             children=[
                 cpt.Card(
-                    company_name,
-                    industry,
-                    country,
-                    company_image,
-                    overview,
-                    overview_text,
-                    cpt.GaugeChart(
+                    company_name=company_name,
+                    industry=industry,
+                    country=country,
+                    company_image=company_image,
+                    overview=overview,
+                    overview_text=overview_text,
+                    overview_graph=cpt.GaugeChart(
                         score=mock_score,
                         score_text=mock_score_text,
                         min_value=mock_min_value,

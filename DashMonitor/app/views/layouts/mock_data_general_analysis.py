@@ -5,17 +5,17 @@ percentyle_analysis_headers = [
     "Position",
     "Percentile",
     "Data Set",
-    html.P(
-        className="mb-0",
-        children=html.Div(
-            children=[
-                html.Div(className="m-0", children="Percentil"),
-                html.P(
-                    className='fw-normal m-0 fs-7 text-dark', children="(Last Analysis)"
-                ),
-            ]
-        ),
-    ),
+    # html.P(
+    #     className="mb-0",
+    #     children=html.Div(
+    #         children=[
+    #             html.Div(className="m-0", children="Percentil"),
+    #             html.P(
+    #                 className='fw-normal m-0 fs-7 text-dark', children="(Last Analysis)"
+    #             ),
+    #         ]
+    #     ),
+    # ),
 ]
 
 ssindex_impact_analysis_headers = [
@@ -111,7 +111,6 @@ data_percentile_analysis = [
             html.Div(
                 className='text-dark m-0 d-flex align-items-center fs-7',
                 children=[
-                    # TODO: FIX styles of the blue box. Make it responsive.
                     html.P(
                         className='text-dark mb-0 d-flex align-items-center fs-7',
                         children=[

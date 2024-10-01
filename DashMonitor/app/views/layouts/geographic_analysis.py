@@ -19,10 +19,18 @@ from DashMonitor.app.handlers.function_utils import (
     create_result_table,
     create_gauge_chart,
     create_gauge_chart_ssindex,
+    categorize_score_to_bg_class_name,
+    categorize_score_to_text_class_name
 )
+from DashMonitor.app.data.analyzers.map_analyzer import MapAnalyzer
 
 # Import mock data
 from DashMonitor.app.views.layouts.mock_data_geographic_analysis import *
+from DashMonitor.app.views.configs import (
+    main_df_provider,
+    COMPANY_NAME,
+)
+
 
 from DashMonitor.app.views import components as cpt
 
@@ -38,6 +46,53 @@ bkn = "Webster Bank"
 df = pd.read_csv("/app/DashMonitor/data/data_procesa_inferencia_webster_SASB.csv")
 filtro_general = (df["Pilar"] == "Other") & (df["Predicted_SASB"] == "Other")
 df = df[filtro_general].reset_index(drop=True)
+
+analyzer = MapAnalyzer(main_df_provider, None)
+reviews_data = analyzer.get_all_reviews_by_company(COMPANY_NAME)
+data_analyzed_df = analyzer.execute()
+
+nested_data = [
+    [
+        html.P(row['review']),
+        html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{row['sentiment_score']}%"),
+        html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{categorize_score(row['sentiment_score'])}"),
+        html.P(row['state']),
+        html.P(row['ds']),
+        html.P(row['data_source'])
+    ]
+    for _, row in reviews_data.iterrows()
+]
+
+empty_circle_style = {
+    "width": "50px",
+    "height": "50px",
+    "border-radius": "50%",
+    "display": "inline-block",
+}
+
+html_data = [
+    {
+        "data": [
+            html.Div(
+                className=f"{categorize_score_to_bg_class_name(row['sentiment_score'])}",
+                style=empty_circle_style,
+                children=html.P("\u200B"),
+            ),
+            html.P(row['state']),
+            html.Div(
+                className=f"{categorize_score_to_bg_class_name(row['sentiment_score'])} w-100 h-100 border rounded",
+                children=html.B(className='text-white', children=f"{round(row['sentiment_score'])}"),
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100 border rounded",
+                children=html.B(className='text-white', children="100th"),
+            ),
+        ],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
+    }
+    for _, row in data_analyzed_df.iterrows()
+]
 
 GEOGRAPHIC_ANALYSIS_LAYOUT = html.Div(
     className="container",
@@ -61,7 +116,7 @@ GEOGRAPHIC_ANALYSIS_LAYOUT = html.Div(
                         ),
                         cpt.Table(
                             headers=headers,
-                            data=data,
+                            data=html_data,
                             class_name_headers=class_name_headers,
                         ).render(),
                     ]
