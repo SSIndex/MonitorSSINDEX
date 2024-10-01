@@ -7,3 +7,4 @@ from DashMonitor.app.data.analyzers.general_analyzer import (
     GeneralAnalyzer,
     GeneralComparisonAnalyzer,
 )
+from DashMonitor.app.data.analyzers.sasb_analyzer import SASBAnalyzer
