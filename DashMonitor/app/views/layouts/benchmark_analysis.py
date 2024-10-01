@@ -57,15 +57,9 @@ df.sort_values("date", inplace=True)
 from dash import html
 
 data = [
-    {
-        "data": nested_data[0]
-    },
-    {
-        "data": nested_data[1]
-    },
-    {
-        "data": nested_data[2]
-    },
+    {"data": nested_data[0]},
+    {"data": nested_data[1]},
+    {"data": nested_data[2]},
 ]
 
 # Your imports and code...
@@ -96,14 +90,14 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
         html.Section(
             className="section mt-4 p-3 rounded rounded-4 bg-ssindex-nested-table-background shadow-sm",
             children=[
-                    cpt.Table(
-                        headers=nested_headers,
-                        data=data,
-                        class_name_div="table-ssindex-nested-table-background text-center rounded-3",
-                        class_name_table="table table-borderless table-responsive table-ssindex-nested-table-background rounded rounded-3",
-                        class_name_headers="text-center table-white align-middle",
+                cpt.Table(
+                    headers=nested_headers,
+                    data=data,
+                    class_name_div="table-ssindex-nested-table-background text-center rounded-3",
+                    class_name_table="table table-borderless table-responsive table-ssindex-nested-table-background rounded rounded-3",
+                    class_name_headers="text-center table-white align-middle",
                 ).render()
-            ]
+            ],
         ),
         # Box plot - Local Industry Analysis Section
         html.Section(
@@ -251,7 +245,6 @@ def register_callbacks(app):
             x="date",
             y="Total_Sentiment_Score",
             color="Bank Name",
-            title="Overall Sentiment Score Over Time",
         )
 
         overall_time_line_fig.update_layout(
@@ -372,13 +365,35 @@ def register_callbacks(app):
                     "type": "buttons",
                 }
             ],
+            yaxis_title="",
+            xaxis_title="",
+            legend_title="",
+            legend=dict(
+                orientation="h",  # Horizontal orientation
+                yanchor="bottom",  # Anchor the legend to the bottom
+                y=-0.2,  # Place the legend slightly below the chart
+                xanchor="center",  # Center the legend
+                x=0.5,
+            ),
         )
         boxplot_fig = px.box(
             filtered_df,
             x="Bank Name",
             y="Normalized_Sentiment_Score",
             color="Bank Name",
-            title="Boxplot of Sentiment Scores by Bank",
+        )
+
+        boxplot_fig.update_layout(
+            yaxis_title="",
+            xaxis_title="",
+            legend_title="",
+            legend=dict(
+                orientation="h",  # Horizontal orientation
+                yanchor="bottom",  # Anchor the legend to the bottom
+                y=-0.2,  # Place the legend slightly below the chart
+                xanchor="center",  # Center the legend
+                x=0.5,
+            ),
         )
 
         return (
