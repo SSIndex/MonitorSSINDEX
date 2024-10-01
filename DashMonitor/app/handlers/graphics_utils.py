@@ -9,7 +9,7 @@ CATEGORY_ORDER = ["Universe", "Industry", "Company"]
 
 
 CUSTOM_COLORS = {
-    "Universe": "#1f77b4",  # Blue
-    "Industry": "#2ca02c",  # Green
-    "Company": "#ff7f0e",  # Orange
+    "Universe": "#848484",  # ssindex-graph-grey
+    "Industry": "#0069C0",  # ssindex-graph-blue
+    "Company": "#AB3ED8",  # ssindex-graph-purple
 }
