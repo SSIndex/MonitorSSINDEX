@@ -28,30 +28,30 @@ from DashMonitor.app.views import components as cpt
 from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
 from DashMonitor.app.views.layouts.mock_data_general_analysis import *
 from DashMonitor.app.handlers import gu
-from DashMonitor.app.views.configs import main_df_provider
+from DashMonitor.app.views.configs import (
+    main_df_provider,
+    COMPANY_NAME,
+    INDUSTRY_NAME,
+    COUNTRY,
+)
 
-
-bkn = "Boeing"
 
 analyzer = GeneralAnalyzer(
     main_df_provider, None  # Should be the app to register recalculation callbacks
 )
 
-df = analyzer.execute()
-general_score = analyzer.general_score(bkn)
-general_gauge_chart, explanation_general_gauge_chart = create_gauge_chart(general_score)
+analyzer.execute()
+general_score = analyzer.general_score(COMPANY_NAME)
 
 
 comparison_analyzer = GeneralComparisonAnalyzer(
-    "Aviation & Aerospace.",
-    "Boeing",
+    INDUSTRY_NAME,
+    COMPANY_NAME,
     main_df_provider,
     None,  # Should be the app to register recalculation callbacks
 )
 
 percentage_df_corrected = comparison_analyzer.execute()
-
-print(percentage_df_corrected.head(100))
 
 fig_hist_general = px.bar(
     percentage_df_corrected,
@@ -83,15 +83,15 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
             className='section pt-3',
             children=[
                 cpt.Card(
-                    company_name,
-                    industry,
-                    country,
+                    COMPANY_NAME,
+                    INDUSTRY_NAME,
+                    COUNTRY,
                     company_image,
                     overview,
                     overview_text,
                     cpt.GaugeChart(
-                        score=mock_score,
-                        score_text=mock_score_text,
+                        score=general_score,
+                        score_text=categorize_score(general_score),
                         min_value=mock_min_value,
                         max_value=mock_max_value,
                         labels=mock_labels,
