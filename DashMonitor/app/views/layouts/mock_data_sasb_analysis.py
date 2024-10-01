@@ -1494,12 +1494,12 @@ mock_score_text = html.B(
 mock_min_value = 0
 mock_max_value = 100
 mock_labels = [
-        html.B(className='text-ssindex-poor', children='Poor'),
-        html.B(className='text-ssindex-low', children='Low'),
-        html.B(className='text-ssindex-average', children='Average'),
-        html.B(className='text-ssindex-good', children='Good'),
-        html.B(className='text-ssindex-excellent', children='Excellent'),
-    ]
+    html.B(className='text-ssindex-poor', children='Poor'),
+    html.B(className='text-ssindex-low', children='Low'),
+    html.B(className='text-ssindex-average', children='Average'),
+    html.B(className='text-ssindex-good', children='Good'),
+    html.B(className='text-ssindex-excellent', children='Excellent'),
+]
 
 mock_score_labels = [
     html.P(className='text-secondary', children='[0-19]'),
