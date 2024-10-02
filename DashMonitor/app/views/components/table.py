@@ -1,3 +1,7 @@
+'''
+Table Class Definition.
+'''
+
 from typing import List, Dict, Any, Optional
 
 from dash import html
@@ -72,6 +76,33 @@ class Table:
             class_name_div if class_name_div else self._BASE_DIV_CLASS_NAME
         )
 
+    def _render_table_headers(self, header_class_name: str, headers: List[str]) -> html.Tr:
+        """
+        Generates a table header row. 
+        
+        Parameters
+        ----------
+        header_class_name : str
+            The class name to be applied to each `html.Th` element in the header row. Allows for custom styling of the header.
+        headers : List[str]
+            A list of strings representing the headers to display in the table.
+        """
+        return html.Tr(
+            className='text-center',
+            children=[
+                html.Th(
+                    header,
+                    className=(
+                        f'{header_class_name}' +
+                        (' rounded-start-4' if i == 0 else '') +
+                        (' rounded-end-4' if i == len(headers) - 1 else '')
+                    ),
+                    style={'width': f'{100 / len(headers)}%'},
+                )
+                for i, header in enumerate(headers)
+            ]
+        )
+
     def _render_nested_table(
         self, nested_data: List[List[str]], nested_headers: List[str], index: int
     ) -> html.Tr:
@@ -92,34 +123,7 @@ class Table:
                                 html.Thead(
                                     className='text-center table-white align-middle',
                                     children=[
-                                        html.Tr(
-                                            className='text-center',
-                                            children=[
-                                                html.Th(
-                                                    header,
-                                                    className=(
-                                                        'text-center table-white fs-7'
-                                                        + (
-                                                            ' rounded-start-4 '
-                                                            if i == 0
-                                                            else ''
-                                                        )
-                                                        + (
-                                                            ' rounded-end-4'
-                                                            if i
-                                                            == len(nested_headers) - 1
-                                                            else ''
-                                                        )
-                                                    ),
-                                                    style={
-                                                        'width': f'{100 / len(nested_headers)}%'
-                                                    },
-                                                )
-                                                for i, header in enumerate(
-                                                    nested_headers
-                                                )
-                                            ],
-                                        )
+                                        self._render_table_headers(header_class_name='text-center table-white fs-7', headers=nested_headers)
                                     ],
                                 ),
                                 html.Tbody(
@@ -143,41 +147,66 @@ class Table:
             ),
             className=f'collapse nestedTable{index} {self.class_name_rows}',
         )
+    
+    def _render_main_row(self, row: Dict[str, Any], index: int) -> html.Tr:
+        """
+        Renders the main row of the main table. It also adds the necessary attributes to make the row collapsible if it contains nested data.
+        """
+        return html.Tr(
+            className=self.class_name_rows,
+            style={'cursor': 'pointer'} if 'nested_data' in row else {},
+            children=[html.Td(val) for val in row['data']],
+            **(
+                {
+                    'data-bs-toggle': 'collapse',
+                    'data-bs-target': f'.nestedTable{index}',
+                }
+                if 'nested_data' in row
+                else {}
+            ),
+        )
 
-    def _render_rows(self) -> html.Tr:
+    def _render_rows(self) -> List[html.Tr]:
+        """
+        Renders all rows for the main table, including nested tables if present.
+
+        This method iterates through the data provided to the table and generates a list of Dash `html.Tr` components, representing each row in the table.
+        If a row contains nested data, it will generate both the main row and a collapsible nested table.
+        """
         rows = []
-
         # Loop through each row of data
         for index, row in enumerate(self.data):
             # Create the main row
-            main_row = html.Tr(
-                className=self.class_name_rows,
-                style={'cursor': 'pointer'} if 'nested_data' in row else {},
-                children=[html.Td(val) for val in row['data']],
-                **(
-                    {
-                        'data-bs-toggle': 'collapse',
-                        'data-bs-target': f'.nestedTable{index}',
-                    }
-                    if 'nested_data' in row
-                    else {}
-                ),
-            )
-            rows.append(main_row)
+            main_row = self._render_main_row(row, index)
+            # Get the nested headers if present
+            nested_headers = row.get('nested_headers', [])
+            # Append the main row and the nested table if present
+            rows.extend([main_row, self._render_nested_table(row['nested_data'], nested_headers, index)] if 'nested_data' in row else [main_row])
 
-            # If the row contains nested data, add the nested row immediately after
-            if 'nested_data' in row:
-                # Nested table headers can be optional
-                nested_headers = row.get('nested_headers', [])
-                nested_row = self._render_nested_table(
-                    row['nested_data'], nested_headers, index
-                )
-                rows.append(nested_row)
         return rows
+    
+    def _render_footer(self) -> html.Tfoot:
+        '''
+        Generates the tabler footer if footer_data is present.
+        '''
+        return html.Tfoot(
+            className='border-top text-center',
+            children=[
+                html.Tr(
+                    children=[
+                        (
+                            html.Th(val) if i == 0
+                            else html.Td(val, className='text-center')
+                        )
+                        for i, val in enumerate(self.footer_data)
+                    ]
+                )
+            ],
+        ) if self.footer_data else None
 
     def render(self) -> html.Table:
         '''
-        Generates the Dash Component for the main table.
+        Generates the Dash Component for the table.
         '''
         rows = self._render_rows()
         return html.Div(
@@ -190,53 +219,11 @@ class Table:
                         html.Thead(
                             className='text-center align-middle',
                             children=[
-                                html.Tr(
-                                    children=[
-                                        html.Th(
-                                            header,
-                                            className=(
-                                                self.class_name_headers
-                                                + (
-                                                    ' rounded-start-4 '
-                                                    if i == 0
-                                                    else ''
-                                                )
-                                                + (
-                                                    ' rounded-end-4'
-                                                    if i == len(self.headers) - 1
-                                                    else ''
-                                                )
-                                            ),
-                                            style={
-                                                'width': f'{100 / len(self.headers)}%'
-                                            },
-                                        )
-                                        for i, header in enumerate(self.headers)
-                                    ]
-                                )
+                                self._render_table_headers(header_class_name=self.class_name_headers, headers=self.headers)
                             ],
                         ),
                         html.Tbody(className="align-middle text-center", children=rows),
-                        html.Tfoot(
-                            className='border-top text-center',
-                            children=[
-                                html.Tr(
-                                    children=[
-                                        (
-                                            html.Th(
-                                                val,
-                                            )
-                                            if i == 0
-                                            else html.Td(
-                                                val,
-                                                className=('text-center'),
-                                            )
-                                        )
-                                        for i, val in enumerate(self.footer_data)
-                                    ]
-                                )
-                            ],
-                        ),
+                        self._render_footer(),
                     ],
                 ),
             ],
