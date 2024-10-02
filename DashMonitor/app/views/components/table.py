@@ -111,8 +111,7 @@ class Table:
         '''
         return html.Tr(
             children=html.Td(
-                className='table-ssindex-nested-table-background text-center rounded-3',
-                style={'box-shadow': 'none'},
+                className='table-ssindex-nested-table-background text-center rounded-3 shadow-none',
                 colSpan=len(self.headers),
                 children=[
                     html.Div(
