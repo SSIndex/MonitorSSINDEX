@@ -56,6 +56,11 @@ class TimeTrendAnalyzer(BaseAnalyzer):
         res = df[df["bank_name"] == bank_name]["total_sentiment_score"].mean()
 
         return 0 if np_isnan(res) else round(res)
+    
+    def get_all_reviews_by_company(self, bank_name):
+        df = self.__data_analyzed
+
+        return df[df["bank_name"] == bank_name]
 
     def execute(self):
         super().execute()
