@@ -8,3 +8,4 @@ from DashMonitor.app.data.analyzers.general_analyzer import (
     GeneralComparisonAnalyzer,
 )
 from DashMonitor.app.data.analyzers.sasb_analyzer import SASBAnalyzer
+from DashMonitor.app.data.analyzers.time_trend_analyzer import TimeTrendAnalyzer
