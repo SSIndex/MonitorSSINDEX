@@ -20,6 +20,7 @@ from DashMonitor.app.handlers.function_utils import (
     create_result_table,
     create_gauge_chart,
     create_gauge_chart_ssindex,
+    categorize_score_to_text_class_name
 )
 
 from DashMonitor.app.views import components as cpt
@@ -28,12 +29,15 @@ from DashMonitor.app.views import components as cpt
 from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
 from DashMonitor.app.views.configs import (
     main_df_provider,
+    COMPANY_NAME,
 )
 
 
 analyzer = TimeTrendAnalyzer(
     main_df_provider, None
 )
+
+reviews_data = analyzer.get_all_reviews_by_company(COMPANY_NAME)
 
 data_frame = analyzer.execute()
 
@@ -75,6 +79,22 @@ data = [
 
 df = data_frame
 # Your imports and code...
+html_data = [
+    {
+        "data": [
+            html.P(row["review"]),
+            html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{row['sentiment_score']}%"),
+            html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{categorize_score(row['sentiment_score'])}"),
+            html.P(row['pilar']),
+            html.P(row['dimension_sasb']),
+            html.P(row['state']),
+            html.P(row['state']),
+            html.P(row['ds']),
+            html.P(row['data_source'])
+        ]
+    }
+    for _, row in reviews_data.iterrows()
+]
 
 BENCHMARK_ANALYSIS_LAYOUT = html.Div(
     className="container",
@@ -104,7 +124,7 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
             children=[
                 cpt.Table(
                     headers=nested_headers,
-                    data=data,
+                    data=html_data,
                     class_name_div="table-ssindex-nested-table-background text-center rounded-3",
                     class_name_table="table table-borderless table-responsive table-ssindex-nested-table-background rounded rounded-3",
                     class_name_headers="text-center table-white align-middle",
