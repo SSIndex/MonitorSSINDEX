@@ -154,7 +154,7 @@ class Table:
         """
         return html.Tr(
             className=self.class_name_rows,
-            style={'cursor': 'pointer'} if 'nested_data' in row else {},
+            role='button' if 'nested_data' in row else None,
             children=[html.Td(val) for val in row['data']],
             **(
                 {
