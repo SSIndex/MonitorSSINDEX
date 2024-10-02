@@ -76,10 +76,12 @@ class Table:
             class_name_div if class_name_div else self._BASE_DIV_CLASS_NAME
         )
 
-    def _render_table_headers(self, header_class_name: str, headers: List[str]) -> html.Tr:
+    def _render_table_headers(
+        self, header_class_name: str, headers: List[str]
+    ) -> html.Tr:
         """
-        Generates a table header row. 
-        
+        Renders a table header row.
+
         Parameters
         ----------
         header_class_name : str
@@ -93,22 +95,32 @@ class Table:
                 html.Th(
                     header,
                     className=(
-                        f'{header_class_name}' +
-                        (' rounded-start-4' if i == 0 else '') +
-                        (' rounded-end-4' if i == len(headers) - 1 else '')
+                        f'{header_class_name}'
+                        + (' rounded-start-4' if i == 0 else '')
+                        + (' rounded-end-4' if i == len(headers) - 1 else '')
                     ),
                     style={'width': f'{100 / len(headers)}%'},
                 )
                 for i, header in enumerate(headers)
-            ]
+            ],
         )
 
     def _render_nested_table(
         self, nested_data: List[List[str]], nested_headers: List[str], index: int
     ) -> html.Tr:
-        '''
-        Generates a nested table as a Dash component inside a collapsible row.
-        '''
+        """
+        Renders a nested table inside a collapsible row.
+
+        Parameters
+        ----------
+        nested_data : List[List[str]]
+            A list of lists, where each inner list represents a row of values for the nested table.
+        nested_headers : List[str]
+            A list of strings representing the headers to display in the nested table.
+        index : int
+            The index of the row. Used to create unique class names for collapsibility
+            and to differentiate nested tables in the DOM.
+        """
         return html.Tr(
             children=html.Td(
                 className='table-ssindex-nested-table-background text-center rounded-3 shadow-none',
@@ -122,7 +134,10 @@ class Table:
                                 html.Thead(
                                     className='text-center table-white align-middle',
                                     children=[
-                                        self._render_table_headers(header_class_name='text-center table-white fs-7', headers=nested_headers)
+                                        self._render_table_headers(
+                                            header_class_name='text-center table-white fs-7',
+                                            headers=nested_headers,
+                                        )
                                     ],
                                 ),
                                 html.Tbody(
@@ -146,10 +161,21 @@ class Table:
             ),
             className=f'collapse nestedTable{index} {self.class_name_rows}',
         )
-    
+
     def _render_main_row(self, row: Dict[str, Any], index: int) -> html.Tr:
         """
-        Renders the main row of the main table. It also adds the necessary attributes to make the row collapsible if it contains nested data.
+        Renders a single row of the main table and adds collapsibility if nested data is present.
+
+        Parameters
+        ----------
+        row : Dict[str, Any]
+            A dictionary representing the row data. It must contain a key 'data' with a list of values
+            for the main table row. If the row has nested data, it may include:
+            - 'nested_data': List of lists, where each inner list represents a row of nested table data.
+            - 'nested_headers': List of strings for nested table headers (optional).
+        index : int
+            The index of the row. Used to associate the main row with its corresponding nested table
+            for collapsibility.
         """
         return html.Tr(
             className=self.class_name_rows,
@@ -180,28 +206,42 @@ class Table:
             # Get the nested headers if present
             nested_headers = row.get('nested_headers', [])
             # Append the main row and the nested table if present
-            rows.extend([main_row, self._render_nested_table(row['nested_data'], nested_headers, index)] if 'nested_data' in row else [main_row])
+            rows.extend(
+                [
+                    main_row,
+                    self._render_nested_table(
+                        row['nested_data'], nested_headers, index
+                    ),
+                ]
+                if 'nested_data' in row
+                else [main_row]
+            )
 
         return rows
-    
+
     def _render_footer(self) -> html.Tfoot:
         '''
-        Generates the tabler footer if footer_data is present.
+        Renders the table footer if footer_data is present.
         '''
-        return html.Tfoot(
-            className='border-top text-center',
-            children=[
-                html.Tr(
-                    children=[
-                        (
-                            html.Th(val) if i == 0
-                            else html.Td(val, className='text-center')
-                        )
-                        for i, val in enumerate(self.footer_data)
-                    ]
-                )
-            ],
-        ) if self.footer_data else None
+        return (
+            html.Tfoot(
+                className='border-top text-center',
+                children=[
+                    html.Tr(
+                        children=[
+                            (
+                                html.Th(val)
+                                if i == 0
+                                else html.Td(val, className='text-center')
+                            )
+                            for i, val in enumerate(self.footer_data)
+                        ]
+                    )
+                ],
+            )
+            if self.footer_data
+            else None
+        )
 
     def render(self) -> html.Table:
         '''
@@ -218,7 +258,10 @@ class Table:
                         html.Thead(
                             className='text-center align-middle',
                             children=[
-                                self._render_table_headers(header_class_name=self.class_name_headers, headers=self.headers)
+                                self._render_table_headers(
+                                    header_class_name=self.class_name_headers,
+                                    headers=self.headers,
+                                )
                             ],
                         ),
                         html.Tbody(className="align-middle text-center", children=rows),
