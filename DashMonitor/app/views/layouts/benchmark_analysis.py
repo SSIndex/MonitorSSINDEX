@@ -14,17 +14,32 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 # local imports
+from DashMonitor.app.data.analyzers import TimeTrendAnalyzer
 from DashMonitor.app.handlers.function_utils import (
     categorize_score,
     create_result_table,
     create_gauge_chart,
     create_gauge_chart_ssindex,
+    categorize_score_to_text_class_name
 )
 
 from DashMonitor.app.views import components as cpt
 
 # Import mock data
 from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
+from DashMonitor.app.views.configs import (
+    main_df_provider,
+    COMPANY_NAME,
+)
+
+
+analyzer = TimeTrendAnalyzer(
+    main_df_provider, None
+)
+
+reviews_data = analyzer.get_all_reviews_by_company(COMPANY_NAME)
+
+data_frame = analyzer.execute()
 
 category_order = ["Universe", "Industry", "Company"]
 custom_colors = {
@@ -62,7 +77,24 @@ data = [
     {"data": nested_data[2]},
 ]
 
+df = data_frame
 # Your imports and code...
+html_data = [
+    {
+        "data": [
+            html.P(row["review"]),
+            html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{row['sentiment_score']}%"),
+            html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{categorize_score(row['sentiment_score'])}"),
+            html.P(row['pilar']),
+            html.P(row['dimension_sasb']),
+            html.P(row['state']),
+            html.P(row['state']),
+            html.P(row['ds']),
+            html.P(row['data_source'])
+        ]
+    }
+    for _, row in reviews_data.iterrows()
+]
 
 BENCHMARK_ANALYSIS_LAYOUT = html.Div(
     className="container",
@@ -92,7 +124,7 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
             children=[
                 cpt.Table(
                     headers=nested_headers,
-                    data=data,
+                    data=html_data,
                     class_name_div="table-ssindex-nested-table-background text-center rounded-3",
                     class_name_table="table table-borderless table-responsive table-ssindex-nested-table-background rounded rounded-3",
                     class_name_headers="text-center table-white align-middle",
@@ -149,28 +181,28 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
                                             options=[
                                                 {"label": pilar, "value": pilar}
                                                 for pilar in df[
-                                                    "Predicted_Pilar"
+                                                    "predicted_pilar"
                                                 ].unique()
                                             ],
-                                            value=df["Predicted_Pilar"].unique()[0],
+                                            value=df["predicted_pilar"].unique()[0],
                                             clearable=False,
                                         ),
                                         dcc.Dropdown(
                                             id="bank-dropdown",
                                             options=[
                                                 {"label": bank, "value": bank}
-                                                for bank in df["Bank Name"].unique()
+                                                for bank in df["bank_name"].unique()
                                             ],
-                                            value=df["Bank Name"].unique()[2],
+                                            value=df["bank_name"].unique()[0],
                                             clearable=False,
                                         ),
                                         dcc.Checklist(
                                             id="bank-checklist",
                                             options=[
                                                 {"label": name, "value": name}
-                                                for name in df["Bank Name"].unique()
+                                                for name in df["bank_name"].unique()
                                             ],
-                                            value=["Webster Bank"],
+                                            value=["Boeing"],
                                             inline=False,
                                             style={
                                                 "display": "flex",
@@ -206,15 +238,15 @@ def register_callbacks(app):
     def update_graphs(selected_year, selected_pilar, selected_banks):
         filtered_df = df[
             (df["year"] == selected_year)
-            & (df["Predicted_Pilar"] == selected_pilar)
-            & (df["Bank Name"].isin(selected_banks))
+            & (df["predicted_pilar"] == selected_pilar)
+            & (df["bank_name"].isin(selected_banks))
         ]
 
         yearly_pilar_line_fig = px.line(
             filtered_df,
             x="date",
-            y="Normalized_Sentiment_Score",
-            color="Bank Name",
+            y="sentiment_score",
+            color="bank_name",
             title=f"Sentiment Score for {selected_year} - {selected_pilar}",
         )
         yearly_pilar_line_fig.update_layout(
@@ -225,8 +257,8 @@ def register_callbacks(app):
         total_score_line_fig = px.line(
             filtered_df,
             x="date",
-            y="Total_Sentiment_Score",
-            color="Bank Name",
+            y="total_sentiment_score",
+            color="bank_name",
             title=f"Total Sentiment Score for {selected_year}",
         )
         total_score_line_fig.update_layout(
@@ -235,16 +267,16 @@ def register_callbacks(app):
             yaxis=dict(showgrid=True),
         )
         overall_df = (
-            df[df["Bank Name"].isin(selected_banks)]
-            .groupby(["Bank Name", "date"])
-            .agg({"Total_Sentiment_Score": "mean"})
+            df[df["bank_name"].isin(selected_banks)]
+            .groupby(["bank_name", "date"])
+            .agg({"total_sentiment_score": "mean"})
             .reset_index()
         )
         overall_time_line_fig = px.line(
             overall_df,
             x="date",
-            y="Total_Sentiment_Score",
-            color="Bank Name",
+            y="total_sentiment_score",
+            color="bank_name",
         )
 
         overall_time_line_fig.update_layout(
@@ -268,7 +300,7 @@ def register_callbacks(app):
                                     }
                                 }
                             ],
-                            "label": "1 Semana",
+                            "label": "1 Week",
                             "method": "relayout",
                         },
                         {
@@ -285,7 +317,7 @@ def register_callbacks(app):
                                     }
                                 }
                             ],
-                            "label": "1 Mes",
+                            "label": "1 Month",
                             "method": "relayout",
                         },
                         {
@@ -302,7 +334,7 @@ def register_callbacks(app):
                                     }
                                 }
                             ],
-                            "label": "6 Meses",
+                            "label": "6 Months",
                             "method": "relayout",
                         },
                         {
@@ -319,7 +351,7 @@ def register_callbacks(app):
                                     }
                                 }
                             ],
-                            "label": "1 Año",
+                            "label": "1 Year",
                             "method": "relayout",
                         },
                         {
@@ -336,7 +368,7 @@ def register_callbacks(app):
                                     }
                                 }
                             ],
-                            "label": "3 Años",
+                            "label": "3 Years",
                             "method": "relayout",
                         },
                         {
@@ -352,7 +384,7 @@ def register_callbacks(app):
                                     }
                                 }
                             ],
-                            "label": "Toda la historia",
+                            "label": "All history",
                             "method": "relayout",
                         },
                     ],
@@ -378,9 +410,9 @@ def register_callbacks(app):
         )
         boxplot_fig = px.box(
             filtered_df,
-            x="Bank Name",
-            y="Normalized_Sentiment_Score",
-            color="Bank Name",
+            x="bank_name",
+            y="sentiment_score",
+            color="bank_name",
         )
 
         boxplot_fig.update_layout(
