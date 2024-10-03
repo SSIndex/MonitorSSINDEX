@@ -15,8 +15,8 @@ class Card(BaseComponent):
         Industry of the Company
     country : str
         Country of the Company
-    company_image : str
-        URL of the Company Image. It must be a square image.
+    company_image : Optional[str]
+        URL of the Company Image. It must be a square image. Default is DEFAULT_IMAGE
     overview : str
         Overview of the Company: Ex: 'Average'
     overview_text : Optional[str]
@@ -30,16 +30,16 @@ class Card(BaseComponent):
     """
 
     _BASE_CARD_CLASS_NAME = 'card text-bg-ssindex-card-blue rounded-3'
-    mock_image = 'assets/boeing.png'
+    DEFAULT_IMAGE = 'assets/boeing.png'
 
     def __init__(
         self,
         company_name: str,
         industry: str,
         country: str,
-        company_image: str,
         overview: str,
         overview_graph: BaseComponent,
+        company_image: Optional[str] = DEFAULT_IMAGE,
         overview_text: Optional[str] = None,
         text_color: Optional[str] = None,
         background_color: Optional[str] = None,
@@ -48,8 +48,8 @@ class Card(BaseComponent):
         self.company_name = company_name
         self.industry = industry
         self.country = country
-        # self.company_image = company_image
-        self.company_image = self.mock_image
+        self.company_image = company_image
+        self.company_image = self.company_image
         self.overview = overview
         self.overview_text = overview_text
         self.overview_graph = overview_graph
@@ -63,19 +63,19 @@ class Card(BaseComponent):
         )
 
     def _generate_overview_text(self) -> None:
-        if self.overview == 'Poor':
-            self.overview_text = ' This company holds a low sentiment score. Feedback is mostly negative, with 80% of comments being negative and 20% positive. This indicates a negative perception among respondents'
-        
-        elif self.overview in ['Average', 'Medium']:
-            self.overview_text = ' This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents'
-        
-        elif self.overview == 'Good':
-            self.overview_text = ' This company holds a high sentiment score. Feedback is mostly positive, with 60% of comments being positive and 40% negative. This indicates a positive perception among respondents'
-        
-        elif self.overview == 'Excellent':
-            self.overview_text = ' This company holds a very high sentiment score. Feedback is overwhelmingly positive, with 80% of comments being positive and 20% negative. This indicates a very positive perception among respondents'
-
+        '''
+        Generates the overview text based on the overview score. If there is a custom overview text, it will be used instead.
+        '''
+        overview_mapping = {
+            'Poor': ' This company holds a low sentiment score. Feedback is mostly negative, with 80% of comments being negative and 20% positive. This indicates a negative perception among respondents',
+            'Average': ' This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents',
+            'Medium': ' This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents',
+            'Good': ' This company holds a high sentiment score. Feedback is mostly positive, with 60% of comments being positive and 40% negative. This indicates a positive perception among respondents',
+            'Excellent': ' This company holds a very high sentiment score. Feedback is overwhelmingly positive, with 80% of comments being positive and 20% negative. This indicates a very positive perception among respondents',
+        }
     
+        self.overview_text = overview_mapping.get(self.overview, "")
+
     def render(self) -> html.Div:
         self._generate_overview_text()
         return html.Div(
