@@ -20,10 +20,10 @@ class GaugeChart:
     max_value : int, optional
         The maximum value of the gauge (default is 100 if not provided).
     labels : List[Any], optional
-        A list of elements representing text labels for different score ranges on the gauge 
+        A list of elements representing text labels for different score ranges on the gauge
         (e.g., ['Poor', 'Low', 'Average', 'Good', 'Excellent']). If not provided, DEFAULT_LABELS are used.
     score_labels : List[Any], optional
-        A list of elements representing the score ranges corresponding to the labels 
+        A list of elements representing the score ranges corresponding to the labels
         (e.g., '[0-19]', '[20-39]'). If not provided, DEFAULT_SCORE_LABELS are used.
 
     Attributes
@@ -33,6 +33,7 @@ class GaugeChart:
     DEFAULT_SCORE_LABELS : List[html.P]
         Default labels for score ranges with numerical values (e.g., '[0-19]', '[20-39]', etc.).
     """
+
     DEFAULT_LABELS = [
         html.B(className='text-ssindex-poor', children='Poor'),
         html.B(className='text-ssindex-low', children='Low'),
@@ -98,7 +99,10 @@ class GaugeChart:
                             html.Span(
                                 className='fs-1 fw-bold', children=f"{self.score}"
                             ),
-                            html.Span(className="text-ssindex-graph-grey",children=f" / {self.max_value}"),
+                            html.Span(
+                                className="text-ssindex-graph-grey",
+                                children=f" / {self.max_value}",
+                            ),
                         ],
                     ),
                 ),
