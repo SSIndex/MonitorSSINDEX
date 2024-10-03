@@ -14,25 +14,19 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 # local imports
-from DashMonitor.app.data.analyzers import GeneralAnalyzer, GeneralComparisonAnalyzer
-from DashMonitor.app.handlers.function_utils import (
-    categorize_score,
-    create_gauge_chart,
-    create_gauge_chart_ssindex,
-)
-
-from DashMonitor.app.views import components as cpt
-
-# Import mock data
-from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
-from DashMonitor.app.views.layouts.mock_data_general_analysis import *
+from DashMonitor.app.data.analyzers import GeneralAnalyzer, GeneralComparisonAnalyzer, SASBAnalyzer
+from DashMonitor.app.handlers.function_utils import categorize_score
 from DashMonitor.app.handlers import gu
+from DashMonitor.app.views import components as cpt
 from DashMonitor.app.views.configs import (
     main_df_provider,
     COMPANY_NAME,
     INDUSTRY_NAME,
     COUNTRY,
 )
+# Import mock data
+from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
+from DashMonitor.app.views.layouts.mock_data_general_analysis import *
 
 
 analyzer = GeneralAnalyzer(
