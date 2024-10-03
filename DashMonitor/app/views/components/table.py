@@ -58,23 +58,19 @@ class Table:
         data: List[Dict[str, Any]],
         footer_data: Optional[List[str]] = [],
         table_title: Optional[str] = '',
-        class_name_table: Optional[str] = None,
-        class_name_headers: Optional[str] = None,
-        class_name_rows: Optional[str] = None,
-        class_name_div: Optional[str] = None,
+        class_name_table: Optional[str] = _BASE_CLASS_NAME,
+        class_name_headers: Optional[str] = '',
+        class_name_rows: Optional[str] = '',
+        class_name_div: Optional[str] = _BASE_DIV_CLASS_NAME,
     ):
         self.table_title = table_title
         self.headers = headers
         self.data = data
         self.footer_data = footer_data
-        self.class_name_table = (
-            class_name_table if class_name_table else self._BASE_CLASS_NAME
-        )
-        self.class_name_headers = class_name_headers if class_name_headers else ''
-        self.class_name_rows = class_name_rows if class_name_rows else ''
-        self.class_name_div = (
-            class_name_div if class_name_div else self._BASE_DIV_CLASS_NAME
-        )
+        self.class_name_table = class_name_table
+        self.class_name_headers = class_name_headers
+        self.class_name_rows = class_name_rows
+        self.class_name_div = class_name_div
 
     def _render_table_headers(
         self, header_class_name: str, headers: List[str]
