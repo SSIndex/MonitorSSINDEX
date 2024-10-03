@@ -299,7 +299,6 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                     company_name=company_name,
                     industry=industry,
                     country=country,
-                    company_image=company_image,
                     overview=overview,
                     overview_text=overview_text,
                     overview_graph=cpt.GaugeChart(

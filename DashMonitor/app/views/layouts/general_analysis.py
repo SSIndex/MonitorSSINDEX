@@ -187,7 +187,6 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                     company_name = COMPANY_NAME,
                     industry=INDUSTRY_NAME,
                     country=COUNTRY,
-                    company_image=company_image,
                     overview=categorize_score(general_score),
                     overview_graph=cpt.GaugeChart(
                         score=general_score,
