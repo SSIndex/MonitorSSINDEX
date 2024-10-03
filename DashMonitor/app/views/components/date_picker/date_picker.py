@@ -50,7 +50,7 @@ class DatePicker(BaseComponent):
                                                 html.Button(
                                                     label,
                                                     type='button',
-                                                    className=f'{DatePicker.STYLE_UNSELECTED_BUTTON}',
+                                                    className=DatePicker.STYLE_UNSELECTED_BUTTON,
                                                     id=btn_id,
                                                     n_clicks=0,
                                                 )
