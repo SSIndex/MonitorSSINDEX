@@ -23,7 +23,7 @@ class TabArgsProvider:
         'SASB': {'id': 'sasb-analysis', 'active': False},
         'SSINDEX': {'id': 'ssindex-analysis', 'active': False},
         'MAP': {'id': 'geographic-analysis', 'active': False},
-        'BENCHMARK': {'id': 'benchmark-analysis', 'active': False},
+        'TIME TREND': {'id': 'benchmark-analysis', 'active': False},
     }
     _tabs_available: Set[str] = set()
 

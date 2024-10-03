@@ -21,6 +21,11 @@ from DashMonitor.app.handlers.function_utils import (
     create_gauge_chart_ssindex,
 )
 
+from DashMonitor.app.views import components as cpt
+
+# Import mock data
+from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
+
 category_order = ["Universe", "Industry", "Company"]
 custom_colors = {
     "Universe": "#1f77b4",  # Blue
@@ -51,64 +56,75 @@ df.sort_values("date", inplace=True)
 
 from dash import html
 
+data = [
+    {"data": nested_data[0]},
+    {"data": nested_data[1]},
+    {"data": nested_data[2]},
+]
+
 # Your imports and code...
 
 BENCHMARK_ANALYSIS_LAYOUT = html.Div(
     className="container",
     children=[
+        # Time trend - Local Industry Analysis Section
         html.Section(
-            className="section bg-light pt-3",
+            className="section pt-3",
             children=[
+                html.H5(
+                    className='text-primary',
+                    children=["Time trend - Local Industry Analysis"],
+                ),
+                html.P(
+                    children=[
+                        "Stakeholders feedback classified by company, operating locally, and by time"
+                    ]
+                ),
                 html.Div(
-                    className="container border-bottom border-dark",
+                    className="bg-white rounded rounded-4 p-3 shadow-sm",
+                    children=[dcc.Graph(id="overall-time-line-plot")],
+                ),
+            ],
+        ),
+        # Table Section
+        html.Section(
+            className="section mt-4 p-3 rounded rounded-4 bg-ssindex-nested-table-background shadow-sm",
+            children=[
+                cpt.Table(
+                    headers=nested_headers,
+                    data=data,
+                    class_name_div="table-ssindex-nested-table-background text-center rounded-3",
+                    class_name_table="table table-borderless table-responsive table-ssindex-nested-table-background rounded rounded-3",
+                    class_name_headers="text-center table-white align-middle",
+                ).render()
+            ],
+        ),
+        # Box plot - Local Industry Analysis Section
+        html.Section(
+            className="section pt-3",
+            children=[
+                html.H5(
+                    className='text-primary',
+                    children=["Box plot - Local Industry Analysis"],
+                ),
+                html.P(
+                    children=[
+                        "Stakeholders feedback classified by company, operating locally, and by time"
+                    ]
+                ),
+                html.Div(
+                    className="row",
                     children=[
                         html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-12 justify-content-end",
-                                    children=[
-                                        html.P(
-                                            children=[
-                                                "2024-06-12"
-                                            ]  # Here Goes the Date of last data extracted
-                                        )
-                                    ],
-                                )
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-6",
-                                    children=[
-                                        html.Div(
-                                            className="row",
-                                            children=[
-                                                html.H4(children=[bkn])
-                                            ],  # Here goes Company Name
-                                        ),
-                                        html.Div(
-                                            className="row",
-                                            children=[
-                                                html.P(
-                                                    children=[
-                                                        "Bank | EEUU | Market Name"
-                                                    ]
-                                                )
-                                            ],  # Here goes Company Details
-                                        ),
-                                    ],
-                                ),
-                            ],
+                            className="bg-white rounded rounded-4 p-3 shadow-sm",
+                            children=[dcc.Graph(id="boxplot-chart")],
                         ),
                     ],
-                )
+                ),
             ],
         ),
         html.Section(
-            className="section bg-white pt-3",
+            className="section bg-white pt-3 mt-4",
             children=[
                 html.Div(
                     className="container border-bottom border-dark",
@@ -117,16 +133,7 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
                             className="row",
                             children=[
                                 html.Div(
-                                    className="col-2",
-                                    children=[
-                                        html.H6(
-                                            className="text-end",
-                                            children=["ESG COMPASS Overview:"],
-                                        )
-                                    ],
-                                ),
-                                html.Div(
-                                    className="col-10",
+                                    className="col-12",
                                     children=[
                                         dcc.Dropdown(
                                             id="year-dropdown",
@@ -173,19 +180,6 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
                                         ),
                                     ],
                                     style={"padding": "20px"},
-                                ),
-                            ],
-                        ),
-                        html.Div(
-                            className="row",
-                            children=[
-                                html.Div(
-                                    className="col-4",
-                                    children=[dcc.Graph(id="boxplot-chart")],
-                                ),
-                                html.Div(
-                                    className="col-8",
-                                    children=[dcc.Graph(id="overall-time-line-plot")],
                                 ),
                             ],
                         ),
@@ -251,7 +245,6 @@ def register_callbacks(app):
             x="date",
             y="Total_Sentiment_Score",
             color="Bank Name",
-            title="Overall Sentiment Score Over Time",
         )
 
         overall_time_line_fig.update_layout(
@@ -372,13 +365,35 @@ def register_callbacks(app):
                     "type": "buttons",
                 }
             ],
+            yaxis_title="",
+            xaxis_title="",
+            legend_title="",
+            legend=dict(
+                orientation="h",  # Horizontal orientation
+                yanchor="bottom",  # Anchor the legend to the bottom
+                y=-0.2,  # Place the legend slightly below the chart
+                xanchor="center",  # Center the legend
+                x=0.5,
+            ),
         )
         boxplot_fig = px.box(
             filtered_df,
             x="Bank Name",
             y="Normalized_Sentiment_Score",
             color="Bank Name",
-            title="Boxplot of Sentiment Scores by Bank",
+        )
+
+        boxplot_fig.update_layout(
+            yaxis_title="",
+            xaxis_title="",
+            legend_title="",
+            legend=dict(
+                orientation="h",  # Horizontal orientation
+                yanchor="bottom",  # Anchor the legend to the bottom
+                y=-0.2,  # Place the legend slightly below the chart
+                xanchor="center",  # Center the legend
+                x=0.5,
+            ),
         )
 
         return (

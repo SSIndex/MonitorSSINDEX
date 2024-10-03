@@ -47,7 +47,7 @@ ENTRY_LAYOUT = Div(
                             cpt.HeaderTabBtn('SASB'),
                             # cpt.HeaderTabBtn('SSINDEX'),
                             cpt.HeaderTabBtn('MAP'),
-                            cpt.HeaderTabBtn('BENCHMARK'),
+                            cpt.HeaderTabBtn('TIME TREND'),
                         ],
                     ),
                     cpt.Main(
@@ -63,7 +63,7 @@ ENTRY_LAYOUT = Div(
                                 'MAP', view=lyt.GEOGRAPHIC_ANALYSIS_LAYOUT
                             ),
                             cpt.MainTabPanel(
-                                'BENCHMARK', view=lyt.BENCHMARK_ANALYSIS_LAYOUT
+                                'TIME TREND', view=lyt.BENCHMARK_ANALYSIS_LAYOUT
                             ),
                         ]
                     ),
