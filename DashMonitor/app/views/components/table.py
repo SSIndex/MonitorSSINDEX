@@ -219,7 +219,7 @@ class Table:
 
         return rows
 
-    def _render_footer(self) -> html.Tfoot:
+    def _render_footer(self) -> Optional[html.Tfoot]:
         '''
         Renders the table footer if footer_data is present.
         '''
