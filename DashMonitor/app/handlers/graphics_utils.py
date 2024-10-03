@@ -13,3 +13,11 @@ CUSTOM_COLORS = {
     "Industry": "#0069C0",  # ssindex-graph-blue
     "Company": "#AB3ED8",  # ssindex-graph-purple
 }
+
+
+def custom_colors(industry_name, company_name):
+    return {
+        industry_name: CUSTOM_COLORS['Industry'],
+        company_name: CUSTOM_COLORS['Company'],
+        'Universe': CUSTOM_COLORS['Universe'],
+    }
