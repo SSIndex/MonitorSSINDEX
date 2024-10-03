@@ -4,8 +4,10 @@ from dash import html
 
 from DashMonitor.app.handlers.function_utils import categorize_score_to_text_class_name
 
+from DashMonitor.app.views.components.base_component import BaseComponent
 
-class GaugeChart:
+
+class GaugeChart(BaseComponent):
     """
     GaugeChart component to visualize a score along a gradient bar with labeled markers.
 
