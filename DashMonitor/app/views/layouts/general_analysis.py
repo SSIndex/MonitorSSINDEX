@@ -4,7 +4,6 @@ GENERAL Analysis Layout
 
 # std imports
 import plotly.express as px
-import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 from dash import Dash, html, dcc, Input, Output, State, dash_table
@@ -38,7 +37,7 @@ analyzer = GeneralAnalyzer(
     main_df_provider, None  # Should be the app to register recalculation callbacks
 )
 
-rows = analyzer.size()[0]
+num_comments, _ = analyzer.size()
 analyzer.execute()
 general_score = analyzer.general_score(COMPANY_NAME)
 
@@ -66,7 +65,7 @@ data_percentile_analysis = [
             html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
             html.P(
                 className='text-ssindex-graph-grey mb-0',
-                children=f"{rows} out of {rows}",
+                children=f"{num_comments} out of {num_comments}",
             ),
         ]
     },
@@ -101,7 +100,7 @@ data_percentile_analysis = [
             html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
             html.P(
                 className='text-ssindex-graph-grey mb-0',
-                children=f"{rows} out of {rows}",
+                children=f"{num_comments} out of {num_comments}",
             ),
         ]
     },
@@ -117,7 +116,7 @@ data_percentile_analysis = [
                         children="\u200B",
                     ),
                     # Text
-                    "Industry, Country",
+                    f"{INDUSTRY_NAME.replace('.', '')}, {COUNTRY}",
                 ],
             ),
             html.P(
@@ -127,7 +126,7 @@ data_percentile_analysis = [
             html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
             html.P(
                 className='text-ssindex-graph-grey mb-0',
-                children=f"{rows} out of {rows}",
+                children=f"{num_comments} out of {num_comments}",
             ),
         ]
     },
@@ -152,7 +151,7 @@ fig_hist_general = px.bar(
     text="Percentage",
     height=600,
     category_orders={"Type": gu.CATEGORY_ORDER},
-    color_discrete_map=gu.CUSTOM_COLORS,
+    color_discrete_map=gu.custom_colors(INDUSTRY_NAME, COMPANY_NAME),
 )
 fig_hist_general.update_layout(
     uniformtext_minsize=14,
