@@ -12,10 +12,15 @@ from dash import Dash
 # local imports
 import DashMonitor.app.data as data
 import DashMonitor.app.handlers as handlers
-from DashMonitor.app.views import ENTRY_LAYOUT as view_layout, setupView
+from DashMonitor.app.views import (
+    ENTRY_LAYOUT as view_layout,
+    setupView,
+    register_views_layouts,
+)
 
 
 view_settings = setupView({})
 
 app = Dash(__name__, **view_settings)
+app = register_views_layouts(app)
 app.layout = view_layout

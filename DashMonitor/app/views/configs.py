@@ -2,6 +2,15 @@
 Configs module with all view related configurations and constants.
 '''
 
+# local imports
+from DashMonitor.app.data.providers import FileStreamProvider
+
+
+# company variables
+COMPANY_NAME = 'Boeing'
+INDUSTRY_NAME = 'Aviation & Aerospace.'
+COUNTRY = 'United States'
+
 HTML_TITLE = 'ESG COMPASS'
 
 EXTERNAL_STYLESHEETS = []
@@ -15,6 +24,8 @@ EXTERNAL_SCRIPTS = [
         'src': 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js'
     },
 ]
+
+main_df_provider = FileStreamProvider('/app/DashMonitor/data/boeing_case_use.csv')
 
 
 def get_main_html() -> str:

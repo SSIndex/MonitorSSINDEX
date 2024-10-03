@@ -15,11 +15,11 @@ class Card(BaseComponent):
         Industry of the Company
     country : str
         Country of the Company
-    company_image : str
-        URL of the Company Image. It must be a square image.
+    company_image : Optional[str]
+        URL of the Company Image. It must be a square image. Default is DEFAULT_IMAGE
     overview : str
         Overview of the Company: Ex: 'Average'
-    overview_text : str
+    overview_text : Optional[str]
         Text of the Overview
     overview_graph : BaseComponent
         Graph of the Overview Score
@@ -29,17 +29,18 @@ class Card(BaseComponent):
         Background Color of the Card. Ex: 'bg-primary'
     """
 
-    _BASE_CARD_CLASS_NAME = 'card text-bg-primary'
+    _BASE_CARD_CLASS_NAME = 'card text-bg-ssindex-card-blue rounded-3'
+    DEFAULT_IMAGE = 'assets/boeing.png'
 
     def __init__(
         self,
         company_name: str,
         industry: str,
         country: str,
-        company_image: str,
         overview: str,
-        overview_text: str,
         overview_graph: BaseComponent,
+        company_image: Optional[str] = DEFAULT_IMAGE,
+        overview_text: Optional[str] = None,
         text_color: Optional[str] = None,
         background_color: Optional[str] = None,
     ):
@@ -48,6 +49,7 @@ class Card(BaseComponent):
         self.industry = industry
         self.country = country
         self.company_image = company_image
+        self.company_image = self.company_image
         self.overview = overview
         self.overview_text = overview_text
         self.overview_graph = overview_graph
@@ -60,21 +62,36 @@ class Card(BaseComponent):
             f'{self.class_name} {text_color}' if text_color else self.class_name
         )
 
+    def _generate_overview_text(self) -> None:
+        '''
+        Generates the overview text based on the overview score. If there is a custom overview text, it will be used instead.
+        '''
+        overview_mapping = {
+            'Poor': ' This company holds a low sentiment score. Feedback is mostly negative, with 80% of comments being negative and 20% positive. This indicates a negative perception among respondents',
+            'Average': ' This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents',
+            'Medium': ' This company holds a medium sentiment score. Feedback is evenly split, with 50% of comments being positive and 50% negative. This indicates a balanced perception among respondents',
+            'Good': ' This company holds a high sentiment score. Feedback is mostly positive, with 60% of comments being positive and 40% negative. This indicates a positive perception among respondents',
+            'Excellent': ' This company holds a very high sentiment score. Feedback is overwhelmingly positive, with 80% of comments being positive and 20% negative. This indicates a very positive perception among respondents',
+        }
+    
+        self.overview_text = overview_mapping.get(self.overview, "")
+
     def render(self) -> html.Div:
+        self._generate_overview_text()
         return html.Div(
             className=self.class_name,
             children=[
                 html.Div(
-                    className='card-body',
+                    className='card-body text-white',
                     children=[
                         html.Div(
-                            className='row gx-5 pt-3 pb-3 ps-5 pe-5',
+                            className='row gx-5 pt-3 pb-3 ps-5 pe-5 align-items-center',
                             children=[
                                 html.Div(
                                     className='col-6',
                                     children=[
                                         html.Div(
-                                            className='d-flex gap-4 align-items-center',
+                                            className='d-flex gap-4',
                                             children=[
                                                 html.Div(
                                                     html.Img(
@@ -123,7 +140,7 @@ class Card(BaseComponent):
                                     ],
                                 ),
                                 html.Div(
-                                    className='col-6 border rounded',
+                                    className='col-6 border rounded-4 bg-white',
                                     children=[self.overview_graph],
                                 ),
                             ],
