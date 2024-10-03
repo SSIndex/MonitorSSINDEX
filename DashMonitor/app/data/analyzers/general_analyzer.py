@@ -109,12 +109,12 @@ class GeneralComparisonAnalyzer(BaseAnalyzer):
                     },
                     {
                         'Category': category,
-                        'Type': 'Industry',
+                        'Type': self.__industry_name,
                         'Percentage': counts_industry.get(category, 0),
                     },
                     {
                         'Category': category,
-                        'Type': 'Company',
+                        'Type': self.__company_name,
                         'Percentage': counts_company.get(category, 0),
                     },
                 )
