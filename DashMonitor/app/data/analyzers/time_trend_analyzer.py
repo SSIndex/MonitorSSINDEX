@@ -45,7 +45,10 @@ class TimeTrendAnalyzer(BaseAnalyzer):
 
     def _transform(self):
         df = self.__data_analyzed
-        self.__data_analyzed["date"] = pd.to_datetime(df["year"].astype(str) + "-" + df["month_num"].map("{:02}".format), format="%Y-%m")
+        self.__data_analyzed["date"] = pd.to_datetime(
+            df["year"].astype(str) + "-" + df["month_num"].map("{:02}".format),
+            format="%Y-%m",
+        )
 
     def size(self) -> tuple:
         return (self.__data_analyzed.shape[0], self.__data_analyzed.shape[1])
@@ -56,7 +59,7 @@ class TimeTrendAnalyzer(BaseAnalyzer):
         res = df[df["bank_name"] == bank_name]["total_sentiment_score"].mean()
 
         return 0 if np_isnan(res) else round(res)
-    
+
     def get_all_reviews_by_company(self, bank_name):
         df = self.__data_analyzed
 

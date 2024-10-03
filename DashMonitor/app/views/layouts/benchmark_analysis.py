@@ -20,7 +20,7 @@ from DashMonitor.app.handlers.function_utils import (
     create_result_table,
     create_gauge_chart,
     create_gauge_chart_ssindex,
-    categorize_score_to_text_class_name
+    categorize_score_to_text_class_name,
 )
 
 from DashMonitor.app.views import components as cpt
@@ -33,9 +33,7 @@ from DashMonitor.app.views.configs import (
 )
 
 
-analyzer = TimeTrendAnalyzer(
-    main_df_provider, None
-)
+analyzer = TimeTrendAnalyzer(main_df_provider, None)
 
 reviews_data = analyzer.get_all_reviews_by_company(COMPANY_NAME)
 
@@ -83,14 +81,20 @@ html_data = [
     {
         "data": [
             html.P(row["review"]),
-            html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{row['sentiment_score']}%"),
-            html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{categorize_score(row['sentiment_score'])}"),
+            html.P(
+                className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}",
+                children=f"{row['sentiment_score']}%",
+            ),
+            html.P(
+                className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}",
+                children=f"{categorize_score(row['sentiment_score'])}",
+            ),
             html.P(row['pilar']),
             html.P(row['dimension_sasb']),
             html.P(row['state']),
             html.P(row['state']),
             html.P(row['ds']),
-            html.P(row['data_source'])
+            html.P(row['data_source']),
         ]
     }
     for _, row in reviews_data.iterrows()

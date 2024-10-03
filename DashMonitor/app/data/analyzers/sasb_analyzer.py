@@ -21,7 +21,7 @@ class SASBAnalyzer(BaseAnalyzer):
     def _filter(self):
         df = self.__data_analyzed
 
-        sasb_filter = (df["bank_name"] == self.__company_name)
+        sasb_filter = df["bank_name"] == self.__company_name
 
         self.__data_analyzed = df[sasb_filter].reset_index(drop=True)
 
