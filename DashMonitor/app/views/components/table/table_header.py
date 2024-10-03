@@ -11,7 +11,7 @@ from DashMonitor.app.views.components.base_component import BaseComponent
 
 class TableHeader(BaseComponent):
     """
-    Table Header component. Generates a header row for a table.
+    Table Header component. Generates a thead for a table.
 
     Parameters
     ----------
