@@ -26,6 +26,7 @@ class DatePicker(BaseComponent):
     def __init__(self, disabled=False):
         self.disabled = disabled
 
+    @staticmethod
     def selected_button_index(button_classes: list) -> int:
         '''Get the index of the selected button.'''
         return next(
@@ -37,6 +38,7 @@ class DatePicker(BaseComponent):
             None,
         )
 
+    @staticmethod
     def calculate_start_date(selected_index: int) -> str:
         '''Calculate start date based on selected button.'''
         today = date.today()
