@@ -14,7 +14,11 @@ import dash_bootstrap_components as dbc
 from dash import html
 
 # local imports
-from DashMonitor.app.data.analyzers import GeneralAnalyzer, GeneralComparisonAnalyzer, SASBAnalyzer
+from DashMonitor.app.data.analyzers import (
+    GeneralAnalyzer,
+    GeneralComparisonAnalyzer,
+    SASBAnalyzer,
+)
 from DashMonitor.app.handlers.function_utils import categorize_score
 from DashMonitor.app.handlers import gu
 from DashMonitor.app.views import components as cpt
@@ -24,6 +28,7 @@ from DashMonitor.app.views.configs import (
     INDUSTRY_NAME,
     COUNTRY,
 )
+
 # Import mock data
 from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
 from DashMonitor.app.views.layouts.mock_data_general_analysis import *
@@ -59,7 +64,10 @@ data_percentile_analysis = [
                 children=[html.B("1"), " out of 1"],
             ),
             html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
-            html.P(className='text-ssindex-graph-grey mb-0', children=f"{rows} out of {rows}"),
+            html.P(
+                className='text-ssindex-graph-grey mb-0',
+                children=f"{rows} out of {rows}",
+            ),
         ]
     },
     {
@@ -91,7 +99,10 @@ data_percentile_analysis = [
                 children=[html.B("1"), " out of 1"],
             ),
             html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
-            html.P(className='text-ssindex-graph-grey mb-0', children=f"{rows} out of {rows}"),
+            html.P(
+                className='text-ssindex-graph-grey mb-0',
+                children=f"{rows} out of {rows}",
+            ),
         ]
     },
     {
@@ -114,11 +125,13 @@ data_percentile_analysis = [
                 children=[html.B("1"), " out of 1"],
             ),
             html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
-            html.P(className='text-ssindex-graph-grey mb-0', children=f"{rows} out of {rows}"),
+            html.P(
+                className='text-ssindex-graph-grey mb-0',
+                children=f"{rows} out of {rows}",
+            ),
         ]
     },
 ]
-    
 
 
 comparison_analyzer = GeneralComparisonAnalyzer(
@@ -151,11 +164,11 @@ fig_hist_general.update_layout(
     legend_title="",
     legend=dict(
         orientation="h",  # Horizontal orientation
-        yanchor="bottom", # Anchor the legend to the bottom
-        y=-0.2,           # Place the legend slightly below the chart
-        xanchor="center", # Center the legend
+        yanchor="bottom",  # Anchor the legend to the bottom
+        y=-0.2,  # Place the legend slightly below the chart
+        xanchor="center",  # Center the legend
         x=0.5,
-    )
+    ),
 )
 
 # Update layout and styling for the text
@@ -164,10 +177,10 @@ fig_hist_general.update_traces(
     textposition='outside',  # Adjust text position (optional)
     textfont=dict(
         family="Manrope",
-        size=14,         # Set font size
-        color="#333B69",   # Set text color
-        weight='bold'    # Make text bold
-    )
+        size=14,  # Set font size
+        color="#333B69",  # Set text color
+        weight='bold',  # Make text bold
+    ),
 )
 
 # ------------------------------------------------------------------------------
@@ -177,14 +190,14 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
         # Date Picker Section
         html.Section(
             className='section pt-3 d-flex justify-content-end',
-            children=[cpt.DatePicker().render()],
+            children=[cpt.DatePicker(disabled=True).render()],
         ),
         # Company Card Section
         html.Section(
             className='section pt-3',
             children=[
                 cpt.Card(
-                    company_name = COMPANY_NAME,
+                    company_name=COMPANY_NAME,
                     industry=INDUSTRY_NAME,
                     country=COUNTRY,
                     overview=categorize_score(general_score),

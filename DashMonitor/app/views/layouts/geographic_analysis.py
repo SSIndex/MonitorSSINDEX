@@ -20,7 +20,7 @@ from DashMonitor.app.handlers.function_utils import (
     create_gauge_chart,
     create_gauge_chart_ssindex,
     categorize_score_to_bg_class_name,
-    categorize_score_to_text_class_name
+    categorize_score_to_text_class_name,
 )
 from DashMonitor.app.data.analyzers.map_analyzer import MapAnalyzer
 
@@ -54,11 +54,17 @@ data_analyzed_df = analyzer.execute()
 nested_data = [
     [
         html.P(row['review']),
-        html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{row['sentiment_score']}%"),
-        html.P(className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}", children=f"{categorize_score(row['sentiment_score'])}"),
+        html.P(
+            className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}",
+            children=f"{row['sentiment_score']}%",
+        ),
+        html.P(
+            className=f"{categorize_score_to_text_class_name(row['sentiment_score'])}",
+            children=f"{categorize_score(row['sentiment_score'])}",
+        ),
         html.P(row['state']),
         html.P(row['ds']),
-        html.P(row['data_source'])
+        html.P(row['data_source']),
     ]
     for _, row in reviews_data.iterrows()
 ]
@@ -81,7 +87,9 @@ html_data = [
             html.P(row['state']),
             html.Div(
                 className=f"{categorize_score_to_bg_class_name(row['sentiment_score'])} w-100 h-100 border rounded",
-                children=html.B(className='text-white', children=f"{round(row['sentiment_score'])}"),
+                children=html.B(
+                    className='text-white', children=f"{round(row['sentiment_score'])}"
+                ),
             ),
             html.Div(
                 className="bg-ssindex-excellent w-100 h-100 border rounded",
@@ -100,7 +108,7 @@ GEOGRAPHIC_ANALYSIS_LAYOUT = html.Div(
         # Date Picker Secion
         html.Section(
             className='section pt-3 d-flex justify-content-end',
-            children=[cpt.DatePicker().render()],
+            children=[cpt.DatePicker(disabled=True).render()],
         ),
         html.Section(
             className="section pt-5",
