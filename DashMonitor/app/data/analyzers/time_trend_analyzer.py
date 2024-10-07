@@ -4,7 +4,7 @@ Time Trend Analysis for Dataframe
 
 from DashMonitor.app.data.analyzers.base_analyzer import BaseAnalyzer
 from numpy import isnan as np_isnan
-from pandas import Categorical as pd_Categorical, DataFrame as pd_DataFrame
+from pandas import DataFrame as pd_DataFrame
 import pandas as pd
 
 
@@ -59,7 +59,7 @@ class TimeTrendAnalyzer(BaseAnalyzer):
         '''
         df = self.__data_analyzed
         self.__data_analyzed["date"] = pd.to_datetime(
-            df["year"].astype(str) + "-" + df["month_num"].map("{:02}".format),
+            f"{df['year'].astype(str)}-{df['month_num'].map('{:02}'.format)}",
             format="%Y-%m",
         )
 
