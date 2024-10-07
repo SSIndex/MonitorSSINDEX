@@ -3,21 +3,6 @@ from datetime import date, timedelta
 from DashMonitor.app.views.components.date_picker.date_picker import DatePicker
 
 
-def calculate_date_range(selected_index: int) -> str:
-    '''Calculate date range based on selected button.'''
-    today = date.today()
-    # Today button selected
-    if selected_index == 0:
-        return f"{today}"
-    # Custom range selected from DATE_RANGES
-    if selected_index in range(1, 6):
-        start_date = today - timedelta(days=DatePicker.DATE_RANGES[selected_index - 1])
-        return f"{start_date} - {today}"
-
-    # Default label if no range is selected
-    return f"{today - timedelta(days=365)} - {today}"
-
-
 def register_datepicker_callbacks(app):
 
     @app.callback(
@@ -38,16 +23,13 @@ def register_datepicker_callbacks(app):
             return f'{start_date} - {end_date}' if end_date else f'{start_date}'
 
         # Predefined button selected
-        selected_index = next(
-            (
-                i
-                for i, class_name in enumerate(button_classes)
-                if DatePicker.STYLE_SELECTED_BUTTON in class_name
-            ),
-            None,
-        )
-        # Calculate date range based on selected button
-        return calculate_date_range(selected_index)
+        selected_index = DatePicker.selected_button_index(button_classes)
+        # Calculate start date based on selected button
+        start_date = DatePicker.calculate_start_date(selected_index)
+        today = date.today()
+        if selected_index == 0:
+            return f'{today}'
+        return f'{start_date} - {today}'
 
     @app.callback(
         [Output(btn_id, 'className') for btn_id in DatePicker.BUTTON_IDS],
