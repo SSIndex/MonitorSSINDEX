@@ -79,7 +79,7 @@ class TimeTrendAnalyzer(BaseAnalyzer):
 
         return 0 if np_isnan(res) else round(res)
 
-    def get_all_reviews_by_company(self, bank_name : str) -> pd_DataFrame:
+    def get_all_reviews_by_company(self, bank_name: str) -> pd_DataFrame:
         '''
         Get all the data analyzed for a company
         '''
