@@ -17,7 +17,7 @@ class DatePicker(BaseComponent):
     # Constants for labels and button IDs
     BUTTON_LABELS = ['Today', '5 days', '1 month', '3 months', '6 months', '1 year']
     BUTTON_IDS = [f'btn-nclicks-{i}' for i in range(len(BUTTON_LABELS))]
-    DATE_RANGES = [5, 30, 90, 180, 365]  # Corresponding ranges
+    DATE_RANGES = [5, 30, 91, 182, 365]  # Corresponding ranges
 
     # Styles for predefined ranges buttons
     STYLE_SELECTED_BUTTON = 'btn btn-primary m-1'
