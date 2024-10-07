@@ -31,7 +31,7 @@ class DatePicker(BaseComponent):
         button_class = (
             'btn m-1 ms-2 border border-dark text-ssindex-graph-grey'
             if not self.disabled
-            else 'btn m-1 ms-2 text-ssindex-graph-grey border border-0'
+            else 'btn m-1 ms-1 text-ssindex-graph-grey border border-0'
         )
 
         button_attributes = {
@@ -45,7 +45,7 @@ class DatePicker(BaseComponent):
                 # Button to open DatePicker, initially shows the last year date range
                 html.Button(
                     children=f'{date.today() - timedelta(days=365)} - {date.today()}',
-                    id='date-picker-button',
+                    id='date-picker-button' if not self.disabled else '',
                     className=button_class,
                     disabled=self.disabled,
                     **button_attributes,
