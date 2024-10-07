@@ -4,6 +4,7 @@ General Analysis for Dataframe
 
 from DashMonitor.app.data.analyzers.base_analyzer import BaseAnalyzer
 from numpy import isnan as np_isnan
+from pandas import DataFrame as pd_DataFrame
 
 
 class GeneralAnalyzer(BaseAnalyzer):
@@ -73,7 +74,7 @@ class GeneralAnalyzer(BaseAnalyzer):
 
         return 0 if np_isnan(res) else round(res)
 
-    def execute(self):
+    def execute(self) -> pd_DataFrame:
         '''
         Execute the analyzer filter, group, aggregate, having and sort
         '''
