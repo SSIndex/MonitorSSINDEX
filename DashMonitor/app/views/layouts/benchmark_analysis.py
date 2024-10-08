@@ -297,7 +297,9 @@ def register_callbacks(app):
             # If a predefined button is selected, determine the corresponding date range
             selected_index = ButtonUtils.selected_button_index(button_classes)
             end_date = pd.to_datetime(date.today())
-            start_date = pd.to_datetime(DateUtils().calculate_start_date_on_index(selected_index))
+            start_date = pd.to_datetime(
+                DateUtils().calculate_start_date_on_index(selected_index)
+            )
 
         # Aggregate sentiment scores by bank name and date
         overall_df = (
