@@ -2,8 +2,6 @@ from DashMonitor.app.views.components.base_component import BaseComponent
 from dash import html, dcc
 from datetime import date, timedelta
 
-from DashMonitor.app.views.components.utils.button import ButtonUtils
-
 
 class DatePicker(BaseComponent):
     '''
@@ -19,6 +17,10 @@ class DatePicker(BaseComponent):
     # Constants for labels and button IDs
     BUTTON_LABELS = ['Today', '5 days', '1 month', '3 months', '6 months', '1 year']
     BUTTON_IDS = [f'btn-nclicks-{i}' for i in range(len(BUTTON_LABELS))]
+
+    # Style classes for buttons
+    STYLE_SELECTED_BUTTON = 'btn btn-primary m-1'
+    STYLE_UNSELECTED_BUTTON = 'btn btn-outline-primary m-1'
 
     def __init__(self, disabled=False):
         self.disabled = disabled
@@ -64,7 +66,7 @@ class DatePicker(BaseComponent):
                                                     html.Button(
                                                         label,
                                                         type='button',
-                                                        className=ButtonUtils.STYLE_UNSELECTED_BUTTON,
+                                                        className=self.STYLE_UNSELECTED_BUTTON,
                                                         id=btn_id,
                                                         n_clicks=0,
                                                     )

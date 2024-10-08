@@ -1,9 +1,8 @@
-class ButtonUtils:
-    '''Utility class for handling button-related operations.'''
+from DashMonitor.app.views.components.date_picker.date_picker import DatePicker
 
-    # Style classes for buttons
-    STYLE_SELECTED_BUTTON = 'btn btn-primary m-1'
-    STYLE_UNSELECTED_BUTTON = 'btn btn-outline-primary m-1'
+
+class ButtonIndexGetter:
+    '''Utility class for handling button-related operations.'''
 
     @staticmethod
     def selected_button_index(button_classes: list) -> int:
@@ -18,7 +17,7 @@ class ButtonUtils:
             (
                 i
                 for i, class_name in enumerate(button_classes)
-                if ButtonUtils.STYLE_SELECTED_BUTTON in class_name
+                if DatePicker.STYLE_SELECTED_BUTTON in class_name
             ),
             -1,
         )

@@ -28,7 +28,7 @@ from DashMonitor.app.views.components.date_picker.callbacks import (
     register_datepicker_callbacks,
 )
 from DashMonitor.app.views.components.date_picker.date_picker import DatePicker
-from DashMonitor.app.views.components.utils.button import ButtonUtils
+from DashMonitor.app.views.components.utils.button_index_getter import ButtonIndexGetter
 from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
 from DashMonitor.app.views.configs import (
     main_df_provider,
@@ -295,7 +295,7 @@ def register_callbacks(app):
             end_date = pd.to_datetime(end_date)
         else:
             # If a predefined button is selected, determine the corresponding date range
-            selected_index = ButtonUtils.selected_button_index(button_classes)
+            selected_index = ButtonIndexGetter.selected_button_index(button_classes)
             end_date = pd.to_datetime(date.today())
             start_date = pd.to_datetime(
                 DateUtils().calculate_start_date_on_index(selected_index)
