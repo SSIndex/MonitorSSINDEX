@@ -7,85 +7,129 @@ class DatePicker(BaseComponent):
     '''
     Date Picker Component. Generates a date picker component which allows the user to select a date
     and predefined ranges like 'Today', '5 days', etc.
+
+    Parameters
+    ----------
+    disabled : bool
+        If True, the Date Picker is disabled and cannot be interacted with. Default is False.
     '''
 
     # Constants for labels and button IDs
     BUTTON_LABELS = ['Today', '5 days', '1 month', '3 months', '6 months', '1 year']
     BUTTON_IDS = [f'btn-nclicks-{i}' for i in range(len(BUTTON_LABELS))]
-    DATE_RANGES = [5, 30, 90, 180, 365]  # Corresponding ranges
+    DATE_RANGES = [0, 5, 30, 91, 182, 365]  # Corresponding ranges
 
     # Styles for predefined ranges buttons
     STYLE_SELECTED_BUTTON = 'btn btn-primary m-1'
     STYLE_UNSELECTED_BUTTON = 'btn btn-outline-primary m-1'
 
+    def __init__(self, disabled=False):
+        self.disabled = disabled
+
+    @staticmethod
+    def selected_button_index(button_classes: list) -> int:
+        '''Get the index of the selected button.'''
+        return next(
+            (
+                i
+                for i, class_name in enumerate(button_classes)
+                if DatePicker.STYLE_SELECTED_BUTTON in class_name
+            ),
+            None,
+        )
+
+    @staticmethod
+    def calculate_start_date(selected_index: int) -> str:
+        '''Calculate start date based on selected button.'''
+        today = date.today()
+        for index in range(0, len(DatePicker.DATE_RANGES) + 1):
+            if selected_index == index:
+                return today - timedelta(days=DatePicker.DATE_RANGES[index])
+
+        # Default start date is 1 year ago if no button is selected
+        return today - timedelta(days=365)
+
     def render(self):
+        # Determine the button classes and attributes based on the disabled state
+        button_class = (
+            'btn m-1 ms-2 border border-dark text-ssindex-graph-grey'
+            if not self.disabled
+            else 'btn m-1 ms-1 text-ssindex-graph-grey border border-0'
+        )
+
         return html.Div(
             children=[
                 html.Label('Time Frame', className='form-label'),
                 # Button to open DatePicker, initially shows the last year date range
                 html.Button(
                     children=f'{date.today() - timedelta(days=365)} - {date.today()}',
-                    id='date-picker-button',
-                    className='btn m-1 ms-2 border border-dark text-ssindex-graph-grey',
+                    id='date-picker-button' if not self.disabled else '',
+                    className=button_class,
+                    disabled=self.disabled,
                     **{
                         'data-bs-toggle': 'collapse',
                         'data-bs-target': '#date-picker-container',
                     },
                 ),
-                # Collapsible container for Date Picker
-                html.Div(
-                    id='date-picker-container',
-                    className='collapse z-3 position-absolute bg-white border rounded shadow-lg w-25',
-                    children=[
-                        html.Div(
-                            className='d-flex flex-column mt-4 mb-3 p-1',
-                            children=[
-                                html.Div(
-                                    className='mb-2',
-                                    children=[
-                                        # Buttons for predefined date ranges
-                                        html.Div(
-                                            className='text-center',
-                                            children=[
-                                                html.Button(
-                                                    label,
-                                                    type='button',
-                                                    className=DatePicker.STYLE_UNSELECTED_BUTTON,
-                                                    id=btn_id,
-                                                    n_clicks=0,
-                                                )
-                                                for label, btn_id in zip(
-                                                    self.BUTTON_LABELS, self.BUTTON_IDS
-                                                )
-                                            ],
-                                        ),
-                                    ],
-                                ),
-                                # Calendar Date Picker
-                                html.Div(
-                                    className='text-center',
-                                    children=[
-                                        dcc.DatePickerRange(
-                                            id='date-picker-range',
-                                            clearable=True,
-                                        ),
-                                    ],
-                                ),
-                                # Submit Filter Button
-                                html.Div(
-                                    className='text-center mt-3',
-                                    children=[
-                                        html.Button(
-                                            'Search',
-                                            className='btn btn-success m-1',
-                                            id='submit-btn',
-                                            n_clicks=0,
-                                        )
-                                    ],
-                                ),
-                            ],
-                        )
-                    ],
+                # Collapsible container for Date Picker (only renders if not disabled)
+                (
+                    html.Div(
+                        id='date-picker-container',
+                        className='collapse z-3 position-absolute bg-white border rounded shadow-lg w-25',
+                        children=[
+                            html.Div(
+                                className='d-flex flex-column mt-4 mb-3 p-1',
+                                children=[
+                                    html.Div(
+                                        className='mb-2',
+                                        children=[
+                                            # Buttons for predefined date ranges
+                                            html.Div(
+                                                className='text-center',
+                                                children=[
+                                                    html.Button(
+                                                        label,
+                                                        type='button',
+                                                        className=DatePicker.STYLE_UNSELECTED_BUTTON,
+                                                        id=btn_id,
+                                                        n_clicks=0,
+                                                    )
+                                                    for label, btn_id in zip(
+                                                        self.BUTTON_LABELS,
+                                                        self.BUTTON_IDS,
+                                                    )
+                                                ],
+                                            ),
+                                        ],
+                                    ),
+                                    # Calendar Date Picker
+                                    html.Div(
+                                        className='text-center',
+                                        children=[
+                                            dcc.DatePickerRange(
+                                                id='date-picker-range',
+                                                clearable=True,
+                                            ),
+                                        ],
+                                    ),
+                                    # Submit Filter Button
+                                    html.Div(
+                                        className='text-center mt-3',
+                                        children=[
+                                            html.Button(
+                                                'Search',
+                                                className='btn btn-success m-1',
+                                                id='submit-btn',
+                                                n_clicks=0,
+                                            )
+                                        ],
+                                    ),
+                                ],
+                            )
+                        ],
+                    )
+                    if not self.disabled
+                    else None
                 ),
             ]
         )
