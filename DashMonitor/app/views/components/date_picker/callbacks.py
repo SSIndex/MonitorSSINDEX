@@ -1,6 +1,8 @@
-from dash import html, dcc, Input, Output, ctx, callback, State
-from datetime import date, timedelta
+from dash import Input, Output, ctx, State
+from datetime import date
+from DashMonitor.app.handlers.date_range import DateRangeHandler
 from DashMonitor.app.views.components.date_picker.date_picker import DatePicker
+from DashMonitor.app.views.components.utils.button_index_getter import ButtonIndexGetter
 
 
 def register_datepicker_callbacks(app):
@@ -23,9 +25,9 @@ def register_datepicker_callbacks(app):
             return f'{start_date} - {end_date}' if end_date else f'{start_date}'
 
         # Predefined button selected
-        selected_index = DatePicker.selected_button_index(button_classes)
+        selected_index = ButtonIndexGetter.selected_button_index(button_classes)
         # Calculate start date based on selected button
-        start_date = DatePicker.calculate_start_date(selected_index)
+        start_date = DateRangeHandler().calculate_start_date_on_index(selected_index)
         today = date.today()
         if selected_index == 0:
             return f'{today}'
