@@ -2,7 +2,7 @@ from DashMonitor.app.views.components.date_picker.date_picker import DatePicker
 
 
 class ButtonIndexGetter:
-    '''Utility class for handling button-related operations.'''
+    '''Utility class for retrieving the selected button index in the DatePicker component buttons.'''
 
     @staticmethod
     def selected_button_index(button_classes: list) -> int:
