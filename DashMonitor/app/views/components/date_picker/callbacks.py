@@ -1,6 +1,8 @@
 from dash import html, dcc, Input, Output, ctx, callback, State
 from datetime import date, timedelta
+from DashMonitor.app.handlers.date_utils import DateUtils
 from DashMonitor.app.views.components.date_picker.date_picker import DatePicker
+from DashMonitor.app.views.components.utils.button import ButtonUtils
 
 
 def register_datepicker_callbacks(app):
@@ -23,9 +25,9 @@ def register_datepicker_callbacks(app):
             return f'{start_date} - {end_date}' if end_date else f'{start_date}'
 
         # Predefined button selected
-        selected_index = DatePicker.selected_button_index(button_classes)
+        selected_index = ButtonUtils.selected_button_index(button_classes)
         # Calculate start date based on selected button
-        start_date = DatePicker.calculate_start_date(selected_index)
+        start_date = DateUtils().calculate_start_date_on_index(selected_index)
         today = date.today()
         if selected_index == 0:
             return f'{today}'
@@ -44,11 +46,11 @@ def register_datepicker_callbacks(app):
         Update button styles of predefined date ranges. If a button is clicked, it will be highlighted.
         '''
         # Default to outline for all buttons
-        btn_classes = [DatePicker.STYLE_UNSELECTED_BUTTON] * len(DatePicker.BUTTON_IDS)
+        btn_classes = [ButtonUtils.STYLE_UNSELECTED_BUTTON] * len(DatePicker.BUTTON_IDS)
         triggered_id = ctx.triggered_id
         # Set clicked button to primary
         if triggered_id in DatePicker.BUTTON_IDS:
             btn_index = DatePicker.BUTTON_IDS.index(triggered_id)
-            btn_classes[btn_index] = DatePicker.STYLE_SELECTED_BUTTON
+            btn_classes[btn_index] = ButtonUtils.STYLE_SELECTED_BUTTON
 
         return btn_classes

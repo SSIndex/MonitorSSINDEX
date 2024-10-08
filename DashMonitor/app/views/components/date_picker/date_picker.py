@@ -1,6 +1,8 @@
 from DashMonitor.app.views.components.base_component import BaseComponent
-from dash import html, dcc, Input, Output, ctx, callback, State
+from dash import html, dcc
 from datetime import date, timedelta
+
+from DashMonitor.app.views.components.utils.button import ButtonUtils
 
 
 class DatePicker(BaseComponent):
@@ -17,37 +19,9 @@ class DatePicker(BaseComponent):
     # Constants for labels and button IDs
     BUTTON_LABELS = ['Today', '5 days', '1 month', '3 months', '6 months', '1 year']
     BUTTON_IDS = [f'btn-nclicks-{i}' for i in range(len(BUTTON_LABELS))]
-    DATE_RANGES = [0, 5, 30, 91, 182, 365]  # Corresponding ranges
-
-    # Styles for predefined ranges buttons
-    STYLE_SELECTED_BUTTON = 'btn btn-primary m-1'
-    STYLE_UNSELECTED_BUTTON = 'btn btn-outline-primary m-1'
 
     def __init__(self, disabled=False):
         self.disabled = disabled
-
-    @staticmethod
-    def selected_button_index(button_classes: list) -> int:
-        '''Get the index of the selected button.'''
-        return next(
-            (
-                i
-                for i, class_name in enumerate(button_classes)
-                if DatePicker.STYLE_SELECTED_BUTTON in class_name
-            ),
-            None,
-        )
-
-    @staticmethod
-    def calculate_start_date(selected_index: int) -> str:
-        '''Calculate start date based on selected button.'''
-        today = date.today()
-        for index in range(0, len(DatePicker.DATE_RANGES) + 1):
-            if selected_index == index:
-                return today - timedelta(days=DatePicker.DATE_RANGES[index])
-
-        # Default start date is 1 year ago if no button is selected
-        return today - timedelta(days=365)
 
     def render(self):
         # Determine the button classes and attributes based on the disabled state
@@ -90,7 +64,7 @@ class DatePicker(BaseComponent):
                                                     html.Button(
                                                         label,
                                                         type='button',
-                                                        className=DatePicker.STYLE_UNSELECTED_BUTTON,
+                                                        className=ButtonUtils.STYLE_UNSELECTED_BUTTON,
                                                         id=btn_id,
                                                         n_clicks=0,
                                                     )
