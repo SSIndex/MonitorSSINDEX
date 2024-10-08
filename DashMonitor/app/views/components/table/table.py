@@ -93,7 +93,9 @@ class Table(BaseComponent):
                             th_class_name=self.class_name_headers,
                         ).render(),
                         TableBody(
-                            data=self.data, class_name="align-middle text-center", class_name_rows=self.class_name_rows
+                            data=self.data,
+                            class_name="align-middle text-center",
+                            class_name_rows=self.class_name_rows,
                         ).render(),
                         TableFooter(self.footer_data).render(),
                     ],

@@ -14,7 +14,12 @@ class TableBody(BaseComponent):
     Table Body component. Generates a tbody for a table.
     '''
 
-    def __init__(self, data: List[html.Tr] | html.Tr, class_name: Optional[str] = '', class_name_rows: Optional[str] = ''):
+    def __init__(
+        self,
+        data: List[html.Tr] | html.Tr,
+        class_name: Optional[str] = '',
+        class_name_rows: Optional[str] = '',
+    ):
         self.data = data
         self.class_name = class_name
         self.class_name_rows = class_name_rows
@@ -62,9 +67,7 @@ class TableBody(BaseComponent):
                                     thead_class_name='text-center table-white align-middle',
                                     th_class_name='text-center table-white fs-7',
                                 ).render(),
-                                html.Tbody(
-                                    children=rows
-                                )
+                                html.Tbody(children=rows),
                             ],
                         ),
                     )
