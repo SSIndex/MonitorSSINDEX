@@ -25,7 +25,7 @@ class TableHeader(BaseComponent):
 
     def __init__(
         self,
-        headers : List[str],
+        headers: List[str],
         thead_class_name: Optional[str] = "",
         th_class_name: Optional[str] = "",
     ):

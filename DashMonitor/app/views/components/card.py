@@ -73,7 +73,7 @@ class Card(BaseComponent):
             'Good': ' This company holds a high sentiment score. Feedback is mostly positive, with 60% of comments being positive and 40% negative. This indicates a positive perception among respondents',
             'Excellent': ' This company holds a very high sentiment score. Feedback is overwhelmingly positive, with 80% of comments being positive and 20% negative. This indicates a very positive perception among respondents',
         }
-    
+
         self.overview_text = overview_mapping.get(self.overview, "")
 
     def render(self) -> html.Div:

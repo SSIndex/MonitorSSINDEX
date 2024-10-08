@@ -25,6 +25,7 @@ def categorize_score(score):
     else:
         return "Excellent"
 
+
 def categorize_score_to_bg_class_name(score):
     if score < 20:
         return "bg-ssindex-poor"
@@ -36,7 +37,8 @@ def categorize_score_to_bg_class_name(score):
         return "bg-ssindex-good"
     else:
         return "bg-ssindex-excellent"
-    
+
+
 def categorize_score_to_text_class_name(score):
     if score < 20:
         return "text-ssindex-poor"
