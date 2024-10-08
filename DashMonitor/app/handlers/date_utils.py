@@ -1,7 +1,15 @@
 from datetime import date, timedelta
 
+
 class DateUtils:
-    '''Utility class for handling date calculations.'''
+    '''
+    Utility class for handling date calculations.
+
+    Parameters
+    ----------
+    date_ranges : list
+        List of date ranges in days. Default is DEFAULT_DATE_RANGES
+    '''
 
     DEFAULT_DATE_RANGES = [0, 5, 30, 91, 182, 365]
     DEFAULT_START_DATE = date.today() - timedelta(days=365)
