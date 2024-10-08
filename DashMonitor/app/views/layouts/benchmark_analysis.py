@@ -15,7 +15,7 @@ from dash import html
 
 # local imports
 from DashMonitor.app.data.analyzers import TimeTrendAnalyzer
-from DashMonitor.app.handlers.date_utils import DateUtils
+from DashMonitor.app.handlers.date_range import DateRangeHandler
 from DashMonitor.app.handlers.function_utils import (
     categorize_score,
     categorize_score_to_text_class_name,
@@ -298,7 +298,7 @@ def register_callbacks(app):
             selected_index = ButtonIndexGetter.selected_button_index(button_classes)
             end_date = pd.to_datetime(date.today())
             start_date = pd.to_datetime(
-                DateUtils().calculate_start_date_on_index(selected_index)
+                DateRangeHandler().calculate_start_date_on_index(selected_index)
             )
 
         # Aggregate sentiment scores by bank name and date

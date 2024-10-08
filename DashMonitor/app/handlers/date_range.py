@@ -1,20 +1,20 @@
 from datetime import date, timedelta
 
 
-class DateUtils:
+class DateRangeHandler:
     '''
-    Utility class for handling date calculations.
+    Utility class for handling date range calculations.
 
     Parameters
     ----------
-    date_ranges : list
+    date_ranges : list[int]
         List of date ranges in days. Default is DEFAULT_DATE_RANGES
     '''
 
     DEFAULT_DATE_RANGES = [0, 5, 30, 91, 182, 365]
     DEFAULT_START_DATE = date.today() - timedelta(days=365)
 
-    def __init__(self, date_ranges=DEFAULT_DATE_RANGES):
+    def __init__(self, date_ranges: list[int] = DEFAULT_DATE_RANGES):
         self.date_ranges = date_ranges
 
     def calculate_start_date_on_index(self, selected_index: int) -> str:
