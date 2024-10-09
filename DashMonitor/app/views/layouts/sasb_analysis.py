@@ -289,7 +289,7 @@ SASB_ANALYSIS_LAYOUT = html.Div(
         # Date Picker Section
         html.Section(
             className='section pt-3 d-flex justify-content-end',
-            children=[cpt.DatePicker().render()],
+            children=[cpt.DatePicker(disabled=True).render()],
         ),
         # Company Card Section
         html.Section(

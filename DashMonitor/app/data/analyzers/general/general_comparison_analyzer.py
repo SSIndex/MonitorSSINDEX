@@ -1,72 +1,23 @@
-'''
-General Analysis for Dataframe
-'''
-
 from DashMonitor.app.data.analyzers.base_analyzer import BaseAnalyzer
 from DashMonitor.app.handlers.graphics_utils import (
-    CATEGORY_ORDER as gu_CATEGORY_ORDER,
     SENTIMENT_SCORE_GROUPS as gu_SENTIMENT_SCORE_GROUPS,
 )
-from numpy import isnan as np_isnan
 from pandas import Categorical as pd_Categorical, DataFrame as pd_DataFrame
 
 
-class GeneralAnalyzer(BaseAnalyzer):
-    '''
-    GeneralAnalyzer generates all analysis related to General Tab Specifically.
-    '''
-
-    def __init__(self, *a, **kw):
-        super().__init__(*a, **kw)
-        self.__data_analyzed = self._BaseAnalyzer__provider()
-
-    def _filter(self):
-        df = self.__data_analyzed
-
-        general_filter = (df["pilar"] != "Other") & (df["predicted_sasb"] != "Other")
-
-        self.__data_analyzed = df[general_filter].reset_index(drop=True)
-
-    def _group(self):
-        df = self.__data_analyzed
-
-        self.__data_analyzed = (
-            df.groupby(["bank_name", "predicted_pilar", "year", "month_num", "date"])[
-                ["sentiment_score"]
-            ]
-            .mean()
-            .reset_index()
-        )
-
-    def _aggregate(self):
-        df = self.__data_analyzed
-
-        df["total_sentiment_score"] = df.groupby(["bank_name", "date"])[
-            "sentiment_score"
-        ].transform("mean")
-
-    def _having(self): ...
-
-    def _sort(self):
-        self.__data_analyzed.sort_values("date", inplace=True)
-
-    def size(self) -> tuple:
-        return (self.__data_analyzed.shape[0], self.__data_analyzed.shape[1])
-
-    def general_score(self, bank_name):
-        df = self.__data_analyzed
-
-        res = df[df["bank_name"] == bank_name]["total_sentiment_score"].mean()
-
-        return 0 if np_isnan(res) else round(res)
-
-    def execute(self):
-        super().execute()
-
-        return self.__data_analyzed
-
-
 class GeneralComparisonAnalyzer(BaseAnalyzer):
+    '''
+    GeneralComparisonAnalyzer generates all analysis related to General Tab comparison of the company in its industry.
+
+    Parameters
+    ----------
+    company_name : str
+        Company Name to compare
+    industry_name : str
+        Industry Name to compare the company with
+
+    Other parameters: args and kwargs are passed to the BaseAnalyzer class
+    '''
 
     def __init__(self, industry_name, company_name, *a, **kw):
         super().__init__(*a, **kw)
@@ -75,6 +26,9 @@ class GeneralComparisonAnalyzer(BaseAnalyzer):
         self.__data_analyzed = self._BaseAnalyzer__provider()
 
     def _filter(self):
+        '''
+        Filter the data analyzed by industry and company name
+        '''
         self.__data_industry = self.__data_analyzed[
             self.__data_analyzed['industry'] == self.__industry_name
         ]
@@ -84,18 +38,20 @@ class GeneralComparisonAnalyzer(BaseAnalyzer):
 
     def _group(self): ...
 
-    def _aggregate(self):
-        counts_analyzed = (
+    def _calculate_percentages(self) -> pd_DataFrame:
+        """Calculate sentiment category percentage."""
+        return (
             self.__data_analyzed["sentiment_category"].value_counts(normalize=True)
             * 100
         )
-        counts_industry = (
-            self.__data_industry["sentiment_category"].value_counts(normalize=True)
-            * 100
-        )
-        counts_company = (
-            self.__data_company["sentiment_category"].value_counts(normalize=True) * 100
-        )
+
+    def _aggregate(self):
+        '''
+        Aggregate the data analyzed by sentiment score groups
+        '''
+        counts_analyzed = self._calculate_percentages()
+        counts_industry = self._calculate_percentages()
+        counts_company = self._calculate_percentages()
 
         df = pd_DataFrame(
             [
@@ -130,11 +86,15 @@ class GeneralComparisonAnalyzer(BaseAnalyzer):
     def _having(self): ...
 
     def _sort(self):
+        '''
+        Sort the data histogram by category
+        '''
         self.__data_histogram.sort_values('Category')
 
-    def execute(self):
+    def execute(self) -> pd_DataFrame:
+        '''
+        Execute the analyzer filter, group, aggregate, having and sort
+        '''
         super().execute()
 
         return self.__data_histogram
-
-    ...

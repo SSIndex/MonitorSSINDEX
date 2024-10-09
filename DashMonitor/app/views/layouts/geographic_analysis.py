@@ -108,7 +108,7 @@ GEOGRAPHIC_ANALYSIS_LAYOUT = html.Div(
         # Date Picker Secion
         html.Section(
             className='section pt-3 d-flex justify-content-end',
-            children=[cpt.DatePicker().render()],
+            children=[cpt.DatePicker(disabled=True).render()],
         ),
         html.Section(
             className="section pt-5",

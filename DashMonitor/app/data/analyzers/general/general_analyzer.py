@@ -1,16 +1,15 @@
 '''
-Time Trend Analysis for Dataframe
+General Analysis for Dataframe
 '''
 
 from DashMonitor.app.data.analyzers.base_analyzer import BaseAnalyzer
 from numpy import isnan as np_isnan
 from pandas import DataFrame as pd_DataFrame
-import pandas as pd
 
 
-class TimeTrendAnalyzer(BaseAnalyzer):
+class GeneralAnalyzer(BaseAnalyzer):
     '''
-    TimeTrendAnalyzer generates all analysis related to Time Trend Tab Specifically.
+    GeneralAnalyzer generates all analysis related to General Tab Specifically.
     '''
 
     def __init__(self, *a, **kw):
@@ -18,12 +17,18 @@ class TimeTrendAnalyzer(BaseAnalyzer):
         self.__data_analyzed = self._BaseAnalyzer__provider()
 
     def _filter(self):
-        pass
+        '''
+        Filter the data analyzed
+        '''
+        df = self.__data_analyzed
+
+        general_filter = (df["pilar"] != "Other") & (df["predicted_sasb"] != "Other")
+
+        self.__data_analyzed = df[general_filter].reset_index(drop=True)
 
     def _group(self):
         '''
         Group the data analyzed by company name, predicted pilar, year, month number and date
-        and calculate the mean of the sentiment score
         '''
         df = self.__data_analyzed
 
@@ -37,7 +42,7 @@ class TimeTrendAnalyzer(BaseAnalyzer):
 
     def _aggregate(self):
         '''
-        Aggregate the data analyzed by company name and date and calculate the mean of the sentiment score
+        Aggregate the data analyzed by company name and date
         '''
         df = self.__data_analyzed
 
@@ -53,23 +58,13 @@ class TimeTrendAnalyzer(BaseAnalyzer):
         '''
         self.__data_analyzed.sort_values("date", inplace=True)
 
-    def _transform(self):
-        '''
-        Transform the data analyzed by adding a date column with the year and month number
-        '''
-        df = self.__data_analyzed
-        self.__data_analyzed["date"] = pd.to_datetime(
-            f"{df['year'].astype(str)}-{df['month_num'].map('{:02}'.format)}",
-            format="%Y-%m",
-        )
-
     def size(self) -> tuple:
         '''
-        Return the size of the data analyzed
+        Return the size of the analyzed
         '''
         return self.__data_analyzed.shape
 
-    def general_score(self, bank_name: str) -> int:
+    def general_score(self, bank_name) -> int:
         '''
         Calculate the general score for a company
         '''
@@ -78,14 +73,6 @@ class TimeTrendAnalyzer(BaseAnalyzer):
         res = df[df["bank_name"] == bank_name]["total_sentiment_score"].mean()
 
         return 0 if np_isnan(res) else round(res)
-
-    def get_all_reviews_by_company(self, bank_name: str) -> pd_DataFrame:
-        '''
-        Get all the data analyzed for a company
-        '''
-        df = self.__data_analyzed
-
-        return df[df["bank_name"] == bank_name]
 
     def execute(self) -> pd_DataFrame:
         '''

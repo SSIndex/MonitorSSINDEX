@@ -3,29 +3,32 @@ BENCHMARK Analysis Layout
 """
 
 # std imports
+from datetime import date
 import plotly.express as px
 import pandas as pd
-import numpy as np
 import plotly.graph_objects as go
-from dash import Dash, html, dcc, Input, Output, State, dash_table
-import dash_bootstrap_components as dbc
+from dash import html, dcc, Input, Output, State
+
 
 # 3rd party imports
 from dash import html
 
 # local imports
 from DashMonitor.app.data.analyzers import TimeTrendAnalyzer
+from DashMonitor.app.handlers.date_range import DateRangeHandler
 from DashMonitor.app.handlers.function_utils import (
     categorize_score,
-    create_result_table,
-    create_gauge_chart,
-    create_gauge_chart_ssindex,
     categorize_score_to_text_class_name,
 )
 
 from DashMonitor.app.views import components as cpt
 
 # Import mock data
+from DashMonitor.app.views.components.date_picker.callbacks import (
+    register_datepicker_callbacks,
+)
+from DashMonitor.app.views.components.date_picker.date_picker import DatePicker
+from DashMonitor.app.views.components.utils.button_index_getter import ButtonIndexGetter
 from DashMonitor.app.views.layouts.mock_data_sasb_analysis import *
 from DashMonitor.app.views.configs import (
     main_df_provider,
@@ -103,6 +106,11 @@ html_data = [
 BENCHMARK_ANALYSIS_LAYOUT = html.Div(
     className="container",
     children=[
+        # Date Picker Section
+        html.Section(
+            className='section pt-3 d-flex justify-content-end',
+            children=[cpt.DatePicker(disabled=False).render()],
+        ),
         # Time trend - Local Industry Analysis Section
         html.Section(
             className="section pt-3",
@@ -230,7 +238,6 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
 def register_callbacks(app):
     @app.callback(
         [
-            Output("overall-time-line-plot", "figure"),
             Output("boxplot-chart", "figure"),
         ],
         [
@@ -246,172 +253,6 @@ def register_callbacks(app):
             & (df["bank_name"].isin(selected_banks))
         ]
 
-        yearly_pilar_line_fig = px.line(
-            filtered_df,
-            x="date",
-            y="sentiment_score",
-            color="bank_name",
-            title=f"Sentiment Score for {selected_year} - {selected_pilar}",
-        )
-        yearly_pilar_line_fig.update_layout(
-            font=dict(family="Roboto"),
-            xaxis=dict(showgrid=True),
-            yaxis=dict(showgrid=True),
-        )
-        total_score_line_fig = px.line(
-            filtered_df,
-            x="date",
-            y="total_sentiment_score",
-            color="bank_name",
-            title=f"Total Sentiment Score for {selected_year}",
-        )
-        total_score_line_fig.update_layout(
-            font=dict(family="Roboto"),
-            xaxis=dict(showgrid=True),
-            yaxis=dict(showgrid=True),
-        )
-        overall_df = (
-            df[df["bank_name"].isin(selected_banks)]
-            .groupby(["bank_name", "date"])
-            .agg({"total_sentiment_score": "mean"})
-            .reset_index()
-        )
-        overall_time_line_fig = px.line(
-            overall_df,
-            x="date",
-            y="total_sentiment_score",
-            color="bank_name",
-        )
-
-        overall_time_line_fig.update_layout(
-            font=dict(family="Roboto"),
-            xaxis=dict(showgrid=True, tickformat="%d-%b", tickangle=-45),
-            yaxis=dict(showgrid=True),
-            updatemenus=[
-                {
-                    "buttons": [
-                        {
-                            "args": [
-                                {
-                                    "xaxis": {
-                                        "range": [
-                                            overall_df["date"].max()
-                                            - pd.Timedelta(days=7),
-                                            overall_df["date"].max(),
-                                        ],
-                                        "tickformat": "%d-%b",
-                                        "tickangle": -45,
-                                    }
-                                }
-                            ],
-                            "label": "1 Week",
-                            "method": "relayout",
-                        },
-                        {
-                            "args": [
-                                {
-                                    "xaxis": {
-                                        "range": [
-                                            overall_df["date"].max()
-                                            - pd.Timedelta(days=30),
-                                            overall_df["date"].max(),
-                                        ],
-                                        "tickformat": "%d-%b",
-                                        "tickangle": -45,
-                                    }
-                                }
-                            ],
-                            "label": "1 Month",
-                            "method": "relayout",
-                        },
-                        {
-                            "args": [
-                                {
-                                    "xaxis": {
-                                        "range": [
-                                            overall_df["date"].max()
-                                            - pd.Timedelta(days=182),
-                                            overall_df["date"].max(),
-                                        ],
-                                        "tickformat": "%b-%Y",
-                                        "tickangle": -45,
-                                    }
-                                }
-                            ],
-                            "label": "6 Months",
-                            "method": "relayout",
-                        },
-                        {
-                            "args": [
-                                {
-                                    "xaxis": {
-                                        "range": [
-                                            overall_df["date"].max()
-                                            - pd.Timedelta(days=365),
-                                            overall_df["date"].max(),
-                                        ],
-                                        "tickformat": "%b-%Y",
-                                        "tickangle": -45,
-                                    }
-                                }
-                            ],
-                            "label": "1 Year",
-                            "method": "relayout",
-                        },
-                        {
-                            "args": [
-                                {
-                                    "xaxis": {
-                                        "range": [
-                                            overall_df["date"].max()
-                                            - pd.Timedelta(days=1095),
-                                            overall_df["date"].max(),
-                                        ],
-                                        "tickformat": "%b-%Y",
-                                        "tickangle": -45,
-                                    }
-                                }
-                            ],
-                            "label": "3 Years",
-                            "method": "relayout",
-                        },
-                        {
-                            "args": [
-                                {
-                                    "xaxis": {
-                                        "range": [
-                                            overall_df["date"].min(),
-                                            overall_df["date"].max(),
-                                        ],
-                                        "tickformat": "%b-%Y",
-                                        "tickangle": -45,
-                                    }
-                                }
-                            ],
-                            "label": "All history",
-                            "method": "relayout",
-                        },
-                    ],
-                    "direction": "left",
-                    "showactive": True,
-                    "x": 0.5,
-                    "xanchor": "center",
-                    "y": 1,
-                    "yanchor": "top",
-                    "type": "buttons",
-                }
-            ],
-            yaxis_title="",
-            xaxis_title="",
-            legend_title="",
-            legend=dict(
-                orientation="h",  # Horizontal orientation
-                yanchor="bottom",  # Anchor the legend to the bottom
-                y=-0.2,  # Place the legend slightly below the chart
-                xanchor="center",  # Center the legend
-                x=0.5,
-            ),
-        )
         boxplot_fig = px.box(
             filtered_df,
             x="bank_name",
@@ -432,11 +273,75 @@ def register_callbacks(app):
             ),
         )
 
-        return (
-            overall_time_line_fig,
-            boxplot_fig,
+        return (boxplot_fig,)
+
+    @app.callback(
+        Output("overall-time-line-plot", "figure"),
+        Input('submit-btn', 'n_clicks'),
+        State('date-picker-range', 'start_date'),
+        State('date-picker-range', 'end_date'),
+        [State(btn_id, 'className') for btn_id in DatePicker.BUTTON_IDS],
+    )
+    def update_line_graph(n_clicks, start_date, end_date, *button_classes):
+        """
+        Updates the line graph based on the selected date range or button.
+        If a date range is selected manually, it uses that range;
+        otherwise, it uses predefined date range buttons.
+        """
+
+        # Convert dates if manually selected
+        if start_date and end_date:
+            start_date = pd.to_datetime(start_date)
+            end_date = pd.to_datetime(end_date)
+        else:
+            # If a predefined button is selected, determine the corresponding date range
+            selected_index = ButtonIndexGetter.selected_button_index(button_classes)
+            end_date = pd.to_datetime(date.today())
+            start_date = pd.to_datetime(
+                DateRangeHandler().calculate_start_date_on_index(selected_index)
+            )
+
+        # Aggregate sentiment scores by bank name and date
+        overall_df = (
+            df.groupby(["bank_name", "date"])
+            .agg(total_sentiment_score=("total_sentiment_score", "mean"))
+            .reset_index()
         )
+
+        # Filter the data according to the selected date range
+        overall_df = overall_df[overall_df["date"].between(start_date, end_date)]
+
+        # Create the line plot
+        overall_time_line_fig = px.line(
+            overall_df,
+            x="date",
+            y="total_sentiment_score",
+            color="bank_name",
+        )
+
+        # Update layout properties for clarity and aesthetics
+        overall_time_line_fig.update_layout(
+            font=dict(family="Roboto"),
+            xaxis=dict(showgrid=True, tickformat="%d-%b", tickangle=-45),
+            yaxis=dict(showgrid=True),
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=-0.4,
+                xanchor="center",
+                x=0.5,
+            ),
+            yaxis_title="",
+            xaxis_title="",
+            legend_title="",
+        )
+
+        # Set x-axis date format
+        overall_time_line_fig.update_xaxes(tickformat="%d %b %Y")
+
+        return overall_time_line_fig
 
 
 def register_layout_and_callbacks_benchmark(app):
     register_callbacks(app)
+    register_datepicker_callbacks(app)
