@@ -47,60 +47,55 @@ data_percentile_analysis = [
     {
         "data": [
             html.P(
-                className='text-dark mb-0 d-flex align-items-center fs-7 gap-1',
+                className='text-dark mb-0 d-flex align-items-center fs-7 gap-1 p-3 text-start',
                 children=[
                     # Blue box beside the text
                     html.Span(
-                        className='bg-primary rounded-1',
+                        className='bg-ssindex-graph-grey rounded-1',
                         style={"width": "20px", "height": "20px", "min-width": "20px"},
                         children="\u200B",
                     ),
                     # Text
-                    "Global Universe",
+                    html.Span("Global, Universe"),
                 ],
             ),
             html.P(
-                className='text-ssindex-graph-grey mb-0',
+                className='text-ssindex-graph-grey mb-0 p-3',
                 children=[html.B("1"), " out of 1"],
             ),
-            html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
+            html.B(className='text-ssindex-graph-grey mb-0 p-3', children="100th"),
             html.P(
-                className='text-ssindex-graph-grey mb-0',
+                className='text-ssindex-graph-grey mb-0 p-3',
                 children=f"{rows} out of {rows}",
             ),
         ]
     },
     {
         "data": [
-            html.Div(
-                className='text-dark m-0 d-flex align-items-center fs-7',
+            html.P(
+                className='text-dark mb-0 d-flex align-items-center fs-7 p-3 text-start gap-1',
                 children=[
-                    html.P(
-                        className='text-dark mb-0 d-flex align-items-center fs-7',
-                        children=[
-                            # Blue box beside the text
-                            html.Span(
-                                className='bg-secondary rounded-1',
-                                style={
-                                    "width": "20px",
-                                    "height": "20px",
-                                    "min-width": "20px",
-                                },
-                                children="\u200B",
-                            ),
-                            # Text
-                            "Industry, South America",
-                        ],
+                    # Blue box beside the text
+                    html.Span(
+                        className='bg-ssindex-graph-blue rounded-1',
+                        style={
+                            "width": "20px",
+                            "height": "20px",
+                            "min-width": "20px",
+                        },
+                        children="\u200B",
                     ),
+                    # Text
+                    html.Span("Industry, South America"),
                 ],
             ),
             html.P(
-                className='text-ssindex-graph-grey mb-0',
+                className='text-ssindex-graph-grey mb-0 p-3',
                 children=[html.B("1"), " out of 1"],
             ),
-            html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
+            html.B(className='text-ssindex-graph-grey mb-0 p-3', children="100th"),
             html.P(
-                className='text-ssindex-graph-grey mb-0',
+                className='text-ssindex-graph-grey mb-0 p-3',
                 children=f"{rows} out of {rows}",
             ),
         ]
@@ -108,7 +103,7 @@ data_percentile_analysis = [
     {
         "data": [
             html.P(
-                className='text-dark mb-0 d-flex align-items-center fs-7',
+                className='text-dark mb-0 d-flex align-items-center fs-7 p-3 text-start gap-1',
                 children=[
                     # Blue box beside the text
                     html.Span(
@@ -117,16 +112,16 @@ data_percentile_analysis = [
                         children="\u200B",
                     ),
                     # Text
-                    "Industry, Country",
+                    html.Span("Industry, Country"),
                 ],
             ),
             html.P(
-                className='text-ssindex-graph-grey mb-0',
+                className='text-ssindex-graph-grey mb-0 p-3',
                 children=[html.B("1"), " out of 1"],
             ),
-            html.B(className='text-ssindex-graph-grey mb-0', children="100th"),
+            html.B(className='text-ssindex-graph-grey mb-0 p-3', children="100th"),
             html.P(
-                className='text-ssindex-graph-grey mb-0',
+                className='text-ssindex-graph-grey mb-0 p-3',
                 children=f"{rows} out of {rows}",
             ),
         ]
@@ -177,7 +172,7 @@ fig_hist_general.update_traces(
     textposition='outside',  # Adjust text position (optional)
     textfont=dict(
         family="Manrope",
-        size=14,  # Set font size
+        size=16,  # Set font size
         color="#333B69",  # Set text color
         weight='bold',  # Make text bold
     ),
@@ -220,7 +215,7 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                     className="row",
                     children=[
                         html.Div(
-                            className="p-3 col bg-secondary text-white rounded-3",
+                            className="p-4 col-5 bg-secondary text-white rounded-3",
                             children=[
                                 html.H5(children=["Percentile Analysis"]),
                                 html.P(
@@ -253,12 +248,13 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                             ],
                         ),
                         html.Div(
-                            className="col",
+                            className="col-7 pt-0",
                             children=[
                                 cpt.Table(
                                     headers=percentyle_analysis_headers,
                                     data=data_percentile_analysis,
                                     class_name_headers=class_name_headers,
+                                    class_name_div='bg-white rounded rounded-4 p-4 pt-0 shadow-sm',
                                 ).render()
                             ],
                         ),
@@ -270,11 +266,12 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
         html.Section(
             className="section pt-3",
             children=[
-                html.H5(children=["Performance Analysis"]),
+                html.H4(className='text-primary', children=["Performance Analysis"]),
                 html.P(
+                    className='text-ssindex-graph-grey',
                     children=[
                         "The results of the company in analysis are classified in a 5-category ratio and benchmarked with three groups of data."
-                    ]
+                    ],
                 ),
             ],
         ),
@@ -282,7 +279,7 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
             className="section pt-3",
             children=[
                 html.Div(
-                    className="container border-bottom border-dark",
+                    className="container",
                     children=[
                         html.Div(
                             className="row",
@@ -320,7 +317,8 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                             headers=headers,
                             data=data,
                             footer_data=footer_data,
-                            class_name_headers=class_name_headers,
+                            class_name_headers=class_name_headers_list,
+                            class_name_td=class_name_td_list,
                             table_title='Overall Score SASB',
                         ).render(),
                     ]
