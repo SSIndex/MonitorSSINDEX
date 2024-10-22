@@ -7,8 +7,8 @@ from dash import html
 
 
 headers = [
-    html.P(className="text-primary mb-0", children="Color"),
-    html.P(className="text-primary mb-0", children="Region/State"),
+    html.P(className="text-primary mb-0", children="Sentiment Color"),
+    html.P(className="text-primary mb-0", children="Territory or State"),
     html.P(className="text-primary mb-0", children="Score"),
     html.P(className="text-primary mb-0", children="Percentil"),
 ]

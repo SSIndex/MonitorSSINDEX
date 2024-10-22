@@ -138,8 +138,9 @@ BENCHMARK_ANALYSIS_LAYOUT = html.Div(
                     headers=nested_headers,
                     data=html_data,
                     class_name_div="table-ssindex-nested-table-background text-center rounded-3",
-                    class_name_table="table table-borderless table-responsive table-ssindex-nested-table-background rounded rounded-3",
-                    class_name_headers="text-center table-white align-middle",
+                    class_name_table="table table-borderless table-responsive table-ssindex-nested-table-background rounded rounded-3 h-100",
+                    class_name_headers=class_name_headers_list[1:],
+                    class_name_td=class_name_td_list[1:],
                 ).render()
             ],
         ),

@@ -27,8 +27,8 @@ class TableFooter(BaseComponent):
                     html.Tr(
                         children=[
                             (
-                                html.Th(val)
-                                if i == 0
+                                html.Th(className='pt-4', children=val)
+                                if i == 1
                                 else html.Td(val, className='text-center')
                             )
                             for i, val in enumerate(self.footer_data)

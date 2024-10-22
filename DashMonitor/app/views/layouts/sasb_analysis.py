@@ -330,7 +330,8 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                             headers=headers,
                             data=data,
                             footer_data=footer_data,
-                            class_name_headers=class_name_headers,
+                            class_name_headers=class_name_headers_list,
+                            class_name_td=class_name_td_list,
                             table_title='Overall Score SASB',
                         ).render(),
                     ]
@@ -343,13 +344,16 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                 html.Div(
                     children=[
                         cpt.Table(
-                            headers=headers,
+                            headers=headers_category,
                             data=data_environment,
                             footer_data=footer_data,
-                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light h-100',
                             class_name_div='bg-light rounded-4 p-3 shadow-sm',
-                            class_name_headers=class_name_headers_2,
+                            class_name_headers=class_name_headers_bg_white_list,
+                            class_name_td=class_name_td_list,
                             table_title='Environment',
+                            class_name_nested_table_container='bg-light text-center rounded-3 shadow-none',
+                            class_name_nested_table='table table-borderless table-responsive table-hover mt-4 table-light',
                         ).render(),
                     ]
                 )
@@ -361,13 +365,16 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                 html.Div(
                     children=[
                         cpt.Table(
-                            headers=headers,
+                            headers=headers_category,
                             data=data_social_capital,
                             footer_data=footer_data,
-                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light h-100',
                             class_name_div='bg-light rounded-4 p-3 shadow-sm',
-                            class_name_headers=class_name_headers_2,
+                            class_name_headers=class_name_headers_bg_white_list,
+                            class_name_td=class_name_td_list,
                             table_title='Social Capital',
+                            class_name_nested_table_container='bg-light text-center rounded-3 shadow-none',
+                            class_name_nested_table='table table-borderless table-responsive table-hover mt-4 table-light',
                         ).render(),
                     ]
                 )
@@ -379,13 +386,16 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                 html.Div(
                     children=[
                         cpt.Table(
-                            headers=headers,
+                            headers=headers_category,
                             data=data_human_capital,
                             footer_data=footer_data,
-                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light h-100',
                             class_name_div='bg-light rounded-4 p-3 shadow-sm',
-                            class_name_headers=class_name_headers_2,
+                            class_name_headers=class_name_headers_bg_white_list,
+                            class_name_td=class_name_td_list,
                             table_title='Human Capital',
+                            class_name_nested_table_container='bg-light text-center rounded-3 shadow-none',
+                            class_name_nested_table='table table-borderless table-responsive table-hover mt-4 table-light',
                         ).render(),
                     ]
                 )
@@ -397,13 +407,16 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                 html.Div(
                     children=[
                         cpt.Table(
-                            headers=headers,
+                            headers=headers_category,
                             data=data_business_model_innovation,
                             footer_data=footer_data,
-                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light h-100',
                             class_name_div='bg-light rounded-4 p-3 shadow-sm',
-                            class_name_headers=class_name_headers_2,
+                            class_name_headers=class_name_headers_bg_white_list,
+                            class_name_td=class_name_td_list,
                             table_title='Business Model & Innovation',
+                            class_name_nested_table_container='bg-light text-center rounded-3 shadow-none',
+                            class_name_nested_table='table table-borderless table-responsive table-hover mt-4 table-light',
                         ).render(),
                     ]
                 )
@@ -415,13 +428,16 @@ SASB_ANALYSIS_LAYOUT = html.Div(
                 html.Div(
                     children=[
                         cpt.Table(
-                            headers=headers,
+                            headers=headers_category,
                             data=data_leadership_governance,
                             footer_data=footer_data,
-                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light',
+                            class_name_table='table table-borderless table-responsive table-hover mt-4 table-light h-100',
                             class_name_div='bg-light rounded-4 p-3 shadow-sm',
-                            class_name_headers=class_name_headers_2,
+                            class_name_headers=class_name_headers_bg_white_list,
+                            class_name_td=class_name_td_list,
                             table_title='Leadership & Governance',
+                            class_name_nested_table_container='bg-light text-center rounded-3 shadow-none',
+                            class_name_nested_table='table table-borderless table-responsive table-hover mt-4 table-light',
                         ).render(),
                     ]
                 )

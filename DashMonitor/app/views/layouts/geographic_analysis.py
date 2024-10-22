@@ -86,13 +86,13 @@ html_data = [
             ),
             html.P(row['state']),
             html.Div(
-                className=f"{categorize_score_to_bg_class_name(row['sentiment_score'])} w-100 h-100 border rounded",
+                className=f"{categorize_score_to_bg_class_name(row['sentiment_score'])} w-100 h-100 border rounded d-flex justify-content-center align-items-center",
                 children=html.B(
                     className='text-white', children=f"{round(row['sentiment_score'])}"
                 ),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100 border rounded",
+                className="bg-ssindex-excellent w-100 h-100 border rounded d-flex justify-content-center align-items-center",
                 children=html.B(className='text-white', children="100th"),
             ),
         ],
