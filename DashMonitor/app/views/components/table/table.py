@@ -9,6 +9,7 @@ from dash import html
 from DashMonitor.app.views.components.table.table_body import TableBody
 from DashMonitor.app.views.components.table.table_header import TableHeader
 from DashMonitor.app.views.components.table.table_footer import TableFooter
+from DashMonitor.app.views.components.table.table_row import TableRow
 
 
 class Table(BaseComponent):
@@ -33,12 +34,18 @@ class Table(BaseComponent):
         Title to display above the table. Defaults to an empty string.
     class_name_table : Optional[str], default None
         Custom class name to apply to the main table. Defaults to _BASE_CLASS_NAME.
-    class_name_headers : Optional[str], default None
-        Custom class name to aply to main table headers (Th elements). Defaults to an empty string.
+    class_name_headers : Optional[str] | Optional[list[str]], default ''
+        Custom class name to aply to main table headers (Th elements). It can be a list for each th or a single class to apply to all elements. Defaults to an empty string.
+    class_name_td : Optional[list[str]], default None
+        Custom class name to apply to the td elements. Defaults to None.
     class_name_rows : Optional[str], default None
         Custom class name to apply to main table rows. Defaults to an empty string.
     class_name_div : Optional[str], default None
         Custom class name to apply to the div containing the table. Defaults to _BASE_DIV_CLASS_NAME.
+    class_name_nested_table_container : Optional[str], default NESTED_TABLE_CONTAINER_TD_CLASS_NAME
+        Custom class name to apply to the nested table container td element. Defaults to NESTED_TABLE_CONTAINER_TD_CLASS_NAME.
+    class_name_nested_table : Optional[str], default NESTED_TABLE_CLASS_NAME
+        Custom class name to apply to the nested table. Defaults to NESTED_TABLE_CLASS_NAME.
 
     Data payload example:
     data = [
@@ -53,7 +60,7 @@ class Table(BaseComponent):
         ]
     """
 
-    _BASE_CLASS_NAME = 'table table-borderless table-responsive table-hover mt-4'
+    _BASE_CLASS_NAME = 'table table-borderless table-responsive table-hover mt-4 h-100'
     _BASE_DIV_CLASS_NAME = 'bg-white rounded rounded-4 p-3 shadow-sm'
 
     def __init__(
@@ -63,9 +70,12 @@ class Table(BaseComponent):
         footer_data: Optional[List[str]] = [],
         table_title: Optional[str] = '',
         class_name_table: Optional[str] = _BASE_CLASS_NAME,
-        class_name_headers: Optional[str] = '',
+        class_name_headers: Optional[str] | Optional[list[str]] = '',
+        class_name_td: Optional[list[str]] = None,
         class_name_rows: Optional[str] = '',
         class_name_div: Optional[str] = _BASE_DIV_CLASS_NAME,
+        class_name_nested_table_container=TableRow.NESTED_TABLE_CONTAINER_TD_CLASS_NAME,
+        class_name_nested_table=TableRow.NESTED_TABLE_CLASS_NAME,
     ):
         self.table_title = table_title
         self.headers = headers
@@ -73,8 +83,11 @@ class Table(BaseComponent):
         self.footer_data = footer_data
         self.class_name_table = class_name_table
         self.class_name_headers = class_name_headers
+        self.class_name_td = class_name_td
         self.class_name_rows = class_name_rows
         self.class_name_div = class_name_div
+        self.class_name_nested_table_container = class_name_nested_table_container
+        self.class_name_nested_table = class_name_nested_table
 
     def render(self) -> html.Table:
         '''
@@ -83,7 +96,9 @@ class Table(BaseComponent):
         return html.Div(
             className=self.class_name_div,
             children=[
-                html.H5(className='text-primary', children=f'{self.table_title}'),
+                html.H5(
+                    className='text-primary pt-2 ps-2', children=f'{self.table_title}'
+                ),
                 html.Table(
                     className=self.class_name_table,
                     children=[
@@ -96,6 +111,9 @@ class Table(BaseComponent):
                             data=self.data,
                             class_name="align-middle text-center",
                             class_name_rows=self.class_name_rows,
+                            class_name_td=self.class_name_td,
+                            class_name_nested_table_container=self.class_name_nested_table_container,
+                            class_name_nested_table=self.class_name_nested_table,
                         ).render(),
                         TableFooter(self.footer_data).render(),
                     ],
