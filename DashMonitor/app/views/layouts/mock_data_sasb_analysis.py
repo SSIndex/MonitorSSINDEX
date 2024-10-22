@@ -16,7 +16,7 @@ overview_text = 'This company holds a medium sentiment score. Feedback is evenly
 
 headers = [
     html.P(className="text-primary mb-0", children="#"),
-    html.P(className="text-primary mb-0", children="Dimension ESG"),
+    html.P(className="text-primary mb-0", children="Dimension"),
     html.P(className="text-ssindex-graph-grey mb-0", children="No Data"),
     html.P(
         className="text-ssindex-poor mb-0",
@@ -76,12 +76,114 @@ headers = [
         ),
     ),
 ]
+
+headers_category = [
+    html.P(className="text-primary mb-0", children="#"),
+    html.P(className="text-primary mb-0", children="Category"),
+    html.P(className="text-ssindex-graph-grey mb-0", children="No Data"),
+    html.P(
+        className="text-ssindex-poor mb-0",
+        children=html.Div(
+            children=[
+                html.P(className="m-0", children="Poor"),
+                html.P(className='fw-normal m-0 fs-7 text-dark', children="0-19%"),
+            ]
+        ),
+    ),
+    html.P(
+        className="text-ssindex-low mb-0",
+        children=html.Div(
+            children=[
+                html.P(className="m-0", children="Low"),
+                html.P(className='fw-normal m-0 fs-7 text-dark', children="20-39%"),
+            ]
+        ),
+    ),
+    html.P(
+        className="text-ssindex-average mb-0",
+        children=html.Div(
+            children=[
+                html.P(className="m-0 ", children="Average"),
+                html.P(className='fw-normal m-0 fs-7 text-dark', children="40-59%"),
+            ]
+        ),
+    ),
+    html.P(
+        className="text-ssindex-good mb-0",
+        children=html.Div(
+            children=[
+                html.P(className="m-0", children="Good"),
+                html.P(className='fw-normal m-0 fs-7 text-dark', children="60-79%"),
+            ]
+        ),
+    ),
+    html.P(
+        className="text-ssindex-excellent mb-0",
+        children=html.Div(
+            children=[
+                html.P(className="m-0", children="Excellent"),
+                html.P(className='fw-normal m-0 fs-7 text-dark', children="80-100%"),
+            ]
+        ),
+    ),
+    "Score",
+    html.P(
+        className="mb-0",
+        children=html.Div(
+            children=[
+                html.Div(className="m-0", children="Percentil"),
+                html.P(
+                    className='fw-normal m-0 fs-7 text-dark', children="Local Industry"
+                ),
+            ]
+        ),
+    ),
+]
+
+class_name_headers_list = [
+    "bg-ssindex-table-header-gray text-center",
+    "bg-ssindex-table-header-gray text-start w-20",
+    "bg-ssindex-table-header-gray text-center w-10",
+    "bg-ssindex-table-header-gray text-center w-10",
+    "bg-ssindex-table-header-gray text-center w-10",
+    "bg-ssindex-table-header-gray text-center w-10",
+    "bg-ssindex-table-header-gray text-center w-10",
+    "bg-ssindex-table-header-gray text-center w-10",
+    "bg-ssindex-table-header-gray text-center w-10",
+    "bg-ssindex-table-header-gray text-center w-10",
+]
+class_name_headers_bg_white_list = [
+    "bg-white text-center",
+    "bg-white text-start w-20",
+    "bg-white text-center w-10",
+    "bg-white text-center w-10",
+    "bg-white text-center w-10",
+    "bg-white text-center w-10",
+    "bg-white text-center w-10",
+    "bg-white text-center w-10",
+    "bg-white text-center w-10",
+    "bg-white text-center w-10",
+]
+
+class_name_td_list = [
+    "text-center p-1 pt-2 pb-2",
+    "text-start p-1 pt-2 pb-2",
+    "text-center p-1 pt-2 pb-2",
+    "text-center p-1 pt-2 pb-2",
+    "text-center p-1 pt-2 pb-2",
+    "text-center p-1 pt-2 pb-2",
+    "text-center p-1 pt-2 pb-2",
+    "text-center p-1 pt-2 pb-2",
+    "text-center pt-2 pb-2",
+    "text-center pt-2 pb-2",
+]
+
 nested_headers = [
     "Review",
-    "Sentiment Score",
-    "Category",
-    "ESG Pilar",
+    "Score",
+    "Sentiment",
     "Dimension",
+    "Category",
     "Territory or State",
     "City",
     "Date",
@@ -92,8 +194,8 @@ nested_data = [
         html.P(children="I called and called an no one answered the phone"),
         html.P("8%"),
         html.P(className="text-ssindex-poor", children="Poor"),
-        html.P("Social External"),
-        html.P("Complaints"),
+        html.P("Environment"),
+        html.P("GHG Emissions"),
         html.P("New York"),
         html.P("New York"),
         html.P("12/08/23"),
@@ -103,8 +205,8 @@ nested_data = [
         html.P("I called and called an no one answered the phone"),
         html.P("12%"),
         html.P(className="text-ssindex-poor", children="Poor"),
-        html.P("Social External"),
-        html.P("Complaints"),
+        html.P("Environment"),
+        html.P("GHG Emissions"),
         html.P("California"),
         html.P("Los Angeles"),
         html.P("05/07/24"),
@@ -116,14 +218,15 @@ nested_data = [
         ),
         html.P("54%"),
         html.P(className='text-ssindex-average', children="Average"),
-        html.P("Social External"),
-        html.P("Complaints"),
+        html.P("Environment"),
+        html.P("GHG Emissions"),
         html.P("Texas"),
         html.P("Houston"),
         html.P("24/04/24"),
         html.P("Facebook"),
     ],
 ]
+
 data = [
     {
         "data": [
@@ -151,11 +254,11 @@ data = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100  border rounded",
+                className="bg-ssindex-average w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="45%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -187,11 +290,11 @@ data = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100  border rounded",
+                className="bg-ssindex-poor w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="15%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -224,11 +327,11 @@ data = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100  border rounded",
+                className="bg-ssindex-low w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="30%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -263,11 +366,11 @@ data = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100  border rounded",
+                className="bg-ssindex-good w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="65%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -301,11 +404,11 @@ data = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="95%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -337,11 +440,11 @@ data = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0%"),
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0th"),
             ),
         ]
@@ -375,14 +478,16 @@ data_environment = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100  border rounded",
+                className="bg-ssindex-average w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="45%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
-        ]
+        ],
+        "nested_data": nested_data,
+        "nested_headers": nested_headers,
     },
     {
         "data": [
@@ -409,14 +514,16 @@ data_environment = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100  border rounded",
+                className="bg-ssindex-poor w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="15%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
+        "nested_headers": nested_headers,
+        "nested_data": nested_data,
     },
     {
         "data": [
@@ -444,11 +551,11 @@ data_environment = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100  border rounded",
+                className="bg-ssindex-low w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="30%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -481,11 +588,11 @@ data_environment = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100  border rounded",
+                className="bg-ssindex-good w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="65%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -517,11 +624,11 @@ data_environment = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="95%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -551,11 +658,11 @@ data_environment = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0%"),
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0th"),
             ),
         ]
@@ -585,11 +692,11 @@ data_environment = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0%"),
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0th"),
             ),
         ]
@@ -626,11 +733,11 @@ data_social_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100  border rounded",
+                className="bg-ssindex-average w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="45%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -660,11 +767,11 @@ data_social_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100  border rounded",
+                className="bg-ssindex-poor w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="15%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -695,11 +802,11 @@ data_social_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100  border rounded",
+                className="bg-ssindex-low w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="30%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -732,11 +839,11 @@ data_social_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100  border rounded",
+                className="bg-ssindex-good w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="65%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -768,11 +875,11 @@ data_social_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="95%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -802,11 +909,11 @@ data_social_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0%"),
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0th"),
             ),
         ]
@@ -838,11 +945,11 @@ data_social_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="95%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -872,11 +979,11 @@ data_social_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0%"),
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0th"),
             ),
         ]
@@ -910,11 +1017,11 @@ data_human_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100  border rounded",
+                className="bg-ssindex-average w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="45%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -944,11 +1051,11 @@ data_human_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100  border rounded",
+                className="bg-ssindex-poor w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="15%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -982,11 +1089,11 @@ data_human_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100  border rounded",
+                className="bg-ssindex-low w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="30%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1019,11 +1126,11 @@ data_human_capital = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100  border rounded",
+                className="bg-ssindex-good w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="65%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1060,11 +1167,11 @@ data_business_model_innovation = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100  border rounded",
+                className="bg-ssindex-average w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="45%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1094,11 +1201,11 @@ data_business_model_innovation = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100  border rounded",
+                className="bg-ssindex-poor w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="15%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -1129,11 +1236,11 @@ data_business_model_innovation = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100  border rounded",
+                className="bg-ssindex-low w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="30%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1166,11 +1273,11 @@ data_business_model_innovation = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100  border rounded",
+                className="bg-ssindex-good w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="65%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1202,11 +1309,11 @@ data_business_model_innovation = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="95%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1236,11 +1343,11 @@ data_business_model_innovation = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0%"),
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0th"),
             ),
         ]
@@ -1274,11 +1381,11 @@ data_leadership_governance = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-average w-100 h-100  border rounded",
+                className="bg-ssindex-average w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="45%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1308,11 +1415,11 @@ data_leadership_governance = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-poor w-100 h-100  border rounded",
+                className="bg-ssindex-poor w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="15%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ],
@@ -1346,11 +1453,11 @@ data_leadership_governance = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-low w-100 h-100  border rounded",
+                className="bg-ssindex-low w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="30%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1383,11 +1490,11 @@ data_leadership_governance = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-good w-100 h-100  border rounded",
+                className="bg-ssindex-good w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="65%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1419,11 +1526,11 @@ data_leadership_governance = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="95%"),
             ),
             html.Div(
-                className="bg-ssindex-excellent w-100 h-100  border rounded",
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="20th"),
             ),
         ]
@@ -1453,11 +1560,11 @@ data_leadership_governance = [
                 children="\u200B",
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0%"),
             ),
             html.Div(
-                className="bg-ssindex-no-data w-100 h-100  border rounded",
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
                 children=html.B(className='text-white', children="0th"),
             ),
         ]
@@ -1465,8 +1572,8 @@ data_leadership_governance = [
 ]
 
 footer_data = [
-    html.P(className='text-primary mb-0', children="Total Score"),
     "",
+    html.P(className='text-primary text-start mb-0', children="Total Score"),
     "",
     "",
     "",
@@ -1474,11 +1581,11 @@ footer_data = [
     "",
     "",
     html.Div(
-        className="bg-ssindex-average w-100 h-100  border rounded",
+        className="bg-ssindex-average w-100 h-100  border rounded d-flex align-items-center justify-content-center",
         children=html.B(className='text-white', children="45%"),
     ),
     html.Div(
-        className="bg-ssindex-excellent w-100 h-100  border rounded",
+        className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
         children=html.B(className='text-white', children="20th"),
     ),
 ]
