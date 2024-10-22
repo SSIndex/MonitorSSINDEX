@@ -85,7 +85,7 @@ data_percentile_analysis = [
     {
         "data": [
             html.P(
-                className='text-dark mb-0 d-flex align-items-center fs-7',
+                className='text-dark mb-0 d-flex align-items-center fs-7 p-3',
                 children=[
                     # Blue box beside the text
                     html.Span(
@@ -98,12 +98,14 @@ data_percentile_analysis = [
                 ],
             ),
             html.P(
-                className='text-ssindex-graph-grey mb-0',
+                className='text-ssindex-graph-grey mb-0 p-3',
                 children=[html.B("5"), " out of 5"],
             ),
-            html.B(className='text-ssindex-graph-grey mb-0', children="20th"),
-            html.P(className='text-ssindex-graph-grey mb-0', children="100 out of 400"),
-            html.B(className='text-ssindex-graph-grey mb-0', children="20th"),
+            html.B(className='text-ssindex-graph-grey mb-0 p-3', children="20th"),
+            html.P(
+                className='text-ssindex-graph-grey mb-0 p-3', children="100 out of 400"
+            ),
+            html.B(className='text-ssindex-graph-grey mb-0 p-3', children="20th"),
         ]
     },
     {
@@ -112,7 +114,7 @@ data_percentile_analysis = [
                 className='text-dark m-0 d-flex align-items-center fs-7',
                 children=[
                     html.P(
-                        className='text-dark mb-0 d-flex align-items-center fs-7',
+                        className='text-dark mb-0 d-flex align-items-center fs-7 p-3',
                         children=[
                             # Blue box beside the text
                             html.Span(
@@ -167,10 +169,10 @@ data_percentile_analysis = [
 
 nested_headers = [
     "Review",
-    "Sentiment Score",
-    "Category",
-    "ESG Pilar",
+    "Score",
+    "Sentiment",
     "Dimension",
+    "Category",
     "Territory or State",
     "City",
     "Date",
@@ -181,7 +183,7 @@ nested_data = [
         html.P(children="I called and called an no one answered the phone"),
         html.P("8%"),
         html.P(className="text-ssindex-poor", children="Poor"),
-        html.P("Social External"),
+        html.P("Environment"),
         html.P("Complaints"),
         html.P("New York"),
         html.P("New York"),
