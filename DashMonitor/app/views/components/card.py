@@ -105,11 +105,11 @@ class Card(BaseComponent):
                                                     children=[
                                                         html.P(
                                                             self.company_name,
-                                                            className='fs-3',
+                                                            className='fs-3 fw-bold',
                                                         ),
                                                         html.P(
                                                             self.industry,
-                                                            className='fs-5',
+                                                            className='fs-5 fw-bold',
                                                         ),
                                                         html.P(
                                                             self.country,
