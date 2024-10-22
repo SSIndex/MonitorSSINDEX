@@ -60,6 +60,12 @@ $opacities: (
   100: 1,
 );
 
+// Define widths from 1% to 100%
+$widths: ();
+@for $i from 1 through 100 {
+  $widths: map-merge($widths, ($i: $i*1%));
+}
+
 $utilities: map-merge(
   $utilities,
   (
@@ -74,6 +80,13 @@ $utilities: map-merge(
       (
         property: opacity,
         values: $opacities,
+      ),
+    ),
+    "width": map-merge(
+      map-get($utilities, "width"),
+      (
+        property: width,
+        values: $widths,
       ),
     ),
   )
