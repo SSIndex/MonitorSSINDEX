@@ -178,6 +178,33 @@ fig_hist_general.update_traces(
     ),
 )
 
+
+df2 = pd.DataFrame(
+    dict(
+        r=[45, 15, 30, 65, 95, 0],
+        theta=[
+            'Environment',
+            'Social Capital',
+            'Human Capital',
+            'Business Model & Innovation',
+            'Leadership & Governance',
+            'Others',
+        ],
+    )
+)
+fig_radar_chart = px.line_polar(df2, r='r', theta='theta', line_close=True)
+
+fig_radar_chart.update_layout(
+    polar=dict(
+        radialaxis=dict(
+            visible=True,
+            tickvals=[0, 20, 40, 60, 80, 100],  # Define the tick positions
+            ticktext=['', '', '', '', '', ''],  # Empty labels for each tick
+        ),
+    ),
+    showlegend=False,
+)
+
 # ------------------------------------------------------------------------------
 GENERAL_ANALYSIS_LAYOUT = html.Div(
     className="container",
@@ -323,6 +350,44 @@ GENERAL_ANALYSIS_LAYOUT = html.Div(
                         ).render(),
                     ]
                 )
+            ],
+        ),
+        html.Section(
+            className="section pt-3",
+            children=[
+                html.H4(className="text-primary", children=['SASB Radar Chart']),
+                html.Div(
+                    className="container bg-white rounded rounded-4 p-4 shadow-sm",
+                    children=[
+                        html.Div(
+                            className="row",
+                            children=[
+                                html.Div(
+                                    className="col-4",
+                                    children=cpt.Table(
+                                        headers=headers[0:2] + [headers[-2]],
+                                        data=sasb_radar_chart_data,
+                                        class_name_table='table table-borderless table-responsive table-hover mt-4 table-ssindex-nested-table-background h-100',
+                                        class_name_div='bg-ssindex-nested-table-background rounded-4 shadow-sm p-3 pt-1',
+                                        class_name_headers=[
+                                            "bg-ssindex-table-header-gray text-center-10",
+                                            "bg-ssindex-table-header-gray text-start w-60",
+                                            "bg-ssindex-table-header-gray text-center w-30",
+                                        ],
+                                        class_name_td=class_name_td_list,
+                                    ).render(),
+                                ),
+                                html.Div(
+                                    className="col-8",
+                                    children=dcc.Graph(
+                                        id="sasb-radar-chart",
+                                        figure=fig_radar_chart,
+                                    ),
+                                ),
+                            ],
+                        )
+                    ],
+                ),
             ],
         ),
         # html.Section(
