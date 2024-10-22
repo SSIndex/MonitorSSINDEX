@@ -140,6 +140,75 @@ headers_category = [
     ),
 ]
 
+sasb_radar_chart_data = [
+    {
+        "data": [
+            html.P(className="text-primary mb-0", children="01"),
+            html.P(className='text-primary mb-0', children="Environment"),
+            html.Div(
+                className="bg-ssindex-average w-100 h-100  border rounded d-flex align-items-center justify-content-center",
+                children=html.B(className='text-white', children="45%"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary mb-0", children="02"),
+            html.P(className='text-primary mb-0', children="Social Capital"),
+            html.Div(
+                className="bg-ssindex-poor w-100 h-100  border rounded d-flex align-items-center justify-content-center",
+                children=html.B(className='text-white', children="15%"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary mb-0", children="03"),
+            html.P(className='text-primary mb-0', children="Human Capital"),
+            html.Div(
+                className="bg-ssindex-low w-100 h-100  border rounded d-flex align-items-center justify-content-center",
+                children=html.B(className='text-white', children="30%"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary mb-0", children="04"),
+            html.P(
+                className='text-primary mb-0',
+                children="Business Model & Innovation",
+            ),
+            html.Div(
+                className="bg-ssindex-good w-100 h-100  border rounded d-flex align-items-center justify-content-center",
+                children=html.B(className='text-white', children="65%"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary mb-0", children="05"),
+            html.P(
+                className='text-primary mb-0',
+                children="Leadership & Governance",
+            ),
+            html.Div(
+                className="bg-ssindex-excellent w-100 h-100  border rounded d-flex align-items-center justify-content-center",
+                children=html.B(className='text-white', children="95%"),
+            ),
+        ],
+    },
+    {
+        "data": [
+            html.P(className="text-primary mb-0", children="06"),
+            html.P(className='text-primary mb-0', children="Others"),
+            html.Div(
+                className="bg-ssindex-no-data w-100 h-100  border rounded d-flex align-items-center justify-content-center",
+                children=html.B(className='text-white', children="0%"),
+            ),
+        ]
+    },
+]
+
 class_name_headers_list = [
     "bg-ssindex-table-header-gray text-center",
     "bg-ssindex-table-header-gray text-start w-20",
