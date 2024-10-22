@@ -196,7 +196,7 @@ fig_radar_chart = px.line_polar(df2, r='r', theta='theta', line_close=True)
 
 fig_radar_chart.update_layout(
     polar=dict(
-        radialaxis=dict(visible=True),
+        radialaxis=dict(visible=True, ticks='', tickvals=[]),
     ),
     showlegend=False,
 )
